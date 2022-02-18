@@ -1,0 +1,27 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PrKsushka/work_university_2022.git"
+  },
+  "author": "PrKsushka",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PrKsushka/work_university_2022/issues"
+  },
+  "homepage": "https://github.com/PrKsushka/work_university_2022#readme",
+  "dependencies": {
+    "ts-node": "^10.5.0",
+    "ts-node-dev": "^1.1.8",
+    "express": "^4.17.2"
+  },
+  "devDependencies": {
+    "typescript": "^4.5.5"
+  }
+}
