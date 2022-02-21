@@ -1,10 +1,6 @@
-import React from "react";
+import React from 'react';
 
-const Home:React.FunctionComponent=()=>{
-    return(
-        <>
-            home
-        </>
-    )
-}
+const Home: React.FunctionComponent = () => {
+  return <>home</>;
+};
 export default Home;

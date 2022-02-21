@@ -1,10 +1,6 @@
-import React from "react";
+import React from 'react';
 
-const About:React.FunctionComponent=()=>{
-    return(
-        <>
-            about
-        </>
-    )
-}
+const About: React.FunctionComponent = () => {
+  return <>about</>;
+};
 export default About;
