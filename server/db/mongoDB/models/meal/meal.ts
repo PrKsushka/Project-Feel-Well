@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import MealTypes from '../../../types/meal/mealTypes';
 
 const mealSchema = new mongoose.Schema({
   meal: {
@@ -10,5 +11,5 @@ const mealSchema = new mongoose.Schema({
     required: true,
   },
 });
-const Meal = mongoose.model('Meal', mealSchema);
+const Meal = mongoose.model<MealTypes>('Meal', mealSchema);
 export default Meal;

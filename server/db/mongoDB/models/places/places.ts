@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import PlacesTypes from '../../../types/places/placesTypes';
 
 const placesSchema = new mongoose.Schema({
   name: {
@@ -17,6 +18,10 @@ const placesSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  placesId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'CategoryPlaces',
+  },
 });
-const Places = mongoose.model('Places', placesSchema);
+const Places = mongoose.model<PlacesTypes>('Places', placesSchema);
 export default Places;
