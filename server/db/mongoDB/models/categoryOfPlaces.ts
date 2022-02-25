@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import CategoryOfPlacesTypes from '../../../types/categoryOfPlaces/categoryOfPlacesTypes';
+import CategoryOfPlacesTypes from '../../types/categoryOfPlacesTypes';
 
 const categoryOfPlacesSchema = new mongoose.Schema({
   name: {

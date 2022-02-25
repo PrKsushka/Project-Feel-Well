@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import ProductTypes from '../../../types/products/productTypes';
+import ProductTypes from '../../types/productTypes';
 
 const productsSchema = new mongoose.Schema({
   name: {
@@ -39,5 +39,6 @@ const productsSchema = new mongoose.Schema({
     required: true,
   },
 });
+productsSchema.index({ name: 'text' });
 const Products = mongoose.model<ProductTypes>('Products', productsSchema);
 export default Products;

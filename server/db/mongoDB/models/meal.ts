@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import MealTypes from '../../../types/meal/mealTypes';
+import MealTypes from '../../types/mealTypes';
 
 const mealSchema = new mongoose.Schema({
   meal: {

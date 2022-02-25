@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import PlacesTypes from '../../../types/places/placesTypes';
+import PlacesTypes from '../../types/placesTypes';
 
 const placesSchema = new mongoose.Schema({
   name: {
@@ -11,6 +11,10 @@ const placesSchema = new mongoose.Schema({
     required: true,
   },
   city: {
+    type: String,
+    required: true,
+  },
+  address: {
     type: String,
     required: true,
   },
