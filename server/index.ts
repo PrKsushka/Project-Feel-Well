@@ -6,9 +6,12 @@ import getDataAboutArticlesMongoDB from './db/routes/articles/articlesRoutes';
 import getDataAboutCategoriesMongoDB from './db/routes/category/categoryRoutes';
 import getDataAboutMealMongoDB from './db/routes/meal/mealRoutes';
 import getDataAboutPlacesMongoDB from './db/routes/places/placesRoutes';
+import cors from 'cors';
 
 const app = express();
+
 connectionToMongoDataBase();
+app.use(cors());
 app.use(getDataAboutProductsMongoDB);
 app.use(getDataAboutArticlesMongoDB);
 app.use(getDataAboutCategoriesMongoDB);

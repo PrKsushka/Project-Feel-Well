@@ -20,10 +20,10 @@ const getDataAboutCategories = async (req: Request, res: Response) => {
         ...aggregateOptions,
         {
           $lookup: {
-            from: 'products',
+            from: 'recipes',
             localField: '_id',
             foreignField: 'healthId',
-            as: 'products',
+            as: 'recipes',
           },
         },
       ];

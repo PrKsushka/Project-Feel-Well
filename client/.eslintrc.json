@@ -25,7 +25,8 @@
     ],
     "rules": {
         "prettier/prettier": "error",
-        "no-unused-vars": "warn"
+        "no-unused-vars": "warn",
+        "@typescript-eslint/ban-ts-ignore": "off"
         //"eslint.autoFixOnSave": true
     }
 }
