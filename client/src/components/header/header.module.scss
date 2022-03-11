@@ -1,0 +1,12 @@
+@import "../../styles/mixin";
+header{
+  position: absolute;
+  z-index: 101;
+  ul{
+    @include builder(flex, 100%);
+    list-style: none;
+    li{
+      text-decoration: none;
+    }
+  }
+}

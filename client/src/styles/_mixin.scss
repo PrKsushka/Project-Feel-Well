@@ -1,0 +1,16 @@
+@import './variables.scss';
+
+@mixin builder($d, $w){
+  display: $d;
+  width: $w;
+}
+@mixin builderAligment($d, $jC, $w){
+  display: $d;
+  justify-content: $jC;
+  width: $w;
+}
+@mixin fonts($fS, $fC:$wh){
+  font-size: $fS;
+  font-family: 'Roboto', sans-serif;
+  color: $fC;
+}

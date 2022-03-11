@@ -7,6 +7,7 @@ import getDataAboutCategoriesMongoDB from './db/routes/category/categoryRoutes';
 import getDataAboutMealMongoDB from './db/routes/meal/mealRoutes';
 import getDataAboutPlacesMongoDB from './db/routes/places/placesRoutes';
 import cors from 'cors';
+import getDataAboutCategoriesPlacesMongoDB from './db/routes/places/categoryPlaces';
 
 const app = express();
 
@@ -15,6 +16,7 @@ app.use(cors());
 app.use(getDataAboutProductsMongoDB);
 app.use(getDataAboutArticlesMongoDB);
 app.use(getDataAboutCategoriesMongoDB);
+app.use(getDataAboutCategoriesPlacesMongoDB);
 app.use(getDataAboutMealMongoDB);
 app.use(getDataAboutPlacesMongoDB);
 app.listen(process.env.PORT, () => {

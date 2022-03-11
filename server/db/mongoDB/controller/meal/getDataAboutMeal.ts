@@ -15,18 +15,28 @@ const getDataAboutMeal = async (req: Request, res: Response) => {
         },
       ];
     }
-    if (req.query.includeProducts === 'true') {
+    if (req.query.includeRecipes === 'true') {
       aggregateOptions = [
         ...aggregateOptions,
         {
           $lookup: {
-            from: 'recipes',
+            from: 'products',
             localField: '_id',
             foreignField: 'mealId',
             as: 'recipes',
           },
         },
       ];
+      if (req.query.meal) {
+        aggregateOptions = [
+          ...aggregateOptions,
+          {
+            $match: {
+              meal: req.query.meal,
+            },
+          },
+        ];
+      }
     }
     const data = await Meal.aggregate(aggregateOptions);
     res.status(200).json(data);

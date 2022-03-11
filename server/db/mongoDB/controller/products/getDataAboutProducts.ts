@@ -9,7 +9,10 @@ const getDataAboutProducts = async (req: Request, res: Response) => {
     if (req.query.name) {
       findOptions = {
         ...findOptions,
-        $text: { $search: String(req.query.name) },
+        $text: {
+          $search: String(req.query.name),
+          $caseSensitive: false,
+        },
       };
     }
     if (req.query.threeRandomProducts === 'true') {
@@ -18,6 +21,35 @@ const getDataAboutProducts = async (req: Request, res: Response) => {
         _id: -1 + Math.floor(2 * Math.random()),
       };
       limit = 3;
+    }
+    if (req.query.notInclude) {
+      const notInclude = req.query.notInclude;
+      if (notInclude instanceof Array && notInclude.length >= 2) {
+        findOptions = {
+          ...findOptions,
+          ingredients: {
+            $nin: [...notInclude],
+          },
+        };
+      } else {
+        findOptions = {
+          ...findOptions,
+          ingredients: {
+            $nin: [notInclude],
+          },
+        };
+      }
+    }
+    if (req.query.rating === 'asc') {
+      sortOptions = {
+        ...sortOptions,
+        rating: 1,
+      };
+    } else if (req.query.rating === 'desc') {
+      sortOptions = {
+        ...sortOptions,
+        rating: -1,
+      };
     }
     const data = await Products.find(findOptions).sort(sortOptions).limit(Number(limit));
     res.status(200).json(data);

@@ -6,6 +6,10 @@ const productsSchema = new mongoose.Schema({
     type: String,
     require: true,
   },
+  img: {
+    type: String,
+    require: true,
+  },
   mealId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Meal',
@@ -19,7 +23,7 @@ const productsSchema = new mongoose.Schema({
     required: true,
   },
   ingredients: {
-    type: String,
+    type: [String],
     required: true,
   },
   kcal: {
@@ -39,6 +43,6 @@ const productsSchema = new mongoose.Schema({
     required: true,
   },
 });
-productsSchema.index({ name: 'text' });
+productsSchema.index({ name: 1 });
 const Products = mongoose.model<ProductTypes>('Products', productsSchema);
 export default Products;

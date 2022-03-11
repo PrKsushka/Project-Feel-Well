@@ -1,6 +1,7 @@
 import { Dispatch, Action } from 'redux';
-import { GET_DATA_ABOUT_RECIPES_CONFIRMED_ACTIONS, GET_DATA_ABOUT_RECIPES_FAILED_ACTIONS } from './recipes.constants';
+import { FAVOURITE_RECIPES, GET_DATA_ABOUT_RECIPES_CONFIRMED_ACTIONS, GET_DATA_ABOUT_RECIPES_FAILED_ACTIONS } from './recipes.constants';
 import { getDataAboutRecipes } from '../../../api/dataAboutRecipes';
+import { ProductElement } from '../../types';
 
 export function getDataAboutRecipesConfirmedAction(data: Array<object>) {
   return {
@@ -29,5 +30,12 @@ export function dataAboutRecipes() {
       .catch((err) => {
         dispatch(getDataAboutRecipesFailedAction(err));
       });
+  };
+}
+
+export function getFavouriteRecipes(el: ProductElement) {
+  return {
+    type: FAVOURITE_RECIPES,
+    payload: el,
   };
 }

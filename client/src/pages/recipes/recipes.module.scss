@@ -1,0 +1,27 @@
+@import "../../styles/mixin";
+.darkGlass{
+  @include builder(flex, 100%);
+  min-height: 100vh;
+  background: rgba(4, 4, 4, 0.3);
+  position: relative;
+  .textBlockWrapper{
+    position: absolute;
+    z-index: 100;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    margin-top: 300px;
+    @include fonts(40px);
+    font-weight: bold;
+  }
+  .banner {
+    @include builder(flex, 100%);
+    min-height: 100vh;
+    background: url('../../assets/spagetti.jpg') no-repeat center;
+    background-size: cover;
+    position: absolute;
+    z-index: -100;
+  }
+}
