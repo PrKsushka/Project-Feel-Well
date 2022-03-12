@@ -1,5 +1,17 @@
-import { FAVOURITE_RECIPES, GET_DATA_ABOUT_RECIPES_CONFIRMED_ACTIONS, GET_DATA_ABOUT_RECIPES_FAILED_ACTIONS } from './recipes.constants';
-import { RecipesReducer } from '../../types';
+import {
+  FAVOURITE_RECIPES,
+  GET_DATA_ABOUT_RECIPES_CONFIRMED_ACTIONS,
+  GET_DATA_ABOUT_RECIPES_FAILED_ACTIONS,
+  SORT_RECIPES_BY_COMPONENTS__FAILED,
+  SORT_RECIPES_BY_COMPONENTS_CONFIRMED,
+  SORT_RECIPES_BY_HEALTH_PROBLEMS_CONFIRMED,
+  SORT_RECIPES_BY_HEALTH_PROBLEMS_FAILED,
+  SORT_RECIPES_BY_MEAL_CONFIRMED_ACTION,
+  SORT_RECIPES_BY_MEAL_FAILED_ACTION,
+  SORT_RECIPES_BY_RATING_CONFIRMED_ACTION,
+  SORT_RECIPES_BY_RATING_FAILED_ACTION,
+} from './recipes.constants';
+import { CategoryHealthElement, MealElement, ProductElement, RecipesReducer } from '../../types';
 
 const initialState = {
   recipes: [],
@@ -7,9 +19,10 @@ const initialState = {
   errorMessage: '',
   successMessage: '',
 };
+type Payload = Array<CategoryHealthElement> | Array<ProductElement>;
 type RecipesAction = {
   type: string;
-  payload?: Array<RecipesReducer> | number;
+  payload?: undefined;
 };
 const recipesReducer = (state = initialState, action: RecipesAction = { type: 'DEFAULT' }) => {
   switch (action.type) {
@@ -28,6 +41,60 @@ const recipesReducer = (state = initialState, action: RecipesAction = { type: 'D
       return {
         ...state,
         favouriteRecipes: [...state.favouriteRecipes, action.payload],
+      };
+    case SORT_RECIPES_BY_HEALTH_PROBLEMS_CONFIRMED:
+      if (action.payload !== undefined) {
+        const arr: Array<CategoryHealthElement> = [...action.payload];
+        const newArr: Array<ProductElement>[] = arr.map((el) => {
+          return el.recipes;
+        });
+        return {
+          ...state,
+          recipes: newArr[0],
+        };
+      }
+      break;
+    case SORT_RECIPES_BY_COMPONENTS_CONFIRMED:
+      return {
+        ...state,
+        recipes: action.payload,
+      };
+    case SORT_RECIPES_BY_HEALTH_PROBLEMS_FAILED:
+      return {
+        ...state,
+        errorMessage: action.payload,
+      };
+    case SORT_RECIPES_BY_COMPONENTS__FAILED:
+      return {
+        ...state,
+        errorMessage: action.payload,
+      };
+    case SORT_RECIPES_BY_MEAL_CONFIRMED_ACTION:
+      if (action.payload !== undefined) {
+        const arr: Array<MealElement> = action.payload;
+        const newArr: Array<ProductElement>[] = arr.map((el) => {
+          return el.recipes;
+        });
+        return {
+          ...state,
+          recipes: newArr[0],
+        };
+      }
+      break;
+    case SORT_RECIPES_BY_MEAL_FAILED_ACTION:
+      return {
+        ...state,
+        errorMessage: action.payload,
+      };
+    case SORT_RECIPES_BY_RATING_CONFIRMED_ACTION:
+      return {
+        ...state,
+        recipes: action.payload,
+      };
+    case SORT_RECIPES_BY_RATING_FAILED_ACTION:
+      return {
+        ...state,
+        errorMessage: action.payload,
       };
     default:
       return state;

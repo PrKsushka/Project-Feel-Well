@@ -41,11 +41,13 @@ const getDataAboutProducts = async (req: Request, res: Response) => {
       }
     }
     if (req.query.rating === 'asc') {
+      findOptions = { ...findOptions };
       sortOptions = {
         ...sortOptions,
         rating: 1,
       };
     } else if (req.query.rating === 'desc') {
+      findOptions = { ...findOptions };
       sortOptions = {
         ...sortOptions,
         rating: -1,

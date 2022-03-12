@@ -20,13 +20,23 @@ const getDataAboutCategories = async (req: Request, res: Response) => {
         ...aggregateOptions,
         {
           $lookup: {
-            from: 'recipes',
+            from: 'products',
             localField: '_id',
             foreignField: 'healthId',
             as: 'recipes',
           },
         },
       ];
+      if (req.query.health) {
+        aggregateOptions = [
+          ...aggregateOptions,
+          {
+            $match: {
+              health: req.query.health,
+            },
+          },
+        ];
+      }
     }
     const data = await Category.aggregate(aggregateOptions);
     res.status(200).json(data);

@@ -1,16 +1,29 @@
 import { Dispatch, Action } from 'redux';
-import { FAVOURITE_RECIPES, GET_DATA_ABOUT_RECIPES_CONFIRMED_ACTIONS, GET_DATA_ABOUT_RECIPES_FAILED_ACTIONS } from './recipes.constants';
-import { getDataAboutRecipes } from '../../../api/dataAboutRecipes';
-import { ProductElement } from '../../types';
+import {
+  FAVOURITE_RECIPES,
+  GET_DATA_ABOUT_RECIPES_CONFIRMED_ACTIONS,
+  GET_DATA_ABOUT_RECIPES_FAILED_ACTIONS,
+  SORT_RECIPES_BY_COMPONENTS__FAILED,
+  SORT_RECIPES_BY_COMPONENTS_CONFIRMED,
+  SORT_RECIPES_BY_HEALTH_PROBLEMS_CONFIRMED,
+  SORT_RECIPES_BY_HEALTH_PROBLEMS_FAILED,
+  SORT_RECIPES_BY_MEAL_CONFIRMED_ACTION,
+  SORT_RECIPES_BY_MEAL_FAILED_ACTION,
+  SORT_RECIPES_BY_RATING_CONFIRMED_ACTION,
+  SORT_RECIPES_BY_RATING_FAILED_ACTION,
+} from './recipes.constants';
+import { getDataAboutRecipes, getRecipesNotIncludedComponents, sortByRatingAscDesc, sortRecipesByMeal } from '../../../api/dataAboutRecipes';
+import { CategoryHealthElement, MealElement, ProductElement } from '../../types';
+import { sortDataByHealth } from '../../../api/dataAboutCategories';
 
-export function getDataAboutRecipesConfirmedAction(data: Array<object>) {
+function getDataAboutRecipesConfirmedAction(data: Array<object>) {
   return {
     type: GET_DATA_ABOUT_RECIPES_CONFIRMED_ACTIONS,
     payload: data,
   };
 }
 
-export default function getDataAboutRecipesFailedAction(message: string) {
+function getDataAboutRecipesFailedAction(message: string) {
   return {
     type: GET_DATA_ABOUT_RECIPES_FAILED_ACTIONS,
     payload: message,
@@ -37,5 +50,95 @@ export function getFavouriteRecipes(el: ProductElement) {
   return {
     type: FAVOURITE_RECIPES,
     payload: el,
+  };
+}
+
+function sortDataByHealthProblemsConfirmed(data: Array<CategoryHealthElement>) {
+  return {
+    type: SORT_RECIPES_BY_HEALTH_PROBLEMS_CONFIRMED,
+    payload: data,
+  };
+}
+
+function sortDataByHealthProblemsFailed(message: any) {
+  return {
+    type: SORT_RECIPES_BY_HEALTH_PROBLEMS_FAILED,
+    payload: message,
+  };
+}
+
+export function sortedRecipesByHealth(health: string) {
+  return (dispatch: Dispatch<Action>) => {
+    sortDataByHealth(health)
+      .then((res) => {
+        if (res.data) {
+          dispatch(sortDataByHealthProblemsConfirmed(res.data));
+        } else {
+          throw Error();
+        }
+      })
+      .catch((err) => {
+        dispatch(sortDataByHealthProblemsFailed(err));
+      });
+  };
+}
+
+function sortRecipesByComponentsConfirmed(data: Array<object>) {
+  return {
+    type: SORT_RECIPES_BY_COMPONENTS_CONFIRMED,
+    payload: data,
+  };
+}
+
+function sortRecipesByComponentsFailed(err: any) {
+  return {
+    type: SORT_RECIPES_BY_COMPONENTS__FAILED,
+    payload: err,
+  };
+}
+
+export function sortedRecipesNotIncludeProducts(param1: string, param2?: string, param3?: string, param4?: string, param5?: string, param6?: string) {
+  return (dispatch: Dispatch<Action>) => {
+    getRecipesNotIncludedComponents(param1, param2, param3)
+      .then((res) => {
+        if (res.data) {
+          dispatch(sortRecipesByComponentsConfirmed(res.data));
+        } else {
+          throw Error();
+        }
+      })
+      .catch((err) => {
+        dispatch(sortRecipesByComponentsFailed(err));
+      });
+  };
+}
+
+function sortRecipesByMealConfirmedAction(data: Array<MealElement>) {
+  return {
+    type: SORT_RECIPES_BY_MEAL_CONFIRMED_ACTION,
+    payload: data,
+  };
+}
+
+function sortRecipesByMealFailedAction(message: any) {
+  return {
+    type: SORT_RECIPES_BY_MEAL_FAILED_ACTION,
+    payload: message,
+  };
+}
+
+export function getRecipesSortedByMeal(val: string) {
+  return (dispatch: Dispatch<Action>) => {
+    sortRecipesByMeal(val)
+      .then((res) => {
+        if (res.data) {
+          dispatch(sortRecipesByMealConfirmedAction(res.data));
+        } else {
+          throw Error();
+        }
+      })
+      .catch((err) => {
+        dispatch(sortRecipesByMealFailedAction(err));
+      });
   };
 }
