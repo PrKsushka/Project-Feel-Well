@@ -19,9 +19,59 @@
   .banner {
     @include builder(flex, 100%);
     min-height: 100vh;
+    max-height: 100vh;
     background: url('../../assets/spagetti.jpg') no-repeat center;
     background-size: cover;
     position: absolute;
     z-index: -100;
+  }
+}
+.mainContent{
+  @include builder(flex, 100%);
+
+  .columnForSort{
+    @include builder(flex, 30%);
+  }
+  .products{
+    @include builder(flex, 70%);
+    justify-content: space-evenly;;
+  }
+
+}
+.card{
+  background: $wh;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+  flex-direction: column;
+  height: 335px;
+  position: relative;
+  @include builder(flex, 250px);
+  .image{
+    width: 100%;
+    min-height: 238px;
+    max-height: 240px;
+    background: $orange;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    border-radius: 20px;
+    margin-bottom: 40px;
+  }
+  .mainText{
+    display: flex;
+    flex-direction: column;
+    margin-left: 14px;
+    h3{
+      margin: 0;
+      @include fonts(18px, black)
+    }
+    p{
+      margin: 0;
+      @include fonts(14px, black)
+    }
+    .ratingSec{
+      flex-direction: row;
+      @include builderAligment(flex, space-around, 100%);
+    }
   }
 }

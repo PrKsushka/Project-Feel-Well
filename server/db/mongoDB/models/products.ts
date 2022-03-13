@@ -11,7 +11,7 @@ const productsSchema = new mongoose.Schema({
     require: true,
   },
   mealId: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
     ref: 'Meal',
   },
   healthId: {
@@ -40,6 +40,10 @@ const productsSchema = new mongoose.Schema({
   },
   createdAt: {
     type: Date,
+    required: true,
+  },
+  image: {
+    type: String,
     required: true,
   },
 });

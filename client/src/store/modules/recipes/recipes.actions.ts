@@ -12,7 +12,13 @@ import {
   SORT_RECIPES_BY_RATING_CONFIRMED_ACTION,
   SORT_RECIPES_BY_RATING_FAILED_ACTION,
 } from './recipes.constants';
-import { getDataAboutRecipes, getRecipesNotIncludedComponents, sortByRatingAscDesc, sortRecipesByMeal } from '../../../api/dataAboutRecipes';
+import {
+  getDataAboutRecipes,
+  getRecipesNotIncludedComponents,
+  sortByMealHour,
+  sortByRatingAscDesc,
+  sortRecipesByMeal,
+} from '../../../api/dataAboutRecipes';
 import { CategoryHealthElement, MealElement, ProductElement } from '../../types';
 import { sortDataByHealth } from '../../../api/dataAboutCategories';
 
@@ -127,9 +133,18 @@ function sortRecipesByMealFailedAction(message: any) {
   };
 }
 
-export function getRecipesSortedByMeal(val: string) {
+export function getRecipesSortedByMeal(
+  meal: string,
+  rating: string,
+  param1?: string,
+  param2?: string,
+  param3?: string,
+  param4?: string,
+  param5?: string,
+  param6?: string
+) {
   return (dispatch: Dispatch<Action>) => {
-    sortRecipesByMeal(val)
+    sortByMealHour(meal, rating, param1, param2, param3, param4, param5, param6)
       .then((res) => {
         if (res.data) {
           dispatch(sortRecipesByMealConfirmedAction(res.data));
@@ -139,6 +154,35 @@ export function getRecipesSortedByMeal(val: string) {
       })
       .catch((err) => {
         dispatch(sortRecipesByMealFailedAction(err));
+      });
+  };
+}
+function sortRecipesByRatingConfirmedAction(data: Array<object>) {
+  return {
+    type: SORT_RECIPES_BY_RATING_CONFIRMED_ACTION,
+    payload: data,
+  };
+}
+
+function sortRecipesByRatingFailedAction(err: any) {
+  return {
+    type: SORT_RECIPES_BY_RATING_FAILED_ACTION,
+    payload: err,
+  };
+}
+
+export function sortRecipesByRatingAscDesc(param1: string, param2?: string, param3?: string, param4?: string, param5?: string, param6?: string) {
+  return (dispatch: Dispatch<Action>) => {
+    sortByRatingAscDesc(param1, param2, param3, param4, param5, param6)
+      .then((res) => {
+        if (res.data) {
+          dispatch(sortRecipesByRatingConfirmedAction(res.data));
+        } else {
+          throw Error();
+        }
+      })
+      .catch((err) => {
+        dispatch(sortRecipesByRatingFailedAction(err));
       });
   };
 }

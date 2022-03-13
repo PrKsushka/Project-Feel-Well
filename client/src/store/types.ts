@@ -17,14 +17,19 @@ export interface CategoryHealthElement {
   health: string;
   recipes: Array<ProductElement>;
 }
+
 export interface MealElement {
   id: number;
   meal: string;
   image: string;
   recipes: Array<ProductElement>;
 }
+
 export interface RecipesReducer {
   recipes: Array<ProductElement>;
+  favouriteRecipes: Array<ProductElement>;
+  errorMessage: string;
+  successMessage: string;
 }
 
 export interface StoreState {

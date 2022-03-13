@@ -1,0 +1,15 @@
+.save{
+  background: url('../../assets/save_dark.png') no-repeat center;
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  right: 13px;
+  bottom: 63px;
+  z-index: 100;
+  cursor: pointer;
+}
+.saveClicked{
+  background:url("../../assets/save_orange.png") no-repeat;
+  width: 25px;
+  height: 25px;
+}

@@ -21,7 +21,7 @@ const getDataAboutMeal = async (req: Request, res: Response) => {
         {
           $lookup: {
             from: 'products',
-            localField: '_id',
+            localField: 'meal',
             foreignField: 'mealId',
             as: 'recipes',
           },

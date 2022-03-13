@@ -53,6 +53,12 @@ const getDataAboutProducts = async (req: Request, res: Response) => {
         rating: -1,
       };
     }
+    if (req.query.meal) {
+      findOptions = {
+        ...findOptions,
+        mealId: String(req.query.meal).toLowerCase(),
+      };
+    }
     const data = await Products.find(findOptions).sort(sortOptions).limit(Number(limit));
     res.status(200).json(data);
   } catch (e) {

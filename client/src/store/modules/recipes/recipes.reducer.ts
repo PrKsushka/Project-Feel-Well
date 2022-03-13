@@ -38,10 +38,15 @@ const recipesReducer = (state = initialState, action: RecipesAction = { type: 'D
         errorMessage: action.payload,
       };
     case FAVOURITE_RECIPES:
-      return {
-        ...state,
-        favouriteRecipes: [...state.favouriteRecipes, action.payload],
-      };
+      if (action.payload !== undefined) {
+        const newArr: Array<ProductElement> = [...state.favouriteRecipes, action.payload];
+        const set = new Set<object>(newArr);
+        return {
+          ...state,
+          favouriteRecipes: [...set],
+        };
+      }
+      break;
     case SORT_RECIPES_BY_HEALTH_PROBLEMS_CONFIRMED:
       if (action.payload !== undefined) {
         const arr: Array<CategoryHealthElement> = [...action.payload];
@@ -70,17 +75,10 @@ const recipesReducer = (state = initialState, action: RecipesAction = { type: 'D
         errorMessage: action.payload,
       };
     case SORT_RECIPES_BY_MEAL_CONFIRMED_ACTION:
-      if (action.payload !== undefined) {
-        const arr: Array<MealElement> = action.payload;
-        const newArr: Array<ProductElement>[] = arr.map((el) => {
-          return el.recipes;
-        });
-        return {
-          ...state,
-          recipes: newArr[0],
-        };
-      }
-      break;
+      return {
+        ...state,
+        recipes: action.payload,
+      };
     case SORT_RECIPES_BY_MEAL_FAILED_ACTION:
       return {
         ...state,
