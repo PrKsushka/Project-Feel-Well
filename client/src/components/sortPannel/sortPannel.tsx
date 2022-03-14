@@ -3,9 +3,8 @@ import InputGroup from '../../UI/inputGroup/inputGroup';
 import arr from '../../constants/sortRecipes';
 import styles from './sortPannel.module.scss';
 import { getRecipesSortedByMeal, sortedRecipesNotIncludeProducts, sortRecipesByRatingAscDesc } from '../../store/modules/recipes/recipes.actions';
-import { useDispatch } from 'react-redux';
-import SortMenu from '../../UI/sortMenu/sortMenu';
-import { meal } from '../../constants/sortMenu';
+import { useDispatch, useSelector } from 'react-redux';
+import { StoreState } from '../../store/types';
 
 const SortPannel: React.FunctionComponent = () => {
   const [types, setTypes] = useState('');
@@ -15,12 +14,13 @@ const SortPannel: React.FunctionComponent = () => {
   const [backedGoodsProd, setBackedGoodsProd] = useState('');
   const [meatProd, setMeatProd] = useState('');
   const [selectRating, setSelectedRating] = useState('');
-  const [menuMeal, setMenuMeal] = useState('');
+  const menuMeal = useSelector((state: StoreState) => state.recipes.meal);
   const dispatch = useDispatch();
   useEffect(() => {
     if (selectRating === 'asc' || selectRating === 'desc') {
       dispatch(sortRecipesByRatingAscDesc(selectRating, vegetablesProd, milkProd, fruitsProd, backedGoodsProd, meatProd));
-    } else if (menuMeal !== '') {
+    }
+    if (menuMeal !== '') {
       dispatch(getRecipesSortedByMeal(menuMeal, selectRating, vegetablesProd, milkProd, fruitsProd, backedGoodsProd, meatProd));
     } else {
       dispatch(sortedRecipesNotIncludeProducts(vegetablesProd, milkProd, fruitsProd, backedGoodsProd, meatProd));
@@ -59,22 +59,34 @@ const SortPannel: React.FunctionComponent = () => {
   const selectedVal = (e: any) => {
     setSelectedRating(e.target.value);
   };
-  const menuClick = (e: any) => {
-    setMenuMeal(e.target.textContent.toLowerCase());
-  };
-  const objForSortMenu = {
-    arr: meal,
-    sortFunc: menuClick,
-  };
   return (
     <>
       <div className={styles.mainSortColumn}>
+        <h2 className={styles.mainTitle}>{menuMeal}</h2>
         <InputGroup obj={objForInputGroupTypes} />
-        <InputGroup obj={milkProducts} />
-        <InputGroup obj={vegetables} />
-        <InputGroup obj={fruits} />
-        <InputGroup obj={bakedGoods} />
-        <InputGroup obj={meatProducts} />
+        <div>
+          <h3 className={styles.title}>Не содержит</h3>
+          <p className={styles.variant}>Молочные продукты</p>
+          <div className={styles.wrapperForInputGroup}>
+            <InputGroup obj={milkProducts} />
+          </div>
+          <p className={styles.variant}>Овощи</p>
+          <div className={styles.wrapperForInputGroup}>
+            <InputGroup obj={vegetables} />
+          </div>
+          <p className={styles.variant}>Фрукты</p>
+          <div className={styles.wrapperForInputGroup}>
+            <InputGroup obj={fruits} />
+          </div>
+          <p className={styles.variant}>Продукты, содержащие глютен</p>
+          <div className={styles.wrapperForInputGroup}>
+            <InputGroup obj={bakedGoods} />
+          </div>
+          <p className={styles.variant}>Мясные продукты</p>
+          <div className={styles.wrapperForInputGroup}>
+            <InputGroup obj={meatProducts} />
+          </div>
+        </div>
         <select onChange={selectedVal}>
           <option selected disabled hidden>
             All
@@ -83,7 +95,6 @@ const SortPannel: React.FunctionComponent = () => {
           <option value={'desc'}>rating desc</option>
         </select>
       </div>
-      <SortMenu obj={objForSortMenu} />
     </>
   );
 };

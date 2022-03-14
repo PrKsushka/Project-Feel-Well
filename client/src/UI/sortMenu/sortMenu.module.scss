@@ -1,0 +1,22 @@
+@import "../../styles/mixin";
+.sortMenu{
+  display: flex;
+  list-style: none;
+  justify-content: flex-end;
+  margin-bottom: 60px;
+  li{
+    padding: 0 51px;
+    border-right: 1px $wh solid;
+    @include fonts(18px, $wh);
+    a{
+      text-decoration: none;
+    }
+    &:hover{
+      color: $orange;
+    }
+    &:last-child{
+      border-right: none;
+      margin-right:0;
+    }
+  }
+}

@@ -28,13 +28,20 @@
 }
 .mainContent{
   @include builder(flex, 100%);
-
+  padding: 68px 80px 0 90px;
+  box-sizing: border-box;
   .columnForSort{
-    @include builder(flex, 30%);
+    @include builder(flex,387px);
   }
-  .products{
-    @include builder(flex, 70%);
-    justify-content: space-evenly;;
+  .rightProdColumn {
+    flex-direction: column;
+    @include builder(flex, 1041px);
+    padding-left: 68px;
+    box-sizing: border-box;
+    .products {
+      @include builderAligment(flex, space-between, 100%);
+      flex-wrap: wrap;
+    }
   }
 
 }

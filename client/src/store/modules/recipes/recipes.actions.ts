@@ -3,6 +3,7 @@ import {
   FAVOURITE_RECIPES,
   GET_DATA_ABOUT_RECIPES_CONFIRMED_ACTIONS,
   GET_DATA_ABOUT_RECIPES_FAILED_ACTIONS,
+  SORT_MEAL,
   SORT_RECIPES_BY_COMPONENTS__FAILED,
   SORT_RECIPES_BY_COMPONENTS_CONFIRMED,
   SORT_RECIPES_BY_HEALTH_PROBLEMS_CONFIRMED,
@@ -157,6 +158,7 @@ export function getRecipesSortedByMeal(
       });
   };
 }
+
 function sortRecipesByRatingConfirmedAction(data: Array<object>) {
   return {
     type: SORT_RECIPES_BY_RATING_CONFIRMED_ACTION,
@@ -184,5 +186,12 @@ export function sortRecipesByRatingAscDesc(param1: string, param2?: string, para
       .catch((err) => {
         dispatch(sortRecipesByRatingFailedAction(err));
       });
+  };
+}
+
+export function setNameOfMeal(meal: string) {
+  return {
+    type: SORT_MEAL,
+    payload: meal,
   };
 }

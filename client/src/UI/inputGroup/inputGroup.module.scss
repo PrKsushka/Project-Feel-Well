@@ -1,0 +1,6 @@
+@import "../../styles/mixin";
+.elem{
+  display: flex;
+  width: 50%;
+  @include fonts(18px, $wh);
+}

@@ -1,8 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import { useDispatch } from 'react-redux';
 import arr from '../../constants/sortRecipes';
-import { sortedRecipesByHealth, sortedRecipesNotIncludeProducts } from '../../store/modules/recipes/recipes.actions';
+import { sortedRecipesByHealth } from '../../store/modules/recipes/recipes.actions';
 import { ObjTypes } from '../types';
+import style from './inputGroup.module.scss';
 
 const InputGroup: React.FunctionComponent<ObjTypes> = ({ obj }) => {
   const dispatch = useDispatch();
@@ -24,9 +25,9 @@ const InputGroup: React.FunctionComponent<ObjTypes> = ({ obj }) => {
   return (
     <>
       {obj.arr.map((el, i) => (
-        <label key={i}>
-          {el}
+        <label key={i} className={style.elem}>
           <input type="radio" value={el} checked={isChecked(el)} onChange={handleChange(el)} />
+          {el}
         </label>
       ))}
     </>

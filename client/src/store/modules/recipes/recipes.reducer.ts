@@ -2,6 +2,7 @@ import {
   FAVOURITE_RECIPES,
   GET_DATA_ABOUT_RECIPES_CONFIRMED_ACTIONS,
   GET_DATA_ABOUT_RECIPES_FAILED_ACTIONS,
+  SORT_MEAL,
   SORT_RECIPES_BY_COMPONENTS__FAILED,
   SORT_RECIPES_BY_COMPONENTS_CONFIRMED,
   SORT_RECIPES_BY_HEALTH_PROBLEMS_CONFIRMED,
@@ -18,6 +19,7 @@ const initialState = {
   favouriteRecipes: [],
   errorMessage: '',
   successMessage: '',
+  meal: '',
 };
 type Payload = Array<CategoryHealthElement> | Array<ProductElement>;
 type RecipesAction = {
@@ -83,6 +85,12 @@ const recipesReducer = (state = initialState, action: RecipesAction = { type: 'D
       return {
         ...state,
         errorMessage: action.payload,
+      };
+    case SORT_MEAL:
+      console.log(action.payload);
+      return {
+        ...state,
+        meal: action.payload,
       };
     case SORT_RECIPES_BY_RATING_CONFIRMED_ACTION:
       return {

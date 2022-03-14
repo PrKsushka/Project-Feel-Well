@@ -30,6 +30,7 @@ export interface RecipesReducer {
   favouriteRecipes: Array<ProductElement>;
   errorMessage: string;
   successMessage: string;
+  meal: string;
 }
 
 export interface StoreState {
