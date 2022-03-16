@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import Products from '../../models/products';
+import CustomError from '../../../customError/customError';
 
 const getDataAboutProducts = async (req: Request, res: Response) => {
   try {
@@ -61,8 +62,9 @@ const getDataAboutProducts = async (req: Request, res: Response) => {
     }
     const data = await Products.find(findOptions).sort(sortOptions).limit(Number(limit));
     res.status(200).json(data);
-  } catch (e) {
-    res.status(500).json({ message: 'ERR' });
+  } catch (e: any) {
+    const error = new CustomError(e.name, e.status, e.message);
+    res.status(error.statusVal).json({ message: error.messageVal });
   }
 };
 export default getDataAboutProducts;
