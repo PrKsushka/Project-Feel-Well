@@ -12,7 +12,7 @@ import {
   SORT_RECIPES_BY_RATING_CONFIRMED_ACTION,
   SORT_RECIPES_BY_RATING_FAILED_ACTION,
 } from './recipes.constants';
-import { CategoryHealthElement, MealElement, ProductElement, RecipesReducer } from '../../types';
+import { Action, CategoryHealthElement, MealElement, ProductElement, RecipesReducer } from '../../types';
 
 const initialState = {
   recipes: [],
@@ -22,11 +22,8 @@ const initialState = {
   meal: '',
 };
 type Payload = Array<CategoryHealthElement> | Array<ProductElement>;
-type RecipesAction = {
-  type: string;
-  payload?: undefined;
-};
-const recipesReducer = (state = initialState, action: RecipesAction = { type: 'DEFAULT' }) => {
+
+const recipesReducer = (state = initialState, action: Action = { type: 'DEFAULT' }) => {
   switch (action.type) {
     case GET_DATA_ABOUT_RECIPES_CONFIRMED_ACTIONS:
       return {

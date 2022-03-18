@@ -1,3 +1,7 @@
+export type Action = {
+  type: string;
+  payload?: undefined;
+};
 export interface ProductElement {
   id: number;
   name: string;
@@ -32,7 +36,18 @@ export interface RecipesReducer {
   successMessage: string;
   meal: string;
 }
-
+export interface UserReducer {
+  auth: boolean;
+  register: boolean;
+  successAuth: string;
+  failedAuth: string;
+}
+export interface ModalReducer {
+  loginModal: boolean;
+  registrationModal: boolean;
+}
 export interface StoreState {
   recipes: RecipesReducer;
+  user: UserReducer;
+  modal: ModalReducer;
 }
