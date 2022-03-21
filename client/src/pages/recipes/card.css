@@ -12,4 +12,28 @@
   background:url("../../assets/save_orange.png") no-repeat;
   width: 25px;
   height: 25px;
+  position: absolute;
+  right: 13px;
+  bottom: 63px;
+  z-index: 100;
+  cursor: pointer;
+}
+.elem{
+  height: 45px;
+  position: absolute;
+  bottom: 97px;
+  z-index: 100;
+  width: 100%;
+  border-radius: 0 0 20px 20px;
+  background: red;
+  /*animation: fadeOut 5s;*/
+  /*animation-iteration-count: infinite;*/
+}
+@keyframes fadeOut {
+  from{
+    opacity:1;
+  }
+  to{
+    opacity: 0;
+  }
 }

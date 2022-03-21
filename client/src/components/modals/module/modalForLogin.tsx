@@ -5,16 +5,28 @@ import { userAuthenticated, userUnauthenticated } from '../../../store/modules/u
 import { useDispatch, useSelector } from 'react-redux';
 import { StoreState } from '../../../store/types';
 import { loginModalActivation } from '../../../store/modules/modals/modal.actions';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { schemaForLoginForm } from '../../../schemas/schemaForLoginForm';
+import styles from './forms.module.scss';
 
+type LoginFormData = {
+  email: string;
+  password: string;
+};
 const ModalForLogin: React.FunctionComponent = () => {
   const dispatch = useDispatch();
-  const [inputs, setInputs] = useState({
-    email: '',
-    password: '',
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schemaForLoginForm),
+    mode: 'onChange',
   });
-  const submitForm = async (e: any) => {
-    e.preventDefault();
-    await authentication(inputs.email, inputs.password)
+  const body = document.getElementsByTagName('body')[0];
+  const submitForm = async (data: any | LoginFormData) => {
+    await authentication(data.email, data.password)
       .then((res) => {
         dispatch(userAuthenticated());
         dispatch(loginModalActivation(false));
@@ -22,21 +34,19 @@ const ModalForLogin: React.FunctionComponent = () => {
       .catch((err: any) => {
         dispatch(userUnauthenticated(err.response.data.message));
       });
-  };
-  const handleChange = (e: any) => {
-    const name = e.target.name;
-    setInputs((prevState) => ({
-      ...prevState,
-      [name]: e.target.value,
-    }));
+    body.style.overflowY = 'auto';
   };
   const loginModal = useSelector((state: StoreState) => state.modal.loginModal);
   return (
     <Modal isActive={loginModal}>
-      <form onSubmit={submitForm}>
-        <input type="email" name="email" onChange={handleChange} value={inputs.email} />
-        <input type="password" name="password" onChange={handleChange} value={inputs.password} />
-        <button type="submit">Отправить</button>
+      <form onSubmit={handleSubmit(submitForm)} className={styles.formWrapper}>
+        <div className={styles.error}>{errors.email?.message}</div>
+        <input type="email" {...register('email')} placeholder={'Введите email'} />
+        <div className={styles.error}>{errors.password?.message}</div>
+        <input type="password" {...register('password')} placeholder={'Введите пароль'} />
+        <button type="submit" className={styles.buttonSubmit}>
+          Отправить
+        </button>
       </form>
     </Modal>
   );

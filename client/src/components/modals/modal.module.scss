@@ -1,0 +1,32 @@
+@import "../../styles/mixin";
+.modalWrapper{
+@include builderAligment(flex, center, 100vw);
+  height: 100vh;
+  background: rgba(45, 74, 69, 0.75);
+  position: fixed;
+  top: 0;
+  left: 0;
+  align-items: center;
+  .iconCancel{
+    background: url("../../assets/cancel.png") no-repeat;
+    width: 32px;
+    height: 32px;
+    position: fixed;
+    top: 93px;
+    right: 275px;
+    cursor: pointer;
+  }
+  .modalContent{
+
+  }
+  .failedAuth{
+    position: absolute;
+    top: 19%;
+    background: #898989a8;
+    padding: 20px 100px;
+    box-sizing: border-box;
+    border-radius: 20px;
+    transition: all 3s ease-out;
+    @include fonts(14px, $bg);
+  }
+}

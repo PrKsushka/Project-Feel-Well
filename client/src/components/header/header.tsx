@@ -36,6 +36,9 @@ const Header: React.FunctionComponent = () => {
         <li>
           <Link to={links.recipes}>Recipes</Link>
         </li>
+        <li>
+          <Link to={links.user}>My own</Link>
+        </li>
         {auth ? (
           <li onClick={logOut}>Выйти</li>
         ) : (

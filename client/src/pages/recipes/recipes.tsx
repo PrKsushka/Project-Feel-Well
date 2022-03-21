@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { dataAboutRecipes, getFavouriteRecipes, setNameOfMeal } from '../../store/modules/recipes/recipes.actions';
+import { dataAboutRecipes, getFavouriteRecipes, setNameOfMeal, unsavedFromFavouriteRecipes } from '../../store/modules/recipes/recipes.actions';
 import { ProductElement, StoreState } from '../../store/types';
 import { getRecipes } from '../../store/modules/recipes/recipes.selectors';
 import styles from './recipes.module.scss';
@@ -8,22 +8,34 @@ import SortPannel from '../../components/sortPannel/sortPannel';
 import './card.css';
 import SortMenu from '../../UI/sortMenu/sortMenu';
 import { meal } from '../../constants/sortMenu';
+import PopUp from '../../components/popUp/popUp';
 
 const Recipes: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const data = useSelector((state: StoreState) => getRecipes(state));
+  const [showWindow, setShowWindow] = useState(false);
+  const saveTargetElement: any = useRef();
+
   useEffect(() => {
     dispatch(dataAboutRecipes());
-  }, []);
-  const newRef: any = React.createRef();
+    setTimeout(() => {
+      setShowWindow((prevState) => false);
+    }, 10000);
+  }, [showWindow]);
+  const [saved, setSaved] = useState({
+    elems: '',
+  });
   const handleClick = (elem: ProductElement) => (e: any) => {
-    if (e.target) {
-      e.target.style.backgroundImage = `url(${require(`../../assets/save_orange.png`)}`;
+    if (e.target.className === 'saveClicked') {
+      e.target.className = 'save';
+      return dispatch(unsavedFromFavouriteRecipes(elem));
     }
-    return dispatch(getFavouriteRecipes(elem));
+    e.target.className = 'saveClicked';
+    setShowWindow((prevState) => true);
+    dispatch(getFavouriteRecipes(elem));
   };
+  console.log(saved);
   const menuClick = (e: any) => {
-    console.log('1');
     dispatch(setNameOfMeal(e.target.textContent.toLowerCase()));
   };
   const objForSortMenu = {
@@ -45,9 +57,9 @@ const Recipes: React.FunctionComponent = () => {
           <div className={styles.products}>
             {data.length !== 0
               ? data.map((el) => (
-                  <div key={el.id} className={styles.card} ref={newRef}>
+                  <div key={el.id} className={styles.card}>
                     <div style={{ backgroundImage: `url(${require(`../../${el.image}`)}` }} className={styles.image} />
-                    <div data-id={el.id} onClick={handleClick(el)} className="save" />
+                    <div className="save" onClick={handleClick(el)} />
                     <div className={styles.mainText}>
                       <h3>{el.name}</h3>
                       <div className={styles.ratingSec}>
@@ -58,6 +70,7 @@ const Recipes: React.FunctionComponent = () => {
                   </div>
                 ))
               : 'Sorry there are no recipes'}
+            {showWindow ? <PopUp elem={saveTargetElement.current} /> : null}
           </div>
         </div>
       </div>

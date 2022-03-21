@@ -1,32 +1,39 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { authentication, registration } from '../../api/user/user';
-import { userAuthenticated } from '../../store/modules/user/user.actions';
+import styles from './home.module.scss';
+import ModalForLogin from '../../components/modals/module/modalForLogin';
+import { useHistory, useLocation } from 'react-router-dom';
+import { loginModalActivation } from '../../store/modules/modals/modal.actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { StoreState } from '../../store/types';
 
+type LocationStateTypes = {
+  from: {
+    pathname: string;
+  };
+};
 const Home: React.FunctionComponent = () => {
+  const auth = useSelector((state: StoreState) => state.user.auth);
+  const history = useHistory();
+  const location = useLocation();
+  const locationState = location.state as LocationStateTypes;
   const dispatch = useDispatch();
-  const obj = {
-    firstName: 'Dasha',
-    lastName: 'Kyaro',
-    email: 'dddd@gmail.com',
-    password: '11111111',
-  };
-  const userRegistr = async (e: any) => {
-    e.preventDefault();
-    await registration(obj.email, obj.password, obj.firstName, obj.lastName);
-  };
-  const userAuth = async (e: any) => {
-    e.preventDefault();
-    await authentication(obj.email, obj.password).then((res) => {
-      dispatch(userAuthenticated());
-    });
-  };
+  if (!auth && history.location.search === '?signIn=false') {
+    dispatch(loginModalActivation(true));
+  }
+  if (auth) {
+    if (locationState) {
+      console.log(locationState);
+      history.push(locationState.from.pathname);
+    }
+  }
+
   return (
-    <form onSubmit={userAuth}>
-      <button style={{ padding: '10px', margin: '200px 0 0 0' }} type="submit">
-        click
-      </button>
-    </form>
+    <div>
+      <div className={styles.mainBanner}>
+        <div className={styles.salads} />
+        <div className={styles.desk} />
+      </div>
+    </div>
   );
 };
 export default Home;

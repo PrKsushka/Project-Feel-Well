@@ -1,8 +1,10 @@
 import { Dispatch, Action } from 'redux';
 import {
+  CREATE_NEW_FOLDER,
   FAVOURITE_RECIPES,
   GET_DATA_ABOUT_RECIPES_CONFIRMED_ACTIONS,
   GET_DATA_ABOUT_RECIPES_FAILED_ACTIONS,
+  SAVE_TO_ANOTHER_DIR,
   SORT_MEAL,
   SORT_RECIPES_BY_COMPONENTS__FAILED,
   SORT_RECIPES_BY_COMPONENTS_CONFIRMED,
@@ -12,6 +14,7 @@ import {
   SORT_RECIPES_BY_MEAL_FAILED_ACTION,
   SORT_RECIPES_BY_RATING_CONFIRMED_ACTION,
   SORT_RECIPES_BY_RATING_FAILED_ACTION,
+  UNSAVED_FROM_FAVOURITE_RECIPES,
 } from './recipes.constants';
 import {
   getDataAboutRecipes,
@@ -193,5 +196,26 @@ export function setNameOfMeal(meal: string) {
   return {
     type: SORT_MEAL,
     payload: meal,
+  };
+}
+
+export function createNewFolder(param: string) {
+  return {
+    type: CREATE_NEW_FOLDER,
+    payload: param,
+  };
+}
+
+export function saveToAnotherDir(param1: string, param2: object) {
+  return {
+    type: SAVE_TO_ANOTHER_DIR,
+    payload: { str: param1, obj: param2 },
+  };
+}
+
+export function unsavedFromFavouriteRecipes(el: object) {
+  return {
+    type: UNSAVED_FROM_FAVOURITE_RECIPES,
+    payload: el,
   };
 }

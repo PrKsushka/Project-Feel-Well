@@ -31,7 +31,7 @@ export interface MealElement {
 
 export interface RecipesReducer {
   recipes: Array<ProductElement>;
-  favouriteRecipes: Array<ProductElement>;
+  favouriteRecipes: Array<Array<object>>;
   errorMessage: string;
   successMessage: string;
   meal: string;
@@ -45,6 +45,7 @@ export interface UserReducer {
 export interface ModalReducer {
   loginModal: boolean;
   registrationModal: boolean;
+  createDirectoryModal: boolean;
 }
 export interface StoreState {
   recipes: RecipesReducer;

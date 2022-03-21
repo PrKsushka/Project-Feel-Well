@@ -5,18 +5,25 @@ import { userRegistered, userUnregistered } from '../../../store/modules/user/us
 import { useDispatch, useSelector } from 'react-redux';
 import { StoreState } from '../../../store/types';
 import { registrationModalActivation } from '../../../store/modules/modals/modal.actions';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { schemaForRegistration } from '../../../schemas/schemaForRegistration';
+import styles from './forms.module.scss';
+import { stat } from 'fs';
 
 const ModalForRegistration: React.FunctionComponent = () => {
   const dispatch = useDispatch();
-  const [inputs, setInputs] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schemaForRegistration),
+    mode: 'onChange',
   });
-  const submitForm = async (e: any) => {
-    e.preventDefault();
-    await registration(inputs.email, inputs.password, inputs.firstName, inputs.lastName)
+  const body = document.getElementsByTagName('body')[0];
+  const submitForm = async (data: any) => {
+    await registration(data.email, data.password, data.firstName, data.lastName)
       .then((res) => {
         dispatch(userRegistered());
         dispatch(registrationModalActivation(false));
@@ -24,23 +31,26 @@ const ModalForRegistration: React.FunctionComponent = () => {
       .catch((err: any) => {
         dispatch(userUnregistered(err.response.data.message));
       });
+    body.style.overflowY = 'auto';
   };
-  const handleChange = (e: any) => {
-    const name = e.target.name;
-    setInputs((prevState) => ({
-      ...prevState,
-      [name]: e.target.value,
-    }));
-  };
+
   const registrationModal = useSelector((state: StoreState) => state.modal.registrationModal);
   return (
     <Modal isActive={registrationModal}>
-      <form onSubmit={submitForm}>
-        <input type="email" name="email" onChange={handleChange} value={inputs.email} />
-        <input type="password" name="password" onChange={handleChange} value={inputs.password} />
-        <input type="text" name="firstName" onChange={handleChange} value={inputs.firstName} />
-        <input type="text" name="lastName" onChange={handleChange} value={inputs.lastName} />
-        <button type="submit">Отправить</button>
+      <form onSubmit={handleSubmit(submitForm)} className={styles.formWrapper}>
+        <div className={styles.error}>{errors.email?.message}</div>
+        <input type="email" {...register('email')} placeholder={'Введите email'} />
+        <div className={styles.error}>{errors.password?.message}</div>
+        <input type="password" {...register('password')} placeholder={'Введите password'} />
+        <div className={styles.error}>{errors.passwordConfirmation?.message}</div>
+        <input type="password" {...register('passwordConfirmation')} placeholder={'Введите пароль еще раз'} />
+        <div className={styles.error}>{errors.firstName?.message}</div>
+        <input type="text" {...register('firstName')} placeholder={'Введите имя'} />
+        <div className={styles.error}>{errors.lastName?.message}</div>
+        <input type="text" {...register('lastName')} placeholder={'Введите фамилию'} />
+        <button type="submit" className={styles.buttonSubmit}>
+          Отправить
+        </button>
       </form>
     </Modal>
   );
