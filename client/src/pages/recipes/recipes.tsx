@@ -15,16 +15,15 @@ const Recipes: React.FunctionComponent = () => {
   const data = useSelector((state: StoreState) => getRecipes(state));
   const [showWindow, setShowWindow] = useState(false);
   const saveTargetElement: any = useRef();
-
   useEffect(() => {
     dispatch(dataAboutRecipes());
+  }, []);
+  useEffect(() => {
     setTimeout(() => {
       setShowWindow((prevState) => false);
     }, 10000);
   }, [showWindow]);
-  const [saved, setSaved] = useState({
-    elems: '',
-  });
+
   const handleClick = (elem: ProductElement) => (e: any) => {
     if (e.target.className === 'saveClicked') {
       e.target.className = 'save';
@@ -32,9 +31,9 @@ const Recipes: React.FunctionComponent = () => {
     }
     e.target.className = 'saveClicked';
     setShowWindow((prevState) => true);
+    saveTargetElement.current = elem;
     dispatch(getFavouriteRecipes(elem));
   };
-  console.log(saved);
   const menuClick = (e: any) => {
     dispatch(setNameOfMeal(e.target.textContent.toLowerCase()));
   };
@@ -42,6 +41,7 @@ const Recipes: React.FunctionComponent = () => {
     arr: meal,
     sortFunc: menuClick,
   };
+  console.log(saveTargetElement.current);
   return (
     <div className={styles.wrapper}>
       <div className={styles.darkGlass}>

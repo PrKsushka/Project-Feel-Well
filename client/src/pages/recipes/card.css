@@ -5,7 +5,7 @@
   position: absolute;
   right: 13px;
   bottom: 63px;
-  z-index: 100;
+  z-index: 50;
   cursor: pointer;
 }
 .saveClicked{
@@ -15,7 +15,7 @@
   position: absolute;
   right: 13px;
   bottom: 63px;
-  z-index: 100;
+  z-index: 50;
   cursor: pointer;
 }
 .elem{

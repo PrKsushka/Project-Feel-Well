@@ -2,6 +2,7 @@ export type Action = {
   type: string;
   payload?: undefined;
 };
+
 export interface ProductElement {
   id: number;
   name: string;
@@ -29,24 +30,34 @@ export interface MealElement {
   recipes: Array<ProductElement>;
 }
 
+export type PayloadForSaveToAnotherDir = {
+  str: string;
+  obj: object;
+};
+
+export type FavRecipesTypes = [[string, Array<ProductElement>]];
+
 export interface RecipesReducer {
   recipes: Array<ProductElement>;
-  favouriteRecipes: Array<Array<object>>;
+  favouriteRecipes: Array<any>;
   errorMessage: string;
   successMessage: string;
   meal: string;
 }
+
 export interface UserReducer {
   auth: boolean;
   register: boolean;
   successAuth: string;
   failedAuth: string;
 }
+
 export interface ModalReducer {
   loginModal: boolean;
   registrationModal: boolean;
   createDirectoryModal: boolean;
 }
+
 export interface StoreState {
   recipes: RecipesReducer;
   user: UserReducer;

@@ -5,6 +5,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { loginModalActivation } from '../../store/modules/modals/modal.actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { StoreState } from '../../store/types';
+import ModalForRegistration from '../../components/modals/module/modalForRegistration';
 
 type LocationStateTypes = {
   from: {
@@ -17,6 +18,8 @@ const Home: React.FunctionComponent = () => {
   const location = useLocation();
   const locationState = location.state as LocationStateTypes;
   const dispatch = useDispatch();
+  const loginModal = useSelector((state: StoreState) => state.modal.loginModal);
+  const registrationModal = useSelector((state: StoreState) => state.modal.registrationModal);
   if (!auth && history.location.search === '?signIn=false') {
     dispatch(loginModalActivation(true));
   }
@@ -33,6 +36,8 @@ const Home: React.FunctionComponent = () => {
         <div className={styles.salads} />
         <div className={styles.desk} />
       </div>
+      {loginModal ? <ModalForLogin /> : null}
+      {registrationModal ? <ModalForRegistration /> : null}
     </div>
   );
 };

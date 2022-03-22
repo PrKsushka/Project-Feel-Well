@@ -11,18 +11,26 @@ import { userAuthenticated, userUnauthenticated } from './store/modules/user/use
 import PrivateRoute from './components/privateRoute/privateRoute';
 import { StoreState } from './store/types';
 import User from './pages/user/user';
+import { loginModalActivation } from './store/modules/modals/modal.actions';
 
 function App() {
   const dispatch = useDispatch();
   const isLogin = useSelector((state: StoreState) => state.user.auth);
+  const body = document.getElementsByTagName('body')[0];
+
   useLayoutEffect(() => {
-    check()
-      .then((data) => {
-        dispatch(userAuthenticated());
-      })
-      .catch((err) => {
-        dispatch(userUnauthenticated(err.message));
-      });
+    if (isLogin) {
+      check()
+        .then((data) => {
+          dispatch(userAuthenticated());
+          dispatch(loginModalActivation(false));
+          body.style.overflowY = 'auto';
+        })
+        .catch((err) => {
+          console.log(err.message);
+          dispatch(userUnauthenticated());
+        });
+    }
   }, [isLogin]);
   return (
     <Router>

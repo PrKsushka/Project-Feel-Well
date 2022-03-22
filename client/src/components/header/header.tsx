@@ -6,8 +6,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { StoreState } from '../../store/types';
 import { userUnauthenticated } from '../../store/modules/user/user.actions';
 import { loginModalActivation, registrationModalActivation } from '../../store/modules/modals/modal.actions';
-import ModalForLogin from '../modals/module/modalForLogin';
-import ModalForRegistration from '../modals/module/modalForRegistration';
 
 const Header: React.FunctionComponent = () => {
   const auth = useSelector((state: StoreState) => state.user.auth);
@@ -22,8 +20,6 @@ const Header: React.FunctionComponent = () => {
   const userRegister = () => {
     dispatch(registrationModalActivation(true));
   };
-  const loginModal = useSelector((state: StoreState) => state.modal.loginModal);
-  const registrationModal = useSelector((state: StoreState) => state.modal.registrationModal);
   return (
     <header>
       <ul>
@@ -47,8 +43,6 @@ const Header: React.FunctionComponent = () => {
             <li onClick={userRegister}>Зарегистрироваться</li>
           </>
         )}
-        {loginModal ? <ModalForLogin /> : null}
-        {registrationModal ? <ModalForRegistration /> : null}
       </ul>
     </header>
   );

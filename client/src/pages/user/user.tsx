@@ -27,14 +27,12 @@ const User: React.FunctionComponent = () => {
         sent
       </button>
       {
-        <Modal isActive={activeModal}>
-          <form onSubmit={handleSubmit}>
-            <input type="text" value={inp} name="createDir" onChange={handleChange} />
-            <button type="submit" onSubmit={handleSubmit}>
-              sent
-            </button>
-          </form>
-        </Modal>
+        <form onSubmit={handleSubmit}>
+          <input type="text" value={inp} name="createDir" onChange={handleChange} />
+          <button type="submit" onSubmit={handleSubmit}>
+            sent
+          </button>
+        </form>
       }
     </div>
   );

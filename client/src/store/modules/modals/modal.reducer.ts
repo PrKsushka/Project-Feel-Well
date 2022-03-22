@@ -22,8 +22,10 @@ const ModalReducer = (state = initialState, action: Action = { type: 'DEFAULT' }
       };
     case CREATE_DIRECTORY_MODAL_ACTIVATION:
       return {
-        ...initialState,
+        ...state,
         createDirectoryModal: action.payload,
+        loginModal: false,
+        registrationModal: false,
       };
     default:
       return state;
