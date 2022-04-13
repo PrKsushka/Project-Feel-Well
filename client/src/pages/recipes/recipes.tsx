@@ -4,11 +4,13 @@ import { dataAboutRecipes, getFavouriteRecipes, setNameOfMeal, unsavedFromFavour
 import { ProductElement, StoreState } from '../../store/types';
 import { getRecipes } from '../../store/modules/recipes/recipes.selectors';
 import styles from './recipes.module.scss';
-import SortPannel from '../../components/sortPannel/sortPannel';
+import SortPanel from '../../components/sortPannel/sortPannel';
 import './card.css';
 import SortMenu from '../../UI/sortMenu/sortMenu';
 import { meal } from '../../constants/sortMenu';
 import PopUp from '../../components/popUp/popUp';
+import links from '../../constants/links';
+import { Link } from 'react-router-dom';
 
 const Recipes: React.FunctionComponent = () => {
   const dispatch = useDispatch();
@@ -41,7 +43,6 @@ const Recipes: React.FunctionComponent = () => {
     arr: meal,
     sortFunc: menuClick,
   };
-  console.log(saveTargetElement.current);
   return (
     <div className={styles.wrapper}>
       <div className={styles.darkGlass}>
@@ -50,23 +51,25 @@ const Recipes: React.FunctionComponent = () => {
       </div>
       <div className={styles.mainContent}>
         <div className={styles.columnForSort}>
-          <SortPannel />
+          <SortPanel />
         </div>
         <div className={styles.rightProdColumn}>
           <SortMenu obj={objForSortMenu} />
           <div className={styles.products}>
             {data.length !== 0
               ? data.map((el) => (
-                  <div key={el.id} className={styles.card}>
+                  <div className={styles.card} key={el._id}>
                     <div style={{ backgroundImage: `url(${require(`../../${el.image}`)}` }} className={styles.image} />
                     <div className="save" onClick={handleClick(el)} />
-                    <div className={styles.mainText}>
-                      <h3>{el.name}</h3>
-                      <div className={styles.ratingSec}>
-                        <p>{el.time}</p>
-                        <p>{el.rating}</p>
+                    <Link to={`${links.recipes}/${el._id}`}>
+                      <div className={styles.mainText}>
+                        <h3>{el.name}</h3>
+                        <div className={styles.ratingSec}>
+                          <p>{el.time}</p>
+                          <p>{el.rating}</p>
+                        </div>
                       </div>
-                    </div>
+                    </Link>
                   </div>
                 ))
               : 'Sorry there are no recipes'}

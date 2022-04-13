@@ -1,3 +1,13 @@
+@import "../../styles/mixin";
 .but{
   margin-top: 500px;
+}
+.directoryWrapper{
+  @include builderAligment(flex, space-around, 100%);
+  align-items: center;
+  .directory{
+    @include builder(flex, 300px);
+    min-height: 300px;
+    background: $gr;
+  }
 }

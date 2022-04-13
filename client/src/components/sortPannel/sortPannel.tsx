@@ -1,30 +1,24 @@
-import React, { useEffect, useRef, useState } from 'react';
-import InputGroup from '../../UI/inputGroup/inputGroup';
+import React, { useEffect, useState } from 'react';
+import CheckboxGroup from '../../UI/checkboxGroup/checkboxGroup';
 import arr from '../../constants/sortRecipes';
 import styles from './sortPannel.module.scss';
-import { getRecipesSortedByMeal, sortedRecipesNotIncludeProducts, sortRecipesByRatingAscDesc } from '../../store/modules/recipes/recipes.actions';
+import { getRecipesSortedByMeal } from '../../store/modules/recipes/recipes.actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { StoreState } from '../../store/types';
+import SelectGroup from '../../UI/selectGroup/selectGroup';
 
-const SortPannel: React.FunctionComponent = () => {
-  const [types, setTypes] = useState('');
-  const [vegetablesProd, setVegetablesProd] = useState('');
-  const [milkProd, setMilkProd] = useState('');
-  const [fruitsProd, setFruitsProd] = useState('');
-  const [backedGoodsProd, setBackedGoodsProd] = useState('');
-  const [meatProd, setMeatProd] = useState('');
+const SortPanel: React.FunctionComponent = () => {
+  const [types, setTypes] = useState([]);
+  const [vegetablesProd, setVegetablesProd] = useState([]);
+  const [milkProd, setMilkProd] = useState([]);
+  const [fruitsProd, setFruitsProd] = useState([]);
+  const [backedGoodsProd, setBackedGoodsProd] = useState([]);
+  const [meatProd, setMeatProd] = useState([]);
   const [selectRating, setSelectedRating] = useState('');
   const menuMeal = useSelector((state: StoreState) => state.recipes.meal);
   const dispatch = useDispatch();
   useEffect(() => {
-    if (selectRating === 'asc' || selectRating === 'desc') {
-      dispatch(sortRecipesByRatingAscDesc(selectRating, vegetablesProd, milkProd, fruitsProd, backedGoodsProd, meatProd));
-    }
-    if (menuMeal !== '') {
-      dispatch(getRecipesSortedByMeal(menuMeal, selectRating, vegetablesProd, milkProd, fruitsProd, backedGoodsProd, meatProd));
-    } else {
-      dispatch(sortedRecipesNotIncludeProducts(vegetablesProd, milkProd, fruitsProd, backedGoodsProd, meatProd));
-    }
+    dispatch(getRecipesSortedByMeal(menuMeal, selectRating, ...vegetablesProd, ...milkProd, ...fruitsProd, ...backedGoodsProd, ...meatProd));
   }, [vegetablesProd, milkProd, fruitsProd, backedGoodsProd, meatProd, selectRating, menuMeal]);
   const objForInputGroupTypes = {
     arr: arr.typesArr,
@@ -59,43 +53,45 @@ const SortPannel: React.FunctionComponent = () => {
   const selectedVal = (e: any) => {
     setSelectedRating(e.target.value);
   };
+  const arrForRating = [
+    ['asc', 'по возрастанию рейтинга'],
+    ['desc', 'по убыванию рейтинга'],
+  ];
+  const objForSelectRating = {
+    onChangeFunc: selectedVal,
+    arr: arrForRating,
+  };
   return (
     <>
       <div className={styles.mainSortColumn}>
         <h2 className={styles.mainTitle}>{menuMeal}</h2>
-        <InputGroup obj={objForInputGroupTypes} />
         <div>
+          <SelectGroup obj={objForSelectRating} />
           <h3 className={styles.title}>Не содержит</h3>
           <p className={styles.variant}>Молочные продукты</p>
           <div className={styles.wrapperForInputGroup}>
-            <InputGroup obj={milkProducts} />
+            <CheckboxGroup obj={milkProducts} />
           </div>
           <p className={styles.variant}>Овощи</p>
           <div className={styles.wrapperForInputGroup}>
-            <InputGroup obj={vegetables} />
+            <CheckboxGroup obj={vegetables} />
           </div>
           <p className={styles.variant}>Фрукты</p>
           <div className={styles.wrapperForInputGroup}>
-            <InputGroup obj={fruits} />
+            <CheckboxGroup obj={fruits} />
           </div>
           <p className={styles.variant}>Продукты, содержащие глютен</p>
           <div className={styles.wrapperForInputGroup}>
-            <InputGroup obj={bakedGoods} />
+            <CheckboxGroup obj={bakedGoods} />
           </div>
           <p className={styles.variant}>Мясные продукты</p>
           <div className={styles.wrapperForInputGroup}>
-            <InputGroup obj={meatProducts} />
+            <CheckboxGroup obj={meatProducts} />
           </div>
+          <CheckboxGroup obj={objForInputGroupTypes} />
         </div>
-        <select onChange={selectedVal}>
-          <option selected disabled hidden>
-            All
-          </option>
-          <option value={'asc'}>rating asc</option>
-          <option value={'desc'}>rating desc</option>
-        </select>
       </div>
     </>
   );
 };
-export default SortPannel;
+export default SortPanel;

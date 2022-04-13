@@ -5,16 +5,21 @@ import { sortedRecipesByHealth } from '../../store/modules/recipes/recipes.actio
 import { ObjTypes } from '../types';
 import style from './inputGroup.module.scss';
 
-const InputGroup: React.FunctionComponent<ObjTypes> = ({ obj }) => {
+const CheckboxGroup: React.FunctionComponent<ObjTypes> = ({ obj }) => {
   const dispatch = useDispatch();
-  const isChecked = (value: any) => {
-    if (value === obj.input) {
-      return true;
+  const handleChange = (e: any) => {
+    const { checked } = e.target;
+    if (checked) {
+      obj.inputFunc((prevState: Array<string>) => {
+        return [...prevState, e.target.value];
+      });
+    } else {
+      obj.inputFunc((prevState: Array<string>) => {
+        return prevState.filter((el) => {
+          return el != e.target.value;
+        });
+      });
     }
-    return false;
-  };
-  const handleChange = (k: string) => (e: any) => {
-    obj.inputFunc((prevState: string) => e.target.value);
     arr.typesArr.forEach((el) => {
       if (el === e.target.value) {
         dispatch(sortedRecipesByHealth(e.target.value));
@@ -26,11 +31,11 @@ const InputGroup: React.FunctionComponent<ObjTypes> = ({ obj }) => {
     <>
       {obj.arr.map((el, i) => (
         <label key={i} className={style.elem}>
-          <input type="radio" value={el} checked={isChecked(el)} onChange={handleChange(el)} />
+          <input type="checkbox" value={el} onChange={handleChange} name={el} />
           {el}
         </label>
       ))}
     </>
   );
 };
-export default InputGroup;
+export default CheckboxGroup;

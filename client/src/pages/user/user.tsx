@@ -5,13 +5,16 @@ import Modal from '../../components/modals/modal';
 import { StoreState } from '../../store/types';
 import styles from './user.module.scss';
 import { createNewFolder } from '../../store/modules/recipes/recipes.actions';
+import { getShoppingList } from '../../store/modules/recipes/recipes.selectors';
+import { Link } from 'react-router-dom';
+import links from '../../constants/links';
 
 const User: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const handleClick = () => {
     dispatch(createDirectoryModalActivation(true));
   };
-  const activeModal = useSelector((state: StoreState) => state.modal.createDirectoryModal);
+  const shoppingList = useSelector((state: StoreState) => getShoppingList(state));
   const [inp, setInp] = useState('');
   const handleChange = (e: any) => {
     setInp((prevState) => e.target.value);
@@ -21,6 +24,8 @@ const User: React.FunctionComponent = () => {
     console.log(inp);
     dispatch(createNewFolder(inp));
   };
+
+  const directories = useSelector((state: StoreState) => state.recipes.favouriteRecipes);
   return (
     <div>
       <button type="button" onClick={handleClick} className={styles.but}>
@@ -34,6 +39,21 @@ const User: React.FunctionComponent = () => {
           </button>
         </form>
       }
+      <div className={styles.directoryWrapper}>
+        {directories.map((el, i) => (
+          <Link to={`${links.user}/${el[0]}`}>
+            <div className={styles.directory} key={i} onClick={handleClick}>
+              {el[0]}
+            </div>
+          </Link>
+        ))}
+      </div>
+      <div>
+        Список покупок
+        {shoppingList.map((el) => (
+          <p>{el}</p>
+        ))}
+      </div>
     </div>
   );
 };

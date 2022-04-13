@@ -12,13 +12,15 @@ import PrivateRoute from './components/privateRoute/privateRoute';
 import { StoreState } from './store/types';
 import User from './pages/user/user';
 import { loginModalActivation } from './store/modules/modals/modal.actions';
+import RecipesDetail from './pages/recipesDetail/recipesDetail';
+import SavedRecipes from './pages/savedRecipes/savedRecipes';
 
 function App() {
   const dispatch = useDispatch();
   const isLogin = useSelector((state: StoreState) => state.user.auth);
   const body = document.getElementsByTagName('body')[0];
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (isLogin) {
       check()
         .then((data) => {
@@ -27,7 +29,6 @@ function App() {
           body.style.overflowY = 'auto';
         })
         .catch((err) => {
-          console.log(err.message);
           dispatch(userUnauthenticated());
         });
     }
@@ -38,8 +39,10 @@ function App() {
         <Switch>
           <Route exact path={links.home} component={Home} />
           <PrivateRoute exact path={links.recipes} component={Recipes} />
+          <PrivateRoute component={RecipesDetail} path={`${links.recipes}/:detailId`} />
           <PrivateRoute exact path={links.about} component={About} />
           <PrivateRoute exact path={links.user} component={User} />
+          <PrivateRoute component={SavedRecipes} path={`${links.user}/:saved`} />
         </Switch>
       </Layout>
     </Router>

@@ -4,13 +4,13 @@ export type Action = {
 };
 
 export interface ProductElement {
-  id: number;
+  _id: number;
   name: string;
   image: string;
   mealId?: number;
   healthId?: number;
   title?: number;
-  ingredients?: string;
+  ingredients?: Array<string>;
   kcal?: number;
   time: number;
   rating: number;
@@ -40,6 +40,7 @@ export type FavRecipesTypes = [[string, Array<ProductElement>]];
 export interface RecipesReducer {
   recipes: Array<ProductElement>;
   favouriteRecipes: Array<any>;
+  shoppingList: Array<string>;
   errorMessage: string;
   successMessage: string;
   meal: string;

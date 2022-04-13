@@ -1,10 +1,12 @@
 import { Dispatch, Action } from 'redux';
 import {
   CREATE_NEW_FOLDER,
+  DELETE_FROM_SHOPPING_LIST,
   FAVOURITE_RECIPES,
   GET_DATA_ABOUT_RECIPES_CONFIRMED_ACTIONS,
   GET_DATA_ABOUT_RECIPES_FAILED_ACTIONS,
   SAVE_TO_ANOTHER_DIR,
+  SAVE_TO_SHOPPING_LIST,
   SORT_MEAL,
   SORT_RECIPES_BY_COMPONENTS__FAILED,
   SORT_RECIPES_BY_COMPONENTS_CONFIRMED,
@@ -16,13 +18,7 @@ import {
   SORT_RECIPES_BY_RATING_FAILED_ACTION,
   UNSAVED_FROM_FAVOURITE_RECIPES,
 } from './recipes.constants';
-import {
-  getDataAboutRecipes,
-  getRecipesNotIncludedComponents,
-  sortByMealHour,
-  sortByRatingAscDesc,
-  sortRecipesByMeal,
-} from '../../../api/dataAboutRecipes';
+import { getDataAboutRecipes, sortRecipes } from '../../../api/dataAboutRecipes';
 import { CategoryHealthElement, MealElement, ProductElement } from '../../types';
 import { sortDataByHealth } from '../../../api/dataAboutCategories';
 
@@ -107,21 +103,21 @@ function sortRecipesByComponentsFailed(err: any) {
   };
 }
 
-export function sortedRecipesNotIncludeProducts(param1: string, param2?: string, param3?: string, param4?: string, param5?: string, param6?: string) {
-  return (dispatch: Dispatch<Action>) => {
-    getRecipesNotIncludedComponents(param1, param2, param3)
-      .then((res) => {
-        if (res.data) {
-          dispatch(sortRecipesByComponentsConfirmed(res.data));
-        } else {
-          throw Error();
-        }
-      })
-      .catch((err) => {
-        dispatch(sortRecipesByComponentsFailed(err));
-      });
-  };
-}
+// export function sortedRecipesNotIncludeProducts(...args: string[]) {
+//   return (dispatch: Dispatch<Action>) => {
+//     getRecipesNotIncludedComponents(args)
+//       .then((res) => {
+//         if (res.data) {
+//           dispatch(sortRecipesByComponentsConfirmed(res.data));
+//         } else {
+//           throw Error();
+//         }
+//       })
+//       .catch((err) => {
+//         dispatch(sortRecipesByComponentsFailed(err));
+//       });
+//   };
+// }
 
 function sortRecipesByMealConfirmedAction(data: Array<MealElement>) {
   return {
@@ -137,18 +133,9 @@ function sortRecipesByMealFailedAction(message: any) {
   };
 }
 
-export function getRecipesSortedByMeal(
-  meal: string,
-  rating: string,
-  param1?: string,
-  param2?: string,
-  param3?: string,
-  param4?: string,
-  param5?: string,
-  param6?: string
-) {
+export function getRecipesSortedByMeal(...args: string[]) {
   return (dispatch: Dispatch<Action>) => {
-    sortByMealHour(meal, rating, param1, param2, param3, param4, param5, param6)
+    sortRecipes(args)
       .then((res) => {
         if (res.data) {
           dispatch(sortRecipesByMealConfirmedAction(res.data));
@@ -176,21 +163,21 @@ function sortRecipesByRatingFailedAction(err: any) {
   };
 }
 
-export function sortRecipesByRatingAscDesc(param1: string, param2?: string, param3?: string, param4?: string, param5?: string, param6?: string) {
-  return (dispatch: Dispatch<Action>) => {
-    sortByRatingAscDesc(param1, param2, param3, param4, param5, param6)
-      .then((res) => {
-        if (res.data) {
-          dispatch(sortRecipesByRatingConfirmedAction(res.data));
-        } else {
-          throw Error();
-        }
-      })
-      .catch((err) => {
-        dispatch(sortRecipesByRatingFailedAction(err));
-      });
-  };
-}
+// export function sortRecipesByRatingAscDesc(...args: string[]) {
+//   return (dispatch: Dispatch<Action>) => {
+//     sortByRatingAscDesc(args)
+//       .then((res) => {
+//         if (res.data) {
+//           dispatch(sortRecipesByRatingConfirmedAction(res.data));
+//         } else {
+//           throw Error();
+//         }
+//       })
+//       .catch((err) => {
+//         dispatch(sortRecipesByRatingFailedAction(err));
+//       });
+//   };
+// }
 
 export function setNameOfMeal(meal: string) {
   return {
@@ -217,5 +204,19 @@ export function unsavedFromFavouriteRecipes(el: object) {
   return {
     type: UNSAVED_FROM_FAVOURITE_RECIPES,
     payload: el,
+  };
+}
+
+export function saveToShoppingList(ingredient: string) {
+  return {
+    type: SAVE_TO_SHOPPING_LIST,
+    payload: ingredient,
+  };
+}
+
+export function deleteFromShoppingList(ingredient: string) {
+  return {
+    type: DELETE_FROM_SHOPPING_LIST,
+    payload: ingredient,
   };
 }

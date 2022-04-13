@@ -1,9 +1,11 @@
 import {
   CREATE_NEW_FOLDER,
+  DELETE_FROM_SHOPPING_LIST,
   FAVOURITE_RECIPES,
   GET_DATA_ABOUT_RECIPES_CONFIRMED_ACTIONS,
   GET_DATA_ABOUT_RECIPES_FAILED_ACTIONS,
   SAVE_TO_ANOTHER_DIR,
+  SAVE_TO_SHOPPING_LIST,
   SORT_MEAL,
   SORT_RECIPES_BY_COMPONENTS__FAILED,
   SORT_RECIPES_BY_COMPONENTS_CONFIRMED,
@@ -21,11 +23,11 @@ import { getUniqueListBy } from '../../../utils/getUniqObjectsFromArray';
 const initialState = {
   recipes: [],
   favouriteRecipes: [['basic', []]],
+  shoppingList: [],
   errorMessage: '',
   successMessage: '',
-  meal: '',
+  meal: 'все',
 };
-type Payload = Array<CategoryHealthElement> | Array<ProductElement>;
 
 const recipesReducer = (state = initialState, action: Action = { type: 'DEFAULT' }) => {
   switch (action.type) {
@@ -59,7 +61,7 @@ const recipesReducer = (state = initialState, action: Action = { type: 'DEFAULT'
       for (let i = 0; i < state.favouriteRecipes.length; i++) {
         for (let j = 0; j < state.favouriteRecipes.length; j++) {
           for (let t = 0; t < state.favouriteRecipes[i][j + 1].length; t++) {
-            if (favRecipes[i][j + 1][t].id === payload.id) {
+            if (favRecipes[i][j + 1][t].id === payload._id) {
               favRecipes[i][j + 1].splice(t, 1);
             }
           }
@@ -141,6 +143,23 @@ const recipesReducer = (state = initialState, action: Action = { type: 'DEFAULT'
       return {
         ...state,
         favouriteRecipes: [...favRecipes],
+      };
+    }
+    case SAVE_TO_SHOPPING_LIST:
+      return {
+        ...state,
+        shoppingList: [...state.shoppingList, action.payload],
+      };
+    case DELETE_FROM_SHOPPING_LIST: {
+      const shoppingList = state.shoppingList as Array<string>;
+      shoppingList.forEach((el) => {
+        if (el === action.payload) {
+          shoppingList.splice(shoppingList.indexOf(el), 1);
+        }
+      });
+      return {
+        ...state,
+        shoppingList: [...shoppingList],
       };
     }
     default:
