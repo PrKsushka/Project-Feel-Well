@@ -21,9 +21,10 @@ const Recipes: React.FunctionComponent = () => {
     dispatch(dataAboutRecipes());
   }, []);
   useEffect(() => {
-    setTimeout(() => {
+    const timerShowWindow = setTimeout(() => {
       setShowWindow((prevState) => false);
     }, 10000);
+    return () => clearTimeout(timerShowWindow);
   }, [showWindow]);
 
   const handleClick = (elem: ProductElement) => (e: any) => {

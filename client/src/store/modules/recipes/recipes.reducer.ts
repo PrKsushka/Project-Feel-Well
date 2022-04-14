@@ -84,21 +84,21 @@ const recipesReducer = (state = initialState, action: Action = { type: 'DEFAULT'
         };
       }
       break;
-    case SORT_RECIPES_BY_COMPONENTS_CONFIRMED:
-      return {
-        ...state,
-        recipes: action.payload,
-      };
     case SORT_RECIPES_BY_HEALTH_PROBLEMS_FAILED:
       return {
         ...state,
         errorMessage: action.payload,
       };
-    case SORT_RECIPES_BY_COMPONENTS__FAILED:
-      return {
-        ...state,
-        errorMessage: action.payload,
-      };
+    // case SORT_RECIPES_BY_COMPONENTS_CONFIRMED:
+    //   return {
+    //     ...state,
+    //     recipes: action.payload,
+    //   };
+    // case SORT_RECIPES_BY_COMPONENTS__FAILED:
+    //   return {
+    //     ...state,
+    //     errorMessage: action.payload,
+    //   };
     case SORT_RECIPES_BY_MEAL_CONFIRMED_ACTION:
       return {
         ...state,
@@ -114,16 +114,16 @@ const recipesReducer = (state = initialState, action: Action = { type: 'DEFAULT'
         ...state,
         meal: action.payload,
       };
-    case SORT_RECIPES_BY_RATING_CONFIRMED_ACTION:
-      return {
-        ...state,
-        recipes: action.payload,
-      };
-    case SORT_RECIPES_BY_RATING_FAILED_ACTION:
-      return {
-        ...state,
-        errorMessage: action.payload,
-      };
+    // case SORT_RECIPES_BY_RATING_CONFIRMED_ACTION:
+    //   return {
+    //     ...state,
+    //     recipes: action.payload,
+    //   };
+    // case SORT_RECIPES_BY_RATING_FAILED_ACTION:
+    //   return {
+    //     ...state,
+    //     errorMessage: action.payload,
+    //   };
     case CREATE_NEW_FOLDER:
       return {
         ...state,
@@ -145,11 +145,13 @@ const recipesReducer = (state = initialState, action: Action = { type: 'DEFAULT'
         favouriteRecipes: [...favRecipes],
       };
     }
-    case SAVE_TO_SHOPPING_LIST:
+    case SAVE_TO_SHOPPING_LIST: {
+      const set = new Set([...state.shoppingList, action.payload]);
       return {
         ...state,
-        shoppingList: [...state.shoppingList, action.payload],
+        shoppingList: [...set],
       };
+    }
     case DELETE_FROM_SHOPPING_LIST: {
       const shoppingList = state.shoppingList as Array<string>;
       shoppingList.forEach((el) => {

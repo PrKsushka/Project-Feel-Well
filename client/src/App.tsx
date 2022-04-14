@@ -24,15 +24,18 @@ function App() {
     if (isLogin) {
       check()
         .then((data) => {
+          console.log(1);
           dispatch(userAuthenticated());
           dispatch(loginModalActivation(false));
           body.style.overflowY = 'auto';
         })
         .catch((err) => {
+          console.log(2);
           dispatch(userUnauthenticated());
         });
     }
   }, [isLogin]);
+
   return (
     <Router>
       <Layout>

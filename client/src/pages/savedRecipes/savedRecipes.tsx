@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { StoreState } from '../../store/types';
+import { ProductElement, StoreState } from '../../store/types';
 
 type Saved = {
   saved: string;
@@ -13,7 +13,16 @@ const SavedRecipes: React.FunctionComponent = () => {
   const dir = directories.find((el) => {
     return el[0] === saved;
   });
-
-  return <div>{dir.map((el: any, i: React.Key | null | undefined) => el[1].map((el: any) => <div key={i}>{el}</div>))}</div>;
+  if (dir[1].length > 0) {
+    return (
+      <div>
+        {dir[1].map((el: ProductElement, i: number) => (
+          <div key={i}>{el.title}</div>
+        ))}
+      </div>
+    );
+  } else {
+    return <div>Your directory is empty</div>;
+  }
 };
 export default SavedRecipes;

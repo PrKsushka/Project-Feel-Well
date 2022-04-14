@@ -9,9 +9,9 @@ import storage from 'redux-persist/lib/storage';
 // @ts-ignore
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const persistConfig = {
-  key: 'recipes',
+  key: 'root',
   storage: storage,
-  whitelist: ['recipes'],
+  whitelist: ['recipes', 'user'],
 };
 const reducers = combineReducers({
   recipes: recipesReducer,

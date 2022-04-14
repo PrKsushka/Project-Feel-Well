@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import arr from '../../constants/sortRecipes';
 import { sortedRecipesByHealth } from '../../store/modules/recipes/recipes.actions';
 import { ObjTypes } from '../types';
-import style from './inputGroup.module.scss';
+import style from './checkboxGroup.module.scss';
 
 const CheckboxGroup: React.FunctionComponent<ObjTypes> = ({ obj }) => {
   const dispatch = useDispatch();
