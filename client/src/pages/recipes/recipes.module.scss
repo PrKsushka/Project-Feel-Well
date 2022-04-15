@@ -1,10 +1,12 @@
 @import "../../styles/mixin";
-.darkGlass{
+
+.darkGlass {
   @include builder(flex, 100%);
   min-height: 100vh;
   background: rgba(4, 4, 4, 0.3);
   position: relative;
-  .textBlockWrapper{
+
+  .textBlockWrapper {
     position: absolute;
     z-index: 100;
     top: 0;
@@ -16,6 +18,7 @@
     @include fonts(40px);
     font-weight: bold;
   }
+
   .banner {
     @include builder(flex, 100%);
     min-height: 100vh;
@@ -26,18 +29,22 @@
     z-index: -100;
   }
 }
-.mainContent{
+
+.mainContent {
   @include builder(flex, 100%);
   padding: 68px 80px 0 90px;
   box-sizing: border-box;
-  .columnForSort{
-    @include builder(flex,387px);
+
+  .columnForSort {
+    @include builder(flex, 387px);
   }
+
   .rightProdColumn {
     flex-direction: column;
     @include builder(flex, 1041px);
     padding-left: 68px;
     box-sizing: border-box;
+
     .products {
       @include builderAligment(flex, space-between, 100%);
       flex-wrap: wrap;
@@ -45,7 +52,8 @@
   }
 
 }
-.card{
+
+.card {
   background: $wh;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 20px;
@@ -53,7 +61,8 @@
   height: 335px;
   position: relative;
   @include builder(flex, 250px);
-  .image{
+
+  .image {
     width: 100%;
     min-height: 238px;
     max-height: 240px;
@@ -64,21 +73,25 @@
     border-radius: 20px;
     margin-bottom: 40px;
   }
-  .mainText{
-    display: flex;
-    flex-direction: column;
-    margin-left: 14px;
-    h3{
-      margin: 0;
-      @include fonts(18px, black)
-    }
-    p{
-      margin: 0;
-      @include fonts(14px, black)
-    }
-    .ratingSec{
-      flex-direction: row;
-      @include builderAligment(flex, space-around, 100%);
+
+  .textLink {
+    text-decoration: none;
+    .mainText {
+      display: flex;
+      flex-direction: column;
+      margin-left: 14px;
+      h3 {
+        margin: 0;
+        @include fonts(18px, black)
+      }
+      p {
+        margin: 0;
+        @include fonts(14px, black)
+      }
+      .ratingSec {
+        flex-direction: row;
+        @include builderAligment(flex, space-around, 100%);
+      }
     }
   }
 }

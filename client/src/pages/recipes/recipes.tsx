@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { lazy, useEffect, useRef, useState, Suspense } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { dataAboutRecipes, getFavouriteRecipes, setNameOfMeal, unsavedFromFavouriteRecipes } from '../../store/modules/recipes/recipes.actions';
 import { ProductElement, StoreState } from '../../store/types';
@@ -9,8 +9,9 @@ import './card.css';
 import SortMenu from '../../UI/sortMenu/sortMenu';
 import { meal } from '../../constants/sortMenu';
 import PopUp from '../../components/popUp/popUp';
-import links from '../../constants/links';
-import { Link } from 'react-router-dom';
+import { MoonLoader } from 'react-spinners';
+
+const Card = lazy(() => import('../../components/card/card'));
 
 const Recipes: React.FunctionComponent = () => {
   const dispatch = useDispatch();
@@ -56,26 +57,14 @@ const Recipes: React.FunctionComponent = () => {
         </div>
         <div className={styles.rightProdColumn}>
           <SortMenu obj={objForSortMenu} />
-          <div className={styles.products}>
-            {data.length !== 0
-              ? data.map((el) => (
-                  <div className={styles.card} key={el._id}>
-                    <div style={{ backgroundImage: `url(${require(`../../${el.image}`)}` }} className={styles.image} />
-                    <div className="save" onClick={handleClick(el)} />
-                    <Link to={`${links.recipes}/${el._id}`}>
-                      <div className={styles.mainText}>
-                        <h3>{el.name}</h3>
-                        <div className={styles.ratingSec}>
-                          <p>{el.time}</p>
-                          <p>{el.rating}</p>
-                        </div>
-                      </div>
-                    </Link>
-                  </div>
-                ))
-              : 'Sorry there are no recipes'}
-            {showWindow ? <PopUp elem={saveTargetElement.current} /> : null}
-          </div>
+          <Suspense fallback={<MoonLoader />}>
+            <div className={styles.products}>
+              {data.length !== 0
+                ? data.map((el) => <Card key={el._id} el={el} obj={{ clickFunc: handleClick, param: true }} />)
+                : 'Sorry there are no recipes'}
+              {showWindow ? <PopUp elem={saveTargetElement.current} /> : null}
+            </div>
+          </Suspense>
         </div>
       </div>
     </div>

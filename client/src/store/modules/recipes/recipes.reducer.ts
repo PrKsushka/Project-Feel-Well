@@ -7,14 +7,10 @@ import {
   SAVE_TO_ANOTHER_DIR,
   SAVE_TO_SHOPPING_LIST,
   SORT_MEAL,
-  SORT_RECIPES_BY_COMPONENTS__FAILED,
-  SORT_RECIPES_BY_COMPONENTS_CONFIRMED,
   SORT_RECIPES_BY_HEALTH_PROBLEMS_CONFIRMED,
   SORT_RECIPES_BY_HEALTH_PROBLEMS_FAILED,
   SORT_RECIPES_BY_MEAL_CONFIRMED_ACTION,
   SORT_RECIPES_BY_MEAL_FAILED_ACTION,
-  SORT_RECIPES_BY_RATING_CONFIRMED_ACTION,
-  SORT_RECIPES_BY_RATING_FAILED_ACTION,
   UNSAVED_FROM_FAVOURITE_RECIPES,
 } from './recipes.constants';
 import { Action, CategoryHealthElement, PayloadForSaveToAnotherDir, ProductElement } from '../../types';
@@ -132,6 +128,9 @@ const recipesReducer = (state = initialState, action: Action = { type: 'DEFAULT'
     case SAVE_TO_ANOTHER_DIR: {
       const favRecipes = state.favouriteRecipes as any;
       const payload = action.payload as unknown as PayloadForSaveToAnotherDir;
+      console.log(favRecipes);
+      console.log(payload);
+
       for (let i = 0; i < favRecipes.length; i++) {
         for (let j = 0; j < favRecipes.length; j++) {
           if (favRecipes[i][j] === payload.str) {
@@ -140,6 +139,7 @@ const recipesReducer = (state = initialState, action: Action = { type: 'DEFAULT'
           }
         }
       }
+      console.log(favRecipes);
       return {
         ...state,
         favouriteRecipes: [...favRecipes],
