@@ -2,6 +2,7 @@
 header{
   position: absolute;
   z-index: 101;
+  top: 0;
   ul{
     @include builder(flex, 100%);
     list-style: none;

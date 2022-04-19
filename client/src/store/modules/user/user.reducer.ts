@@ -1,4 +1,4 @@
-import { Action, UserReducer } from '../../types';
+import { Action, DataAboutUser, UserReducer } from '../../types';
 import { USER_AUTHENTICATED, USER_REGISTERED, USER_UNAUTHENTICATED, USER_UNREGISTERED } from './user.constants';
 
 const initialState: UserReducer = {
@@ -6,9 +6,16 @@ const initialState: UserReducer = {
   register: false,
   successAuth: '',
   failedAuth: '',
+  dataAboutUser: {
+    firstName: '',
+    lastName: '',
+  }
 };
-
-const userReducer = (state = initialState, action: Action = { type: 'DEFAULT' }) => {
+type UserAction = {
+  type: string,
+  payload?: DataAboutUser
+}
+const userReducer = (state = initialState, action: UserAction = { type: 'DEFAULT' }) => {
   switch (action.type) {
     case USER_AUTHENTICATED:
       return {
@@ -22,7 +29,7 @@ const userReducer = (state = initialState, action: Action = { type: 'DEFAULT' })
         ...state,
         auth: false,
         failedAuth: action.payload,
-        successAuth: '',
+        successAuth: ''
       };
     case USER_REGISTERED:
       return {
@@ -30,12 +37,16 @@ const userReducer = (state = initialState, action: Action = { type: 'DEFAULT' })
         register: true,
         successAuth: 'user registered successfully',
         failedAuth: '',
+        dataAboutUser: {
+          firstName: action.payload?.firstName,
+          lastName: action.payload?.lastName
+        },
       };
     case USER_UNREGISTERED:
       return {
         ...state,
         register: false,
-        failedAuth: action.payload,
+        failedAuth: action.payload
       };
     default:
       return state;

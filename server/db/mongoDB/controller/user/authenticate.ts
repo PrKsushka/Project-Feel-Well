@@ -16,7 +16,8 @@ const authenticate = async (req: Request, res: Response) => {
       throw CustomError.unauthorizedRequest('Неверный пароль');
     }
     const token = TokenService.generateToken(user.id, user.email, user.role);
-    return res.status(200).json(token);
+    const refreshToken = TokenService.refreshToken(user.id, user.email, user.role);
+    return res.status(200).json({ token, refreshToken });
   } catch (e: any) {
     const error = new CustomError(e.name, e.status, e.message);
     res.status(error.statusVal).json({ message: error.messageVal });

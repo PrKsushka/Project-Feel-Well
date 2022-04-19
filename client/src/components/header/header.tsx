@@ -12,6 +12,7 @@ const Header: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const logOut = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('refreshToken');
     dispatch(userUnauthenticated());
   };
   const userAuth = () => {

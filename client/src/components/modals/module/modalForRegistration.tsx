@@ -9,7 +9,6 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { schemaForRegistration } from '../../../schemas/schemaForRegistration';
 import styles from './forms.module.scss';
-import { stat } from 'fs';
 
 const ModalForRegistration: React.FunctionComponent = () => {
   const dispatch = useDispatch();
@@ -25,7 +24,7 @@ const ModalForRegistration: React.FunctionComponent = () => {
   const submitForm = async (data: any) => {
     await registration(data.email, data.password, data.firstName, data.lastName)
       .then((res) => {
-        dispatch(userRegistered());
+        dispatch(userRegistered(data.firstName, data.lastName));
         dispatch(registrationModalActivation(false));
       })
       .catch((err: any) => {

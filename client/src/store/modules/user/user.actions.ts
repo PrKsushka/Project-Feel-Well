@@ -12,9 +12,11 @@ export function userUnauthenticated(param?: string) {
     payload: param,
   };
 }
-export function userRegistered() {
+
+export function userRegistered(firstName: string, lastName: string) {
   return {
     type: USER_REGISTERED,
+    payload: { firstName: firstName, lastName: lastName },
   };
 }
 

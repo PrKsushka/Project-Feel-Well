@@ -46,11 +46,17 @@ export interface RecipesReducer {
   meal: string;
 }
 
+export type DataAboutUser = {
+  firstName: string;
+  lastName: string;
+};
+
 export interface UserReducer {
   auth: boolean;
   register: boolean;
   successAuth: string;
   failedAuth: string;
+  dataAboutUser: DataAboutUser;
 }
 
 export interface ModalReducer {

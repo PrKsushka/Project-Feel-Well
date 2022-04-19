@@ -17,6 +17,10 @@ class CustomError {
     return this.message;
   }
 
+  get values() {
+    return { status: this.status, message: this.message };
+  }
+
   static forbiddenRequest(message: string) {
     return new CustomError('err', 403, message);
   }
