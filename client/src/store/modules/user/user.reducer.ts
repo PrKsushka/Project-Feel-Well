@@ -1,5 +1,5 @@
 import { Action, DataAboutUser, UserReducer } from '../../types';
-import { USER_AUTHENTICATED, USER_REGISTERED, USER_UNAUTHENTICATED, USER_UNREGISTERED } from './user.constants';
+import { GET_DATA_ABOUT_USER_SUCCESS, USER_AUTHENTICATED, USER_REGISTERED, USER_UNAUTHENTICATED, USER_UNREGISTERED } from './user.constants';
 
 const initialState: UserReducer = {
   auth: false,
@@ -7,14 +7,15 @@ const initialState: UserReducer = {
   successAuth: '',
   failedAuth: '',
   dataAboutUser: {
+    email: '',
     firstName: '',
     lastName: '',
-  }
+  },
 };
 type UserAction = {
-  type: string,
-  payload?: DataAboutUser
-}
+  type: string;
+  payload?: DataAboutUser;
+};
 const userReducer = (state = initialState, action: UserAction = { type: 'DEFAULT' }) => {
   switch (action.type) {
     case USER_AUTHENTICATED:
@@ -29,7 +30,7 @@ const userReducer = (state = initialState, action: UserAction = { type: 'DEFAULT
         ...state,
         auth: false,
         failedAuth: action.payload,
-        successAuth: ''
+        successAuth: '',
       };
     case USER_REGISTERED:
       return {
@@ -37,17 +38,23 @@ const userReducer = (state = initialState, action: UserAction = { type: 'DEFAULT
         register: true,
         successAuth: 'user registered successfully',
         failedAuth: '',
-        dataAboutUser: {
-          firstName: action.payload?.firstName,
-          lastName: action.payload?.lastName
-        },
       };
     case USER_UNREGISTERED:
       return {
         ...state,
         register: false,
-        failedAuth: action.payload
+        failedAuth: action.payload,
       };
+    case GET_DATA_ABOUT_USER_SUCCESS: {
+      return {
+        ...state,
+        dataAboutUser: {
+          email: action.payload?.email,
+          firstName: action.payload?.firstName,
+          lastName: action.payload?.lastName,
+        },
+      };
+    }
     default:
       return state;
   }
