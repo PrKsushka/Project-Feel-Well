@@ -1,40 +1,147 @@
 @import "../../styles/mixin";
-.but{
+
+.but {
   margin-top: 500px;
 }
-.wrapper{
+
+.wrapper {
   @include builder(flex, 100%);
   flex-wrap: wrap;
   flex-direction: column;
-  background: $wh;
+  background: #598B81;
   border-radius: 20px 20px 0 0;
   margin-top: 100px;
-}
-.directoryWrapper{
-  @include builderAligment(flex, space-around, 100%);
-  align-items: center;
-  .directory{
-    @include builder(flex, 300px);
-    min-height: 300px;
-    background: $gr;
-  }
-}
-.firstBlockWrapper{
-  @include builder(flex, 100%);
-  margin: 20px;
+  padding: 120px 20px 120px 20px;
   box-sizing: border-box;
-  justify-content: space-around;
-  .personalInformation {
-    @include builder(flex, 400px);
-    background: #0a3857;
-    max-height: 300px;
-    min-height: 299px;
-    box-sizing: border-box;
-    padding: 20px;
-    border-radius: 20px;
+
+  .firstBlockWrapper {
+    @include builder(flex, 100%);
+    justify-content: space-around;
+    margin-bottom: 120px;
+
+    .personalInformation {
+      display: flex;
+      background: $wh;
+      max-height: 300px;
+      min-height: 299px;
+      border-radius: 20px;
+      box-shadow: $shadow;
+      padding: 40px;
+      box-sizing: border-box;
+
+      .circle {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        background: lightgrey;
+      }
+
+      .info {
+        @include fonts(18px, $bg);
+        font-weight: bold;
+        margin: 60px 0 0 20px;
+      }
+    }
+
+    .shoppingList {
+      @include builder(flex, 500px);
+      background: $wh;
+      flex-direction: column;
+      flex-wrap: wrap;
+      border-radius: 20px;
+      box-shadow: $shadow;
+      padding: 40px;
+      box-sizing: border-box;
+
+      .shoppingListTitle {
+        @include fonts(18px, $bg);
+        font-weight: bold;
+      }
+
+      .ingredients {
+        @include fonts(14px, $bg);
+      }
+
+      .emptyList {
+        @include fonts(14px, $bg);
+      }
+    }
   }
-  .shoppingList{
-    display: flex;
-    flex-direction: column;
+
+  .directoryWrapper {
+    @include builderAligment(flex, space-around, 100%);
+    flex-wrap: wrap;
+    align-items: center;
+
+    a {
+      text-decoration: none;
+      margin-bottom: 50px;
+      .directory {
+        background: $wh;
+        @include builder(flex, 300px);
+        @include fonts(18px, $bg);
+        min-height: 300px;
+        border-radius: 20px;
+        box-shadow: $shadow;
+        align-items: center;
+        justify-content: center;
+        &:hover{
+          box-shadow: $shadowTwo;
+          transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+      }
+    }
+
+    .directoryTitle {
+      @include fonts(27px, $wh);
+      font-weight: bold;
+      display: flex;
+      width: 100%;
+      margin: 0 0 50px 50px;
+
+      p {
+        margin-right: 20px;
+      }
+
+      .openDir {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 50px;
+        height: 50px;
+        margin-top: 15px;
+        position: relative;
+        box-shadow: 0 1px 3px rgb(0 0 0 / 12%), 0 1px 2px rgb(0 0 0 / 24%);
+        transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
+        border-radius: 50%;
+        border: none;
+        cursor: pointer;
+        box-sizing: border-box;
+        &:hover {
+          box-shadow: $shadowTwo;
+        }
+        .lineWrapper {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          position: relative;
+        }
+
+        .horizontal {
+          border: 1px solid black;
+          position: absolute;
+          z-index: 1;
+          width: 30px;
+        }
+        .vertical {
+          position: absolute;
+          z-index: 2;
+          border: 1px solid black;
+          transform: rotate(90deg);
+          width: 30px;
+        }
+      }
+    }
   }
+
 }

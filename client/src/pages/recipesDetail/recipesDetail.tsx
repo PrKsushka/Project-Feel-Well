@@ -57,19 +57,22 @@ const RecipesDetail: React.FunctionComponent = () => {
 
   if (findRecipeDetails) {
     return (
-      <div>
-        <img className={styles.image} src={`${require(`../../${findRecipeDetails.image}`)}`} />
-        <div>{findRecipeDetails.name}</div>
-        <div>
-          {findRecipeDetails.ingredients?.map((el, i) => (
-            <div key={i}>
-              <label>
-                {el}
-                <input type="checkbox" onChange={changeFunc} value={el} name={el} />
-              </label>
-            </div>
-          ))}
+      <div className={styles.details}>
+        <div className={styles.image} style={{ background: `url(${require(`../../${findRecipeDetails.image}`)}) no-repeat center`, backgroundSize: "cover" }}></div>
+        <div className={styles.recipe}>
+          <div className={styles.title}>{findRecipeDetails.name}</div>
+          <div>
+            {findRecipeDetails.ingredients?.map((el, i) => (
+              <div key={i}>
+                <label className={styles.ingredients}>
+                  {el}
+                  <input type='checkbox' onChange={changeFunc} value={el} name={el} />
+                </label>
+              </div>
+            ))}
+          </div>
         </div>
+
         {activeSuccessMessage ? (
           <div className={styles.message}>
             <p className={styles.textForMessage}>Добавлено в список покупок</p>

@@ -47,6 +47,7 @@ export interface RecipesReducer {
 }
 
 export type DataAboutUser = {
+  email: string;
   firstName: string;
   lastName: string;
 };

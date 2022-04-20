@@ -5,7 +5,6 @@ import styles from './modal.module.scss';
 import { createDirectoryModalActivation, loginModalActivation, registrationModalActivation } from '../../store/modules/modals/modal.actions';
 import { StoreState } from '../../store/types';
 import { userUnauthenticated, userUnregistered } from '../../store/modules/user/user.actions';
-import { useHistory } from 'react-router-dom';
 
 interface ModalTypes {
   isActive: boolean;
@@ -16,12 +15,13 @@ const Modal: React.FunctionComponent<ModalTypes> = ({ isActive, children }) => {
   const portal: any = document.getElementById('portal');
   const body = document.getElementsByTagName('body')[0];
   const dispatch = useDispatch();
+
   const cancelModal = () => {
     dispatch(loginModalActivation(false));
     dispatch(registrationModalActivation(false));
     dispatch(createDirectoryModalActivation(false));
-    dispatch(userUnregistered(''));
-    dispatch(userUnauthenticated(''));
+    // dispatch(userUnregistered(''));
+    // dispatch(userUnauthenticated(''));
     body.style.overflowY = 'auto';
     window.history.replaceState(null, '', '/');
   };

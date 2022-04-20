@@ -128,13 +128,11 @@ const recipesReducer = (state = initialState, action: Action = { type: 'DEFAULT'
     case SAVE_TO_ANOTHER_DIR: {
       const favRecipes = state.favouriteRecipes as any;
       const payload = action.payload as unknown as PayloadForSaveToAnotherDir;
-      console.log(favRecipes);
-      console.log(payload);
-
       for (let i = 0; i < favRecipes.length; i++) {
         for (let j = 0; j < favRecipes.length; j++) {
           if (favRecipes[i][j] === payload.str) {
-            const newArr = [...favRecipes[i][j + 1], payload.obj];
+            // @ts-ignore
+            const newArr = [...favRecipes[i][j + 1], payload.obj.elem];
             favRecipes[i][j + 1] = getUniqueListBy(newArr, '_id');
           }
         }
