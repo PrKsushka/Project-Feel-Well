@@ -3,15 +3,20 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createDirectoryModalActivation } from '../../store/modules/modals/modal.actions';
 import { StoreState } from '../../store/types';
 import styles from './user.module.scss';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import links from '../../constants/links';
 import { getDataAboutUser } from '../../store/modules/user/user.actions';
 import ShoppingList from '../../components/shoppingList/shoppingList';
 import ModalForCreationANewDirectory from '../../components/modals/module/modalForCreationANewDirectory';
+import CircleButton from '../../UI/circleButton/circleButton';
 
 const User: React.FunctionComponent = () => {
   const dispatch = useDispatch();
+  const history=useHistory();
   useEffect(() => {
+    if(history.action==="POP"){
+      dispatch(createDirectoryModalActivation(false));
+    }
     dispatch(getDataAboutUser());
   }, []);
   const handleClick = () => {
@@ -41,12 +46,7 @@ const User: React.FunctionComponent = () => {
       <div className={styles.directoryWrapper}>
         <div className={styles.directoryTitle}>
           <p>Избранное</p>
-          <button onClick={openModalForCreationDirectory} className={styles.openDir}>
-            <div className={styles.lineWrapper}>
-              <div className={styles.horizontal}></div>
-              <div className={styles.vertical}></div>
-            </div>
-          </button>
+          <CircleButton clickFunc={openModalForCreationDirectory} />
         </div>
         {directories.map((el, i) => (
           <Link to={`${links.user}/${el[0]}`}>
