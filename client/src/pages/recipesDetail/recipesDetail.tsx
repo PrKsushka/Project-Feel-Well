@@ -66,7 +66,7 @@ const RecipesDetail: React.FunctionComponent = () => {
               <div key={i}>
                 <label className={styles.ingredients}>
                   {el}
-                  <input type='checkbox' onChange={changeFunc} value={el} name={el} />
+                  <input type="checkbox" onChange={changeFunc} value={el} name={el} />
                 </label>
               </div>
             ))}

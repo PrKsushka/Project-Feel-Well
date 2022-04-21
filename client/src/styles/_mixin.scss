@@ -9,9 +9,9 @@
   justify-content: $jC;
   width: $w;
 }
-@mixin fonts($fS, $fC:$wh){
+@mixin fonts($fS,$fC:$wh, $fw: 300){
   font-size: $fS;
   font-family: 'Roboto', sans-serif;
   color: $fC;
-  font-weight: 300;
+  font-weight: $fw;
 }
