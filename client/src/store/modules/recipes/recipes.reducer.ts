@@ -57,7 +57,7 @@ const recipesReducer = (state = initialState, action: Action = { type: 'DEFAULT'
       for (let i = 0; i < state.favouriteRecipes.length; i++) {
         for (let j = 0; j < state.favouriteRecipes.length; j++) {
           for (let t = 0; t < state.favouriteRecipes[i][j + 1].length; t++) {
-            if (favRecipes[i][j + 1][t].id === payload._id) {
+            if (favRecipes[i][j + 1][t]._id === payload._id) {
               favRecipes[i][j + 1].splice(t, 1);
             }
           }

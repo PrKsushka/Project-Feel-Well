@@ -64,6 +64,7 @@ export interface ModalReducer {
   loginModal: boolean;
   registrationModal: boolean;
   createDirectoryModal: boolean;
+  openPopUp: boolean;
 }
 
 export interface StoreState {
