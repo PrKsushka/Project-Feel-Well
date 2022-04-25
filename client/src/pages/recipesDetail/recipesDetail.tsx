@@ -22,6 +22,7 @@ const RecipesDetail: React.FunctionComponent = () => {
   const [width, setWidth] = useState(0);
   const [activeSuccessMessage, setActiveSuccessMessage] = useState(false);
   const [timer, setTimer] = useState<any>(null);
+  const [findElem, setFindElem] = useState(false);
 
   useEffect(() => {
     let timeoutForActiveSuccessMessage: NodeJS.Timeout;
@@ -55,7 +56,10 @@ const RecipesDetail: React.FunctionComponent = () => {
     }
     return timer;
   }
-
+  const objForSaveButton={
+    foundElem: findElem,
+    setFoundElem: setFindElem
+  }
   if (findRecipeDetails) {
     return (
       <div className={styles.details}>
@@ -65,7 +69,7 @@ const RecipesDetail: React.FunctionComponent = () => {
         ></div>
         <div className={styles.recipe}>
           <div className={styles.title}>{findRecipeDetails.name}</div>
-          <SaveButton el={findRecipeDetails} />
+          <SaveButton el={findRecipeDetails} obj={objForSaveButton} />
           <div>
             {findRecipeDetails.ingredients?.map((el, i) => (
               <div key={i}>
