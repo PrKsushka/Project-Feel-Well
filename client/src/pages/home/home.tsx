@@ -49,9 +49,11 @@ const Home: React.FunctionComponent = () => {
         console.log(err);
       });
   }, []);
-  const handleClick = () => {
-    console.log(1);
+
+  const handleClick = (id?: number) => (e?: React.SyntheticEvent) => {
+    history.push(`${links.recipes}/${id}`);
   };
+
   return (
     <div>
       <div className={styles.mainBanner}>
@@ -84,7 +86,7 @@ const Home: React.FunctionComponent = () => {
                 <div className={styles.card} style={{ backgroundImage: `url(${require(`../../${el.image}`)})` }}>
                   <div className={styles.whiteElem}>
                     <h3 className={styles.cardTitle}>{el.name}</h3>
-                    <CircleButton clickFunc={handleClick} />
+                    <CircleButton clickFunc={() => handleClick(el._id)} id={el._id} />
                   </div>
                 </div>
               ))

@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { ProductElement, StoreState } from '../../store/types';
 import { getRecipes } from '../../store/modules/recipes/recipes.selectors';
 import { deleteFromShoppingList, saveToShoppingList } from '../../store/modules/recipes/recipes.actions';
 import styles from './recipesDetail.module.scss';
+import SaveButton from '../../UI/saveButton/saveButton';
 
 type RecipesDetailTypes = {
   detailId: number;
@@ -53,14 +54,18 @@ const RecipesDetail: React.FunctionComponent = () => {
       setActiveSuccessMessage(false);
     }
     return timer;
-  };
+  }
 
   if (findRecipeDetails) {
     return (
       <div className={styles.details}>
-        <div className={styles.image} style={{ background: `url(${require(`../../${findRecipeDetails.image}`)}) no-repeat center`, backgroundSize: "cover" }}></div>
+        <div
+          className={styles.image}
+          style={{ background: `url(${require(`../../${findRecipeDetails.image}`)}) no-repeat center`, backgroundSize: 'cover' }}
+        ></div>
         <div className={styles.recipe}>
           <div className={styles.title}>{findRecipeDetails.name}</div>
+          <SaveButton el={findRecipeDetails} />
           <div>
             {findRecipeDetails.ingredients?.map((el, i) => (
               <div key={i}>

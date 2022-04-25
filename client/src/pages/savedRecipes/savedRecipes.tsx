@@ -14,13 +14,12 @@ const SavedRecipes: React.FunctionComponent = () => {
   const dir = directories.find((el) => {
     return el[0] === saved;
   });
-  console.log(saved);
-  console.log(dir);
+
   if (dir[1].length > 0) {
     return (
       <div>
         {dir[1].map((el: ProductElement, i: number) => (
-          <Card el={el} obj={{ clickFunc: undefined, param: false }} />
+          <Card el={el} obj={{ param: false }} />
         ))}
       </div>
     );

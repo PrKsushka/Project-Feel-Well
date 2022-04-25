@@ -1,10 +1,16 @@
 import { Action } from '../../types';
-import { CREATE_DIRECTORY_MODAL_ACTIVATION, LOGIN_MODAL_ACTIVATION, REGISTRATION_MODAL_ACTIVATION } from './modal.constants';
+import {
+  CREATE_DIRECTORY_MODAL_ACTIVATION,
+  LOGIN_MODAL_ACTIVATION,
+  OPEN_POP_UP,
+  REGISTRATION_MODAL_ACTIVATION
+} from './modal.constants';
 
 const initialState = {
   loginModal: false,
   registrationModal: false,
   createDirectoryModal: false,
+  openPopUp: false
 };
 const ModalReducer = (state = initialState, action: Action = { type: 'DEFAULT' }) => {
   switch (action.type) {
@@ -27,6 +33,12 @@ const ModalReducer = (state = initialState, action: Action = { type: 'DEFAULT' }
         loginModal: false,
         registrationModal: false,
       };
+    case OPEN_POP_UP: {
+      return {
+        ...state,
+        openPopUp: action.payload
+      }
+    }
     default:
       return state;
   }

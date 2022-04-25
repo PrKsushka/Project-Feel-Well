@@ -46,7 +46,7 @@ const User: React.FunctionComponent = () => {
       <div className={styles.directoryWrapper}>
         <div className={styles.directoryTitle}>
           <p>Избранное</p>
-          <CircleButton clickFunc={openModalForCreationDirectory} />
+          <CircleButton clickFunc={() => openModalForCreationDirectory} />
         </div>
         {directories.map((el, i) => (
           <Link to={`${links.user}/${el[0]}`}>
