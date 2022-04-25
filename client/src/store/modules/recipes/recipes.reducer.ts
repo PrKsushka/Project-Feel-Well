@@ -56,9 +56,11 @@ const recipesReducer = (state = initialState, action: Action = { type: 'DEFAULT'
       const payload = action.payload as unknown as ProductElement;
       for (let i = 0; i < state.favouriteRecipes.length; i++) {
         for (let j = 0; j < state.favouriteRecipes.length; j++) {
-          for (let t = 0; t < state.favouriteRecipes[i][j + 1].length; t++) {
-            if (favRecipes[i][j + 1][t]._id === payload._id) {
-              favRecipes[i][j + 1].splice(t, 1);
+          if (state.favouriteRecipes[i][j + 1] !== undefined) {
+            for (let t = 0; t < state.favouriteRecipes[i][j + 1].length; t++) {
+              if (favRecipes[i][j + 1][t]._id === payload._id) {
+                favRecipes[i][j + 1].splice(t, 1);
+              }
             }
           }
         }
@@ -133,7 +135,7 @@ const recipesReducer = (state = initialState, action: Action = { type: 'DEFAULT'
           if (favRecipes[i][j] === payload.str) {
             // @ts-ignore
             const newArr = [...favRecipes[i][j + 1], payload.obj.elem];
-            favRecipes[i][j + 1] = getUniqueListBy(newArr, '_id');
+            favRecipes[i][j + 1] = getUniqueListBy(newArr, 'id');
           }
         }
       }

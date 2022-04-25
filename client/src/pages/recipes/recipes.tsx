@@ -16,6 +16,7 @@ import { meal } from '../../constants/sortMenu';
 import PopUp from '../../components/popUp/popUp';
 import { MoonLoader } from 'react-spinners';
 import { openPopUp } from '../../store/modules/modals/modal.actions';
+import { useHistory } from 'react-router-dom';
 
 const Card = lazy(() => import('../../components/card/card'));
 
@@ -28,10 +29,15 @@ const Recipes: React.FunctionComponent = () => {
   useEffect(() => {
     dispatch(dataAboutRecipes());
   }, []);
+  const history = useHistory();
   useEffect(() => {
+    let time: number = 6000;
+    if (history.action === 'PUSH') {
+      time = 1;
+    }
     const timerShowWindow = setTimeout(() => {
       dispatch(openPopUp(false));
-    }, 10000);
+    }, time);
     return () => clearTimeout(timerShowWindow);
   }, [showWindow]);
 
