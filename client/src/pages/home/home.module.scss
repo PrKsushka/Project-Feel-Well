@@ -2,84 +2,162 @@
 .homeWrapper{
   height: 2000px;
 }
-.mainBanner{
-  display: flex;
-  width: 100%;
-  justify-content: flex-end;
-  position: relative;
-  background: rgba(0, 0, 0, 0.22);
-  min-height: 100vh;
-  .salads{
-    background: url("../../assets/plateMainWindow.png") no-repeat;
-    width: 541.14px;
-    height: 527.42px;
-    background-size: cover;
-    position: absolute;
-    margin-left: 44px;
-    top: 192px;
-    left: 22px;
-    &:before{
-      box-shadow: 6px 4px 22px 7px rgba(0, 0, 0, 0.34);
+.mainWrapper {
+  overflow-x: hidden;
+  .mainBanner {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    position: relative;
+    background: rgba(0, 0, 0, 0.22);
+    min-height: 100vh;
+
+    .salads {
+      background: url("../../assets/plateMainWindow.png") no-repeat;
+      width: 541.14px;
+      height: 527.42px;
+      background-size: cover;
+      position: absolute;
+      margin-left: 44px;
+      top: 192px;
+      left: 22px;
+
+      &:before {
+        box-shadow: 6px 4px 22px 7px rgba(0, 0, 0, 0.34);
+      }
     }
-  }
-  .leaf {
-    background: url("../../assets/leave.png") no-repeat;
-    width: 300px;
-    height: 328px;
-    background-size: cover;
-    position: absolute;
-    left: -50px;
-    bottom: -45px;
-  }
-  .desk{
-    background: url("../../assets/mainWindowDesc.png");
-    width: 859px;
-    background-size: cover;
-      h3{
+
+    .leaf {
+      background: url("../../assets/leave.png") no-repeat;
+      width: 300px;
+      height: 328px;
+      background-size: cover;
+      position: absolute;
+      left: -50px;
+      bottom: -45px;
+    }
+
+    .desk {
+      background: url("../../assets/mainWindowDesc.png");
+      width: 859px;
+      background-size: cover;
+
+      h3 {
         @include fonts(55px, $wh, 500);
         @include builder(flex, 100%);
         justify-content: center;
         margin: 326px 0 12px 0;
       }
-    p{
-      margin: 0;
-      font-weight: 400;
-      @include fonts(27px);
-      @include builder(flex, 100%);
-      justify-content: center;
-    }
-    }
-}
-.secondWindow{
-  @include builderAligment(flex, space-around, 100%);
-  padding: 146px 202px 108px 245px;
-  box-sizing: border-box;
-  .cherry{
-    background: url("../../assets/tomatoes.png") no-repeat;
-    width: 451px;
-    height: 469px;
-    background-size: contain;
-    &:before{
-      box-shadow: 3px 6px 12px rgba(0, 0, 0, 0.25);
+
+      p {
+        margin: 0;
+        font-weight: 400;
+        @include fonts(27px);
+        @include builder(flex, 100%);
+        justify-content: center;
+      }
     }
   }
-  .secondBlockText{
-    @include builder(flex, 377px);
-    flex-direction: column;
-    margin: 86px 146px 0 0;
-      h3{
+
+  .secondWindow {
+    @include builderAligment(flex, space-around, 100%);
+    padding: 146px 202px 108px 245px;
+    box-sizing: border-box;
+
+    .cherry {
+      background: url("../../assets/tomatoes.png") no-repeat;
+      width: 451px;
+      height: 469px;
+      background-size: contain;
+
+      &:before {
+        box-shadow: 3px 6px 12px rgba(0, 0, 0, 0.25);
+      }
+    }
+
+    .secondBlockText {
+      @include builder(flex, 377px);
+      flex-direction: column;
+      margin: 86px 146px 0 0;
+
+      h3 {
         @include builder(flex, 100%);
         justify-content: center;
         @include fonts(27px, $wh, 500);
         margin: 0 0 19px 0;
       }
-    p{
-      @include builder(flex, 100%);
-      @include fonts(18px);
+
+      p {
+        @include builder(flex, 100%);
+        @include fonts(18px);
+      }
+    }
+  }
+
+  .thirdWindow {
+    position: relative;
+    @include builderAligment(flex, space-around, 100%);
+    flex-wrap: wrap;
+
+    .leaf {
+      background: url("../../assets/bigLeaf.png") no-repeat;
+      position: absolute;
+      right: -53px;
+      top: -214px;
+      width: 423px;
+      height: 590px;
+      background-size: cover;
+
+      &:before {
+        box-shadow: $shadowTwo;
+      }
+    }
+
+    .secondLeaf {
+      background: url("../../assets/secondLeaf.png") no-repeat;
+      position: absolute;
+      bottom: -300px;
+      width: 423.12px;
+      height: 502.29px;
+      left: -42px;
+      background-size: contain;
+    }
+
+    .thirdWindowTitle {
+      @include builderAligment(flex, center, 100%);
+      @include fonts(28px);
+      margin-bottom: 88px;
+    }
+
+    .cardWrapper {
+      @include builderAligment(flex, space-around, 100%);
+
+      .card {
+        @include builder(flex, 285px);
+        height: 336px;
+        border-radius: 20px;
+        background: url("../../assets/salmon-518032_1920.jpg") no-repeat;
+        background-size: cover;
+        flex-direction: column;
+        justify-content: end;
+        background-position: center;
+
+        .whiteElem {
+          @include builder(flex, 100%);
+          height: 93px;
+          background: $wh;
+          border-radius: 20px;
+          justify-content: space-around;
+
+          .cardTitle {
+            @include fonts(18px, black);
+            margin: 13px 0 0 0;
+          }
+        }
+      }
     }
   }
 }
-
 .beigeButton {
   background: #E2D4C4;
   border-radius: 20px;
@@ -94,60 +172,5 @@
     box-shadow: $shadowTwo;
   }
 }
-.thirdWindow {
-  position: relative;
-  @include builderAligment(flex, space-around, 100%);
-  flex-wrap: wrap;
-  .leaf {
-    background: url("../../assets/bigLeaf.png") no-repeat;
-    position: absolute;
-    right: -53px;
-    top: -214px;
-    width: 423px;
-    height: 590px;
-    background-size: cover;
-    &:before {
-      box-shadow: $shadowTwo;
-    }
-  }
-  .secondLeaf{
-    background: url("../../assets/secondLeaf.png") no-repeat;
-    position: absolute;
-    bottom: -300px;
-    width: 423.12px;
-    height: 502.29px;
-    left: -42px;
-    background-size: contain;
-  }
-  .thirdWindowTitle{
-    @include builderAligment(flex, center, 100%);
-    @include fonts(28px);
-    margin-bottom: 88px;
-  }
 
-  .cardWrapper{
-    @include builderAligment(flex, space-around, 100%);
-    .card{
-      @include builder(flex, 285px);
-      height: 336px;
-      border-radius: 20px;
-      background: url("../../assets/salmon-518032_1920.jpg") no-repeat;
-      background-size: cover;
-      flex-direction: column;
-      justify-content: end;
-      background-position: center;
-      .whiteElem {
-          @include builder(flex, 100%);
-          height: 93px;
-          background: $wh;
-          border-radius: 20px;
-        justify-content: space-around;
-        .cardTitle{
-          @include fonts(18px, black);
-          margin: 13px 0 0 0;
-        }
-      }
-    }
-  }
-}
 
