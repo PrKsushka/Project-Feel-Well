@@ -55,7 +55,7 @@ const Home: React.FunctionComponent = () => {
   };
 
   return (
-    <div>
+    <div className={styles.mainWrapper}>
       <div className={styles.mainBanner}>
         <div className={styles.salads} />
         <div className={styles.leaf} />

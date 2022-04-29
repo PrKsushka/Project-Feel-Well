@@ -1,32 +1,121 @@
 @import "../../styles/mixin";
-.details{
+
+.details {
   display: flex;
-  width: 100%;
+  padding: 80px;
+  margin: 80px;
   background: white;
   border-radius: 20px 20px 0 0;
-  margin-top: 120px;
   flex-direction: row;
   justify-content: space-around;
-  padding: 20px;
   box-sizing: border-box;
   min-height: 100vh;
-  .image{
+  flex-wrap: wrap;
+
+  .image {
     width: 600px;
     border-radius: 20px;
     min-height: 400px;
     max-height: 500px;
   }
-    .recipe{
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      width: 350px;
-        .title{
-          @include fonts(27px, $bg);
-        }
+
+  .recipe {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 350px;
+
+    .title {
+      @include fonts(27px, $bg);
+      @include builderAligment(flex, center, 100%);
+      font-weight: bold;
     }
+
+    .elems {
+      @include builderAligment(flex, space-between, 100%);
+      padding: 30px 0 30px 0;
+      box-sizing: border-box;
+      flex-direction: row;
+
+      .findRecipeTime {
+        @include fonts(8px, $bg);
+      }
+
+      .findRecipeSave {
+        @include fonts(8px, $bg);
+        position: relative;
+      }
+    }
+
+    .recipeTitle {
+      @include fonts(18px, $bg);
+    }
+
+    .ingredientsWrapper {
+      @include builderAligment(flex, center, 100%);
+      flex-wrap: wrap;
+      .ingredientsTitle {
+        @include builderAligment(flex, space-between, 100%);
+        .name {
+          @include fonts(18px, $bg, 500);
+          text-transform: uppercase;
+          margin-right: 60px;
+          display: flex;
+          padding: 30px 0;
+          box-sizing: border-box;
+        }
+
+        .amount {
+          @include builderAligment(flex, center, 100%);
+          @include fonts(8px, $bg);
+          text-transform: uppercase;
+          align-items: center;
+            .count {
+              @include fonts(27px, $bg, 500);
+            }
+          .plusMinus {
+            @include builderAligment(flex, center, 50px);
+            height: 50px;
+            border: none;
+            background: none;
+            align-items: center;
+            cursor: pointer;
+          }
+        }
+      }
+
+      .ingredients {
+        @include builderAligment(flex, center, 100%);
+        flex-direction: column;
+
+        .element {
+          @include fonts(18px, $bg);
+          padding-bottom: 25px;
+          box-sizing: border-box;
+          input {
+            margin-right: 10px;
+          }
+        }
+      }
+    }
+  }
+  .instruction {
+    @include builderAligment(flex, center, 100%);
+    flex-wrap: wrap;
+    .instructionTitle {
+      @include builderAligment(flex, center, 100%);
+      @include fonts(15px, $bg, 500);
+      padding-bottom: 30px;
+    }
+    .video {
+      @include builderAligment(flex, center, 941px);
+      height: 560px;
+      background: plum;
+    }
+  }
 }
-.message{
+
+.message {
   display: flex;
   max-width: 400px;
   position: absolute;
@@ -40,7 +129,7 @@
   flex-direction: column;
   transition: 0.1ms;
 
-  .line{
+  .line {
     display: flex;
     padding-top: 7px;
     box-sizing: border-box;
@@ -48,6 +137,17 @@
   }
 }
 
-.ingredients{
-  @include fonts(18px, $bg);
+.horizontal {
+  border: 1px solid black;
+  position: absolute;
+  z-index: 1;
+  width: 20px;
+}
+
+.vertical {
+  position: absolute;
+  z-index: 2;
+  border: 1px solid black;
+  transform: rotate(90deg);
+  width: 20px;
 }

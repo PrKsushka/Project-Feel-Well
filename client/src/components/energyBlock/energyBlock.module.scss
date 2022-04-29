@@ -1,0 +1,25 @@
+@import "../../styles/mixin";
+.energyWrapper {
+  @include builderAligment(flex, center, 600px);
+  flex-wrap: wrap;
+  padding: 30px;
+  box-sizing: border-box;
+  .title {
+    @include builderAligment(flex, center, 100%);
+    @include fonts(15px, $bg, 500);
+    padding-bottom: 30px;
+
+  }
+  .energyBlock {
+    @include builderAligment(flex, center, 70px);
+    margin-right: 35px;
+    flex-direction: column;
+    span {
+      @include builderAligment(flex, center, 100%);
+      @include fonts(9px, $bg);
+      text-transform: uppercase;
+      padding-bottom: 10px;
+      box-sizing: border-box;
+    }
+  }
+}
