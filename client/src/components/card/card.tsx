@@ -10,6 +10,7 @@ type Obj = {
   targetElem?: any;
   param: boolean;
 };
+
 interface Card {
   el: ProductElement;
   obj: Obj;
@@ -24,12 +25,16 @@ const Card: React.FunctionComponent<Card> = ({ el, obj }) => {
         <div className={styles.mainText}>
           <h3>{el.name}</h3>
           <div className={styles.ratingSec}>
-            <p>{el.time}</p>
+            <p>
+             {el.time}
+              &nbsp;
+              {el.time < 60 ? 'мин' : 'ч'}
+            </p>
             <p>{el.rating}</p>
           </div>
         </div>
       </Link>
     </div>
   );
-}
+};
 export default Card;
