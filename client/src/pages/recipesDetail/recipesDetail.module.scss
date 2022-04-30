@@ -23,51 +23,59 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    width: 350px;
+    width: 370px;
 
     .title {
       @include fonts(27px, $bg);
       @include builderAligment(flex, center, 100%);
       font-weight: bold;
+      margin-bottom: 40px;
     }
 
     .elems {
-      @include builderAligment(flex, space-between, 100%);
-      padding: 30px 0 30px 0;
+      @include builder(flex, 100%);
+      padding: 0px 0 20px 0;
       box-sizing: border-box;
       flex-direction: row;
+      margin-right: 45px;
 
       .findRecipeTime {
-        @include fonts(8px, $bg);
+        @include fonts(11px, $bg);
+        margin-right: 45px;
       }
 
       .findRecipeSave {
-        @include fonts(8px, $bg);
+        @include fonts(11px, $bg);
         position: relative;
       }
     }
 
     .recipeTitle {
-      @include fonts(18px, $bg);
+      @include fonts(16px, $bg);
     }
 
     .ingredientsWrapper {
       @include builderAligment(flex, center, 100%);
       flex-wrap: wrap;
+      padding: 80px 0 0 0;
+      box-sizing: border-box;
       .ingredientsTitle {
         @include builderAligment(flex, space-between, 100%);
+        margin-bottom: 40px;
         .name {
-          @include fonts(18px, $bg, 500);
+          @include fonts(16px, $bg, 500);
+          align-items: center;
           text-transform: uppercase;
           margin-right: 60px;
           display: flex;
-          padding: 30px 0;
+          padding: 0;
           box-sizing: border-box;
         }
 
         .amount {
-          @include builderAligment(flex, center, 100%);
-          @include fonts(8px, $bg);
+          display: flex;
+          justify-content: center;
+          @include fonts(11px, $bg);
           text-transform: uppercase;
           align-items: center;
             .count {
@@ -89,11 +97,17 @@
         flex-direction: column;
 
         .element {
-          @include fonts(18px, $bg);
-          padding-bottom: 25px;
+          @include builder(flex, 100%);
+          @include fonts(16px, $bg);
           box-sizing: border-box;
+          padding-bottom: 20px;
           input {
             margin-right: 10px;
+          }
+          .measure {
+            @include builderAligment(flex, flex-end, 100%);
+            margin-right: 15px;
+            @include fonts(16px, $bg, 500);
           }
         }
       }
@@ -104,13 +118,13 @@
     flex-wrap: wrap;
     .instructionTitle {
       @include builderAligment(flex, center, 100%);
-      @include fonts(15px, $bg, 500);
-      padding-bottom: 30px;
+      @include fonts(16px, $bg, 500);
+      margin: 80px 0 40px 0;
     }
     .video {
       @include builderAligment(flex, center, 941px);
       height: 560px;
-      background: plum;
+
     }
   }
 }

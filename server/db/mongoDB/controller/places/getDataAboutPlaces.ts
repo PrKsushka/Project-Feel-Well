@@ -3,7 +3,19 @@ import Places from '../../models/places';
 
 const getDataAboutPlaces = async (req: Request, res: Response) => {
   try {
-    const data = await Places.find({});
+    let aggregationParams: any[] = [];
+    if (req.query.place) {
+      aggregationParams = [
+        ...aggregationParams,
+        {
+          $match: {
+            typeOfPlaces: req.query.place
+          }
+        }
+      ];
+    }
+
+    const data = await Places.aggregate(aggregationParams);
     res.status(200).json(data);
   } catch (e: any) {
     res.status(500).json({ message: e.message });

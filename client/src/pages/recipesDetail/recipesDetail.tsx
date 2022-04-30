@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import React, { ReactNode, useEffect, useRef, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { ProductElement, StoreState } from '../../store/types';
 import { getRecipes } from '../../store/modules/recipes/recipes.selectors';
@@ -44,13 +44,12 @@ const RecipesDetail: React.FunctionComponent = () => {
   }, [activeSuccessMessage]);
 
   useEffect(() => {
-    if (amount <= 0) {
+    if (amount < 1) {
       setDisable((prevState) => !prevState);
       alert('Value can not be less than one');
     } else {
       setDisable(false);
     }
-
     if (findElem) {
       setSaveTitleState('Сохранено в избранное');
     }
@@ -83,13 +82,15 @@ const RecipesDetail: React.FunctionComponent = () => {
     foundElem: findElem,
     setFoundElem: setFindElem,
     style: {
-      top: '-9px',
-      right: '-30px',
+      top: '-4px',
+      right: '-25px',
+      width: '20px',
+      height: '20px'
     },
     saveStatus: setSaveTitleState,
-    targetElem: targetElement,
+    targetElem: targetElement
   };
-  console.log(findRecipeDetails);
+
   if (findRecipeDetails) {
     return (
       <div className={styles.details}>
@@ -97,14 +98,15 @@ const RecipesDetail: React.FunctionComponent = () => {
           className={styles.image}
           style={{
             background: `url(${require(`../../${findRecipeDetails.image}`)}) no-repeat center`,
-            backgroundSize: 'cover',
+            backgroundSize: 'cover'
           }}
         ></div>
         <div className={styles.recipe}>
           <div className={styles.title}>{findRecipeDetails.name}</div>
           <div className={styles.elems}>
             <div className={styles.findRecipeTime}>
-              ВРЕМЯ ПРИГОТОВЛЕНИЯ {findRecipeDetails.time}
+              ВРЕМЯ ПРИГОТОВЛЕНИЯ &nbsp;&nbsp;
+              {findRecipeDetails.time}
               {findRecipeDetails.time < 60 ? 'МИН' : 'Ч'}
             </div>
             <div className={styles.findRecipeSave}>
@@ -118,11 +120,11 @@ const RecipesDetail: React.FunctionComponent = () => {
               <div className={styles.name}>ингредиенты</div>
               <div className={styles.amount}>
                 порции
-                <button type="button" className={styles.plusMinus} onClick={decreaseAmount} disabled={disable}>
+                <button type='button' className={styles.plusMinus} onClick={decreaseAmount} disabled={disable}>
                   <div className={styles.horizontal}></div>
                 </button>
                 <div className={styles.count}>{amount}</div>
-                <button type="button" className={styles.plusMinus} onClick={increaseAmount}>
+                <button type='button' className={styles.plusMinus} onClick={increaseAmount}>
                   <div className={styles.horizontal}></div>
                   <div className={styles.vertical}></div>
                 </button>
@@ -131,8 +133,12 @@ const RecipesDetail: React.FunctionComponent = () => {
             <div className={styles.ingredients}>
               {findRecipeDetails.ingredients?.map((el, i) => (
                 <label key={i} className={styles.element}>
-                  <input type="checkbox" onChange={changeFunc} value={el} name={el} />
-                  {el}
+                  <input type='checkbox' onChange={changeFunc}
+                         value={el.ingredient + ' - ' + el.count * amount + el.measure}
+                         name={el.ingredient}
+                  />
+                  {el.ingredient}
+                  <span className={styles.measure}>{el.count * amount + ' ' + el.measure}</span>
                 </label>
               ))}
             </div>
@@ -141,7 +147,12 @@ const RecipesDetail: React.FunctionComponent = () => {
         <EnergyBlock findRecipe={findRecipeDetails} />
         <div className={styles.instruction}>
           <div className={styles.instructionTitle}>ИНСТРУКЦИЯ ПРИГОТОВЛЕНИЯ</div>
-          <div className={styles.video}></div>
+          <iframe
+            allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+            allowFullScreen
+            src={findRecipeDetails.video}
+            className={styles.video}
+          />
         </div>
         {activeSuccessMessage ? (
           <div className={styles.message}>

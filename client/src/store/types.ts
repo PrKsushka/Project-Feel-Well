@@ -2,6 +2,11 @@ export type Action = {
   type: string;
   payload?: undefined;
 };
+type Ingredients = {
+  ingredient: string;
+  count: number;
+  measure: string;
+}
 
 export interface ProductElement {
   _id: number;
@@ -10,11 +15,15 @@ export interface ProductElement {
   mealId?: number;
   healthId?: number;
   title?: number;
-  ingredients?: Array<string>;
+  ingredients?: Array<Ingredients>;
   kcal?: number;
   time: number;
   rating: number;
   createdAt?: Date;
+  carbohydrate?: number;
+  fats?: number;
+  proteins?: number;
+  video?: string;
 }
 
 export interface CategoryHealthElement {

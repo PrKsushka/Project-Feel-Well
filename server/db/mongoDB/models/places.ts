@@ -22,10 +22,11 @@ const placesSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  placesId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'CategoryPlaces',
+  typeOfPlaces: {
+    type: String,
+    required: true
   },
 });
+placesSchema.index({ typeOfPlaces: 1 });
 const Places = mongoose.model<PlacesTypes>('Places', placesSchema);
 export default Places;

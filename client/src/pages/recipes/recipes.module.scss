@@ -54,14 +54,16 @@
 }
 
 .card {
+  margin-bottom: 80px;
   background: $wh;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 20px;
   flex-direction: column;
-  height: 335px;
   position: relative;
   @include builder(flex, 250px);
-
+    &:hover {
+      box-shadow: $shadow;
+    }
   .image {
     width: 100%;
     min-height: 238px;
@@ -81,16 +83,22 @@
       flex-direction: column;
       margin-left: 14px;
       h3 {
-        margin: 0;
-        @include fonts(18px, black)
+        margin: 0 0 20px 0;
+        @include fonts(18px, black, 500);
+        &:hover {
+          color: $orange;
+        }
       }
       p {
         margin: 0;
-        @include fonts(14px, black)
+        @include fonts(11px, black)
       }
       .ratingSec {
         flex-direction: row;
         @include builderAligment(flex, space-around, 100%);
+        justify-content: space-between;
+        padding: 0 14px 20px 5px;
+        box-sizing: border-box;
       }
     }
   }
