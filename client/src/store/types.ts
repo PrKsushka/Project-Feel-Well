@@ -6,7 +6,7 @@ type Ingredients = {
   ingredient: string;
   count: number;
   measure: string;
-}
+};
 
 export interface ProductElement {
   _id: number;
@@ -76,8 +76,14 @@ export interface ModalReducer {
   openPopUp: boolean;
 }
 
+export interface PlacesReducer {
+  places: Array<object>;
+  successSorted: string;
+  failedSorted: string;
+}
 export interface StoreState {
   recipes: RecipesReducer;
   user: UserReducer;
   modal: ModalReducer;
+  places: PlacesReducer;
 }

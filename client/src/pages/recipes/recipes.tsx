@@ -1,10 +1,6 @@
 import React, { lazy, useEffect, useRef, useState, Suspense } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  dataAboutRecipes,
-  getFavouriteRecipes,
-  setNameOfMeal,
-} from '../../store/modules/recipes/recipes.actions';
+import { dataAboutRecipes, getFavouriteRecipes, setNameOfMeal } from '../../store/modules/recipes/recipes.actions';
 import { StoreState } from '../../store/types';
 import { getRecipes } from '../../store/modules/recipes/recipes.selectors';
 import styles from './recipes.module.scss';
@@ -30,7 +26,7 @@ const Recipes: React.FunctionComponent = () => {
   }, []);
   const history = useHistory();
   useEffect(() => {
-    let time: number = 6000;
+    let time = 6000;
     if (history.action === 'PUSH') {
       time = 1;
     }
@@ -45,7 +41,7 @@ const Recipes: React.FunctionComponent = () => {
   };
   const objForSortMenu = {
     arr: meal,
-    sortFunc: menuClick
+    sortFunc: menuClick,
   };
 
   return (

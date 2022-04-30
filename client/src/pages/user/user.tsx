@@ -12,9 +12,9 @@ import CircleButton from '../../UI/circleButton/circleButton';
 
 const User: React.FunctionComponent = () => {
   const dispatch = useDispatch();
-  const history=useHistory();
+  const history = useHistory();
   useEffect(() => {
-    if(history.action==="POP"){
+    if (history.action === 'POP') {
       dispatch(createDirectoryModalActivation(false));
     }
     dispatch(getDataAboutUser());
@@ -34,9 +34,7 @@ const User: React.FunctionComponent = () => {
       <div className={styles.firstBlockWrapper}>
         <div className={styles.personalInformation}>
           <div className={styles.circle}></div>
-          <div className={styles.info}>
-            {`${dataAboutUser.firstName}  ${dataAboutUser.lastName} ${dataAboutUser.email}`}
-          </div>
+          <div className={styles.info}>{`${dataAboutUser.firstName}  ${dataAboutUser.lastName} ${dataAboutUser.email}`}</div>
         </div>
         <div className={styles.shoppingList}>
           <p className={styles.shoppingListTitle}>Список покупок</p>

@@ -14,6 +14,7 @@ import User from './pages/user/user';
 import { loginModalActivation } from './store/modules/modals/modal.actions';
 import RecipesDetail from './pages/recipesDetail/recipesDetail';
 import SavedRecipes from './pages/savedRecipes/savedRecipes';
+import Places from './pages/places/places';
 
 function App() {
   const dispatch = useDispatch();
@@ -44,6 +45,7 @@ function App() {
           <PrivateRoute exact path={links.recipes} component={Recipes} />
           <PrivateRoute component={RecipesDetail} path={`${links.recipes}/:detailId`} />
           <PrivateRoute exact path={links.about} component={About} />
+          <PrivateRoute exact path={links.places} component={Places} />
           <PrivateRoute exact path={links.user} component={User} />
           <PrivateRoute component={SavedRecipes} path={`${links.user}/:saved`} />
         </Switch>

@@ -26,7 +26,7 @@ const Card: React.FunctionComponent<Card> = ({ el, obj }) => {
           <h3>{el.name}</h3>
           <div className={styles.ratingSec}>
             <p>
-             {el.time}
+              {el.time}
               &nbsp;
               {el.time < 60 ? 'мин' : 'ч'}
             </p>

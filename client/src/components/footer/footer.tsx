@@ -13,6 +13,9 @@ const Footer: React.FunctionComponent = () => {
           <Link to={links.about}>About</Link>
         </li>
         <li>
+          <Link to={links.places}>About</Link>
+        </li>
+        <li>
           <Link to={links.recipes}>Recipes</Link>
         </li>
       </ul>

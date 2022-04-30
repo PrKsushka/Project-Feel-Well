@@ -13,7 +13,7 @@ type Obj = {
   };
   targetElem: any;
   saveStatus: any;
-}
+};
 
 interface SaveButtonTypes {
   el: ProductElement;
@@ -54,7 +54,6 @@ const SaveButton: React.FunctionComponent<SaveButtonTypes> = ({ el, targetElem, 
     }
     dispatch(getFavouriteRecipes(elem));
   };
-  return <div style={obj ? obj.style : undefined} className={obj && obj.foundElem ? 'saveClicked' : 'save'}
-              onClick={handleClick(el)} />;
+  return <div style={obj ? obj.style : undefined} className={obj && obj.foundElem ? 'saveClicked' : 'save'} onClick={handleClick(el)} />;
 };
 export default SaveButton;
