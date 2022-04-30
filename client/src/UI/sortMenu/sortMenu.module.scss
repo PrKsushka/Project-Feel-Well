@@ -7,7 +7,7 @@
   li{
     padding: 0 40px;
     border-right: 1px $wh solid;
-    @include fonts(18px, $wh);
+    @include fonts(16px, $wh);
     a{
       text-decoration: none;
     }

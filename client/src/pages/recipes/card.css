@@ -1,20 +1,22 @@
 .save{
   background: url('../../assets/save_dark.png') no-repeat center;
   width: 25px;
+  background-size: cover;
   height: 25px;
   position: absolute;
   right: 13px;
-  bottom: 63px;
+  bottom: 75px;
   z-index: 50;
   cursor: pointer;
 }
 .saveClicked{
   background:url("../../assets/save_orange.png") no-repeat;
+  background-size: cover;
   width: 25px;
   height: 25px;
   position: absolute;
   right: 13px;
-  bottom: 63px;
+  bottom: 75px;
   z-index: 50;
   cursor: pointer;
 }

@@ -4,9 +4,8 @@ import {
   dataAboutRecipes,
   getFavouriteRecipes,
   setNameOfMeal,
-  unsavedFromFavouriteRecipes
 } from '../../store/modules/recipes/recipes.actions';
-import { ProductElement, StoreState } from '../../store/types';
+import { StoreState } from '../../store/types';
 import { getRecipes } from '../../store/modules/recipes/recipes.selectors';
 import styles from './recipes.module.scss';
 import SortPanel from '../../components/sortPannel/sortPannel';
