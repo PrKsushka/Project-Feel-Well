@@ -1,6 +1,6 @@
 import React, { lazy, useEffect, useRef, useState, Suspense } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { dataAboutRecipes, getFavouriteRecipes, setNameOfMeal } from '../../store/modules/recipes/recipes.actions';
+import { dataAboutRecipes, setNameOfMeal } from '../../store/modules/recipes/recipes.actions';
 import { StoreState } from '../../store/types';
 import { getRecipes } from '../../store/modules/recipes/recipes.selectors';
 import styles from './recipes.module.scss';
@@ -59,7 +59,18 @@ const Recipes: React.FunctionComponent = () => {
           <Suspense fallback={<MoonLoader />}>
             <div className={styles.products}>
               {data.length !== 0
-                ? data.map((el) => <Card key={el._id} el={el} obj={{ targetElem: saveTargetElement, param: true }} />)
+                ? data.map((el) => (
+                    <Card key={el._id} el={el} obj={{ targetElem: saveTargetElement, param: true }}>
+                      <div className={styles.ratingSec}>
+                        <p>
+                          {el.time}
+                          &nbsp;
+                          {el.time && el.time < 60 ? 'мин' : 'ч'}
+                        </p>
+                        <p>{el.rating}</p>
+                      </div>
+                    </Card>
+                  ))
                 : 'Sorry there are no recipes'}
               {showWindow ? <PopUp elem={saveTargetElement.current} /> : null}
             </div>

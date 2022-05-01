@@ -7,23 +7,33 @@ type Ingredients = {
   count: number;
   measure: string;
 };
-
 export interface ProductElement {
   _id: number;
   name: string;
-  image: string;
+  image?: string;
   mealId?: number;
   healthId?: number;
-  title?: number;
+  title: string;
   ingredients?: Array<Ingredients>;
   kcal?: number;
-  time: number;
-  rating: number;
+  time?: number;
+  rating?: number;
   createdAt?: Date;
   carbohydrate?: number;
   fats?: number;
   proteins?: number;
   video?: string;
+}
+export type PlaceElement = {
+  _id: number;
+  address?: string;
+  city?: string;
+  image?: string;
+  name: string;
+  title: string;
+  content?: string;
+  typeOfPlaces?: string;
+  workingHours?: string;
 }
 
 export interface CategoryHealthElement {
@@ -77,7 +87,7 @@ export interface ModalReducer {
 }
 
 export interface PlacesReducer {
-  places: Array<object>;
+  arrOfPlaces: Array<PlaceElement>;
   successSorted: string;
   failedSorted: string;
 }

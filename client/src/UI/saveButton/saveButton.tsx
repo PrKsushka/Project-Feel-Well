@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ProductElement, StoreState } from '../../store/types';
+import { PlaceElement, ProductElement, StoreState } from '../../store/types';
 import { getFavouriteRecipes, unsavedFromFavouriteRecipes } from '../../store/modules/recipes/recipes.actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { openPopUp } from '../../store/modules/modals/modal.actions';
@@ -16,7 +16,7 @@ type Obj = {
 };
 
 interface SaveButtonTypes {
-  el: ProductElement;
+  el: ProductElement | PlaceElement;
   targetElem?: any;
   obj?: Obj;
   children?: React.ReactNode;

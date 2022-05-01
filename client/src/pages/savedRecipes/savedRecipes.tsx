@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { ProductElement, StoreState } from '../../store/types';
 import Card from '../../components/card/card';
+import styles from '../recipes/recipes.module.scss';
 
 type Saved = {
   saved: string;
@@ -19,7 +20,16 @@ const SavedRecipes: React.FunctionComponent = () => {
     return (
       <div>
         {dir[1].map((el: ProductElement, i: number) => (
-          <Card el={el} obj={{ param: false }} />
+          <Card el={el} obj={{ param: false }} >
+            <div className={styles.ratingSec}>
+              <p>
+                {el.time}
+                &nbsp;
+                {el.time && el.time < 60 ? 'мин' : 'ч'}
+              </p>
+              <p>{el.rating}</p>
+            </div>
+          </Card>
         ))}
       </div>
     );

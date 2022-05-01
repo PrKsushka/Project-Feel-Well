@@ -1,17 +1,25 @@
 import { Action, Dispatch } from 'redux';
 import { getDataAboutPlaces, getDataAboutPlacesSortedByPlace } from '../../../api/dataAboutPlaces';
-import { DATA_ABOUT_PLACES, GET_DATA_ABOUT_PLACES_SORTED_BY_PLACE_CONFIRMED, GET_DATA_ABOUT_PLACES_SORTED_BY_PLACE_FAILED } from './places.constants';
+import {
+  GET_DATA_ABOUT_PLACES_CONFIRMED,
+  GET_DATA_ABOUT_PLACES_SORTED_BY_PLACE_CONFIRMED,
+  GET_DATA_ABOUT_PLACES_SORTED_BY_PLACE_FAILED
+} from './places.constants';
+import { PlaceElement } from '../../types';
+
+function getDataAboutPlacesConfirmed(arr: Array<PlaceElement>) {
+  return {
+    type: GET_DATA_ABOUT_PLACES_CONFIRMED,
+    payload: arr
+  };
+}
 
 export function dataAboutPlaces() {
-  return () => {
+  return (dispatch: Dispatch<Action>) => {
     getDataAboutPlaces()
       .then((res) => {
         if (res.data) {
-          console.log(res.data)
-          return {
-            type: DATA_ABOUT_PLACES,
-            payload: res.data,
-          };
+          dispatch(getDataAboutPlacesConfirmed(res.data));
         } else {
           throw new Error();
         }
@@ -22,17 +30,17 @@ export function dataAboutPlaces() {
   };
 }
 
-function getDataAboutPlacesSortedByPlaceConfirmed(data: Array<object>) {
+function getDataAboutPlacesSortedByPlaceConfirmed(data: Array<PlaceElement>) {
   return {
     type: GET_DATA_ABOUT_PLACES_SORTED_BY_PLACE_CONFIRMED,
-    payload: data,
+    payload: data
   };
 }
 
 function getDataAboutPlacesSortedByPlaceFailed(err: any) {
   return {
     type: GET_DATA_ABOUT_PLACES_SORTED_BY_PLACE_FAILED,
-    payload: err,
+    payload: err
   };
 }
 

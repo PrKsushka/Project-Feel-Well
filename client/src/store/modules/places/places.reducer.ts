@@ -1,12 +1,12 @@
 import {
-  DATA_ABOUT_PLACES,
+  GET_DATA_ABOUT_PLACES_CONFIRMED,
   GET_DATA_ABOUT_PLACES_SORTED_BY_PLACE_CONFIRMED,
   GET_DATA_ABOUT_PLACES_SORTED_BY_PLACE_FAILED
 } from './places.constants';
 import { PlacesReducer } from '../../types';
 
 const initialState: PlacesReducer = {
-  places: [],
+  arrOfPlaces: [],
   successSorted: '',
   failedSorted: ''
 };
@@ -16,16 +16,16 @@ type Action = {
 };
 const placesReducer = (state = initialState, action: Action = { type: 'DEFAULT' }) => {
   switch (action.type) {
-    case DATA_ABOUT_PLACES: {
+    case GET_DATA_ABOUT_PLACES_CONFIRMED: {
       return {
         ...state,
-        places: [...action.payload]
+        arrOfPlaces: [...action.payload]
       };
     }
     case GET_DATA_ABOUT_PLACES_SORTED_BY_PLACE_CONFIRMED: {
       return {
         ...state,
-        places: [...action.payload],
+        arrOfPlaces: [...action.payload],
         successSorted: 'Sorted by place successfully',
         failedSorted: ''
       };

@@ -13,6 +13,11 @@ const getDataAboutPlaces = async (req: Request, res: Response) => {
           }
         }
       ];
+      if(req.query.place==='все') {
+        aggregationParams = [
+          { $sort: { _id: 1 } }
+        ]
+      }
     }
 
     const data = await Places.aggregate(aggregationParams);
