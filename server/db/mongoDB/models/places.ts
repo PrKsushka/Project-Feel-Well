@@ -36,5 +36,6 @@ const placesSchema = new mongoose.Schema({
   },
 });
 placesSchema.index({ typeOfPlaces: 1 });
+placesSchema.index({ city: 1 });
 const Places = mongoose.model<PlacesTypes>('Places', placesSchema);
 export default Places;

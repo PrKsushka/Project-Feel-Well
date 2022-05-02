@@ -84,6 +84,7 @@ export interface ModalReducer {
   registrationModal: boolean;
   createDirectoryModal: boolean;
   openPopUp: boolean;
+  placesDetails: boolean;
 }
 
 export interface PlacesReducer {

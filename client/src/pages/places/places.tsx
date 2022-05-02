@@ -1,26 +1,42 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { PlaceElement, StoreState } from '../../store/types';
 import styles from './places.module.scss';
-import { dataAboutPlaces, dataAboutPlacesSortedByPlace } from '../../store/modules/places/places.actions';
+import { dataAboutPlaces, dataAboutPlacesSortedByPlace, getDataSortedByCity } from '../../store/modules/places/places.actions';
 import SortMenu from '../../UI/sortMenu/sortMenu';
 import Card from '../../components/card/card';
+import SelectGroup from '../../UI/selectGroup/selectGroup';
+import Warn from '../../components/warn/warn';
+import { placesDetailsModalActivation } from '../../store/modules/modals/modal.actions';
+import ModalForPlacesDetails from '../../components/modals/module/modalForPlacesDetails/modalForPlacesDetails';
 
 const Places: React.FunctionComponent = () => {
   const dispatch = useDispatch();
+  const currentElement = useRef() as React.MutableRefObject<PlaceElement>;
   const places = useSelector((state: StoreState) => state.places.arrOfPlaces);
   useEffect(() => {
     dispatch(dataAboutPlaces());
   }, []);
-
+  const openModalForDetails = (el: PlaceElement) => {
+    currentElement.current = el;
+    dispatch(placesDetailsModalActivation(true));
+  };
   const sortDataAboutPlaces = (e: { target: { textContent: string } }) => {
     dispatch(dataAboutPlacesSortedByPlace(e.target.textContent.toLocaleLowerCase()));
+  };
+  const sortDataByCity = (e: any) => {
+    dispatch(getDataSortedByCity(e.target.value));
   };
   const objForSortMenu = {
     arr: ['все', 'рестораны', 'кафе', 'магазины'],
     sortFunc: sortDataAboutPlaces,
   };
 
+  const objForSelectGroup = {
+    onChangeFunc: sortDataByCity,
+    arr: ['все', 'Минск', 'Солигорск', 'Гродно', 'Брест', 'Могилев'],
+  };
+  const modalForDetails = useSelector((state: StoreState) => state.modal.placesDetails);
   return (
     <div className={styles.placesWrapper}>
       <div className={styles.placesBanner}>
@@ -40,15 +56,28 @@ const Places: React.FunctionComponent = () => {
         </div>
         <div className={styles.strawberry} />
       </div>
-      <SortMenu obj={objForSortMenu} />
-      <div className={styles.places}>
-        {places.map((el: PlaceElement, i) => (
-          <Card el={el} obj={{ param: false, style: { margin: 70 } }} key={i}>
-            <span className={styles.workingHours}>{el.workingHours}</span>
-            <span className={styles.title}>{el.title}</span>
-          </Card>
-        ))}
+      <div className={styles.sort}>
+        <SelectGroup obj={objForSelectGroup} />
+        <SortMenu obj={objForSortMenu} />
       </div>
+      <div className={styles.places}>
+        {places.length > 0 ? (
+          places.map((el: PlaceElement, i) => (
+            <Card el={el} obj={{ param: false, style: { margin: 70 } }} key={i}>
+              <div className="cardMainText">
+                <h3 className="cardTitle" onClick={() => openModalForDetails(el)}>
+                  {el.name}
+                </h3>
+                <span className={styles.workingHours}>{el.workingHours}</span>
+                <span className={styles.title}>{el.title}</span>
+              </div>
+            </Card>
+          ))
+        ) : (
+          <Warn />
+        )}
+      </div>
+      {modalForDetails ? <ModalForPlacesDetails obj={currentElement} /> : null}
     </div>
   );
 };

@@ -100,7 +100,13 @@
       bottom: -8px;
     }
   }
-
+  .sort {
+    @include builderAligment(flex, space-between, 100%);
+    align-items: center;
+    margin-bottom: 60px;
+    padding: 0 60px 0 155px;
+    box-sizing: border-box;
+  }
   .places {
     @include builder(flex, 100%);
     padding: 0 155px;

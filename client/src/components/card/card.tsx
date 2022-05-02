@@ -8,7 +8,7 @@ import SaveButton from '../../UI/saveButton/saveButton';
 
 type Obj = {
   targetElem?: any;
-  style?:any;
+  style?: any;
   param: boolean;
 };
 
@@ -20,17 +20,12 @@ interface Card {
 
 const Card: React.FunctionComponent<Card> = ({ el, obj, children }) => {
   return (
-    <div className={styles.card} style={(obj.style)?{marginRight:`${obj.style.margin}px`}:undefined}>
+    <div className={styles.card} style={(obj.style) ? { marginRight: `${obj.style.margin}px` } : undefined}>
       <div style={{ backgroundImage: `url(${require(`../../${el.image}`)}` }} className={styles.image} />
       {obj.param ? <SaveButton el={el} targetElem={obj.targetElem} /> : null}
-      <Link to={`${links.recipes}/${el._id}`} className={styles.textLink}>
-        <div className={styles.mainText}>
-          <h3>{el.name}</h3>
-          {
-            children
-          }
-        </div>
-      </Link>
+      {
+        children
+      }
     </div>
   );
 };

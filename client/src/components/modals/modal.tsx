@@ -2,7 +2,12 @@ import ReactDOM from 'react-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import React, { ReactNode } from 'react';
 import styles from './modal.module.scss';
-import { createDirectoryModalActivation, loginModalActivation, registrationModalActivation } from '../../store/modules/modals/modal.actions';
+import {
+  createDirectoryModalActivation,
+  loginModalActivation,
+  placesDetailsModalActivation,
+  registrationModalActivation
+} from '../../store/modules/modals/modal.actions';
 import { StoreState } from '../../store/types';
 import { userUnauthenticated, userUnregistered } from '../../store/modules/user/user.actions';
 
@@ -20,6 +25,7 @@ const Modal: React.FunctionComponent<ModalTypes> = ({ isActive, children }) => {
     dispatch(loginModalActivation(false));
     dispatch(registrationModalActivation(false));
     dispatch(createDirectoryModalActivation(false));
+    dispatch(placesDetailsModalActivation(false));
     // dispatch(userUnregistered(''));
     // dispatch(userUnauthenticated(''));
     body.style.overflowY = 'auto';

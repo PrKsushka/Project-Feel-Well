@@ -48,14 +48,8 @@
     .products {
       @include builderAligment(flex, space-between, 100%);
       flex-wrap: wrap;
+      padding-top: 60px;
     }
   }
 
-}
-.ratingSec {
-  flex-direction: row;
-  @include builderAligment(flex, space-around, 100%);
-  justify-content: space-between;
-  padding: 0 14px 20px 5px;
-  box-sizing: border-box;
 }

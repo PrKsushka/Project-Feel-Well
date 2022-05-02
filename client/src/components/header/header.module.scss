@@ -1,13 +1,36 @@
 @import "../../styles/mixin";
-header{
-  position: absolute;
+
+header {
+  justify-content: flex-end;
   z-index: 101;
-  top: 0;
-  ul{
-    @include builder(flex, 100%);
+  display: flex;
+  width: 1130px;
+  box-sizing: border-box;
+  position: absolute;
+  top: 55px;
+  left: 220px;
+
+  ul {
+    @include builder(flex, 348px);
     list-style: none;
-    li{
-      text-decoration: none;
+    margin-right: 220px;
+
+    li {
+      margin-right: 20px;
+      @include fonts(18px);
+
+      &:last-child {
+        margin: 0 0 0 46px
+      }
+
+      &:hover {
+        font-weight: 500;
+      }
+
+      a {
+        @include fonts(18px);
+        text-decoration: none;
+      }
     }
   }
 }

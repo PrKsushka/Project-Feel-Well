@@ -13,10 +13,25 @@ const getDataAboutPlaces = async (req: Request, res: Response) => {
           }
         }
       ];
-      if(req.query.place==='все') {
+      if (req.query.place === 'все') {
         aggregationParams = [
           { $sort: { _id: 1 } }
-        ]
+        ];
+      }
+    }
+    if (req.query.city) {
+      aggregationParams = [
+        ...aggregationParams,
+        {
+          $match: {
+            city: req.query.city
+          }
+        }
+      ];
+      if (req.query.city === 'все') {
+        aggregationParams = [
+          { $sort: { _id: 1 } }
+        ];
       }
     }
 

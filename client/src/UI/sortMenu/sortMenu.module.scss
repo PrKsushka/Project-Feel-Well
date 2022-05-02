@@ -3,11 +3,11 @@
   display: flex;
   list-style: none;
   justify-content: flex-end;
-  margin-bottom: 60px;
   li{
     padding: 0 40px;
     border-right: 1px $wh solid;
     @include fonts(16px, $wh);
+    cursor: pointer;
     a{
       text-decoration: none;
     }

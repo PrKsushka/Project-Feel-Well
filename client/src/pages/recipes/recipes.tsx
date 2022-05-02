@@ -1,4 +1,5 @@
-import React, { lazy, useEffect, useRef, useState, Suspense } from 'react';
+import React, { lazy, useEffect, useRef, Suspense } from 'react';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { dataAboutRecipes, setNameOfMeal } from '../../store/modules/recipes/recipes.actions';
 import { StoreState } from '../../store/types';
@@ -12,6 +13,8 @@ import PopUp from '../../components/popUp/popUp';
 import { MoonLoader } from 'react-spinners';
 import { openPopUp } from '../../store/modules/modals/modal.actions';
 import { useHistory } from 'react-router-dom';
+import Warn from '../../components/warn/warn';
+import links from '../../constants/links';
 
 const Card = lazy(() => import('../../components/card/card'));
 
@@ -41,7 +44,7 @@ const Recipes: React.FunctionComponent = () => {
   };
   const objForSortMenu = {
     arr: meal,
-    sortFunc: menuClick,
+    sortFunc: menuClick
   };
 
   return (
@@ -58,20 +61,27 @@ const Recipes: React.FunctionComponent = () => {
           <SortMenu obj={objForSortMenu} />
           <Suspense fallback={<MoonLoader />}>
             <div className={styles.products}>
-              {data.length !== 0
-                ? data.map((el) => (
-                    <Card key={el._id} el={el} obj={{ targetElem: saveTargetElement, param: true }}>
-                      <div className={styles.ratingSec}>
-                        <p>
-                          {el.time}
-                          &nbsp;
-                          {el.time && el.time < 60 ? 'мин' : 'ч'}
-                        </p>
-                        <p>{el.rating}</p>
+              {data.length !== 0 ? (
+                data.map((el) => (
+                  <Card key={el._id} el={el} obj={{ targetElem: saveTargetElement, param: true }}>
+                    <Link to={`${links.recipes}/${el._id}`} className="cardTextLink">
+                      <div className="cardMainText">
+                        <h3 className="cardTitle">{el.name}</h3>
+                        <div className="ratingSec">
+                          <p className="cardParagraph">
+                            {el.time}
+                            &nbsp;
+                            {el.time && el.time < 60 ? 'мин' : 'ч'}
+                          </p>
+                          <p className="cardParagraph">{el.rating}</p>
+                        </div>
                       </div>
-                    </Card>
-                  ))
-                : 'Sorry there are no recipes'}
+                    </Link>
+                  </Card>
+                ))
+              ) : (
+                <Warn />
+              )}
               {showWindow ? <PopUp elem={saveTargetElement.current} /> : null}
             </div>
           </Suspense>

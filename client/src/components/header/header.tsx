@@ -37,7 +37,7 @@ const Header: React.FunctionComponent = () => {
           <Link to={links.places}>Places</Link>
         </li>
         <li>
-          <Link to={links.user}>My own</Link>
+          <Link to={links.user}>User</Link>
         </li>
         {auth ? (
           <li onClick={logOut}>Выйти</li>
