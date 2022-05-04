@@ -1,7 +1,9 @@
-.popUp{
+@import "../../styles/mixin";
+
+.popUp {
   position: fixed;
   bottom: 0;
-  background: white;
+  background: #f5aa20de;
   width: 938px;
   min-height: 135px;
   border-radius: 20px 20px 0 0;
@@ -10,7 +12,27 @@
   padding: 20px;
   box-sizing: border-box;
   flex-direction: row;
-    .savedCollection{
-        width: 200px;
+  flex-wrap: wrap;
+  right: 20px;
+  p {
+    display: flex;
+    width: 100%;
+    @include fonts(16px, $bg);
+  }
+
+  .savedCollection {
+    margin-right: 60px;
+    border-radius: 20px;
+    @include fonts(16px, $bg, 500);
+    @include builderAligment(flex, center, 120px);
+    background: white;
+    height: 120px;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: $shadow;
+
+    &:active {
+      color: $orange;
     }
+  }
 }

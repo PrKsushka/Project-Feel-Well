@@ -6,7 +6,7 @@ const SortMenu: React.FunctionComponent<ObjTypes> = ({ obj }) => {
   return (
     <ul onClick={obj.sortFunc} className={style.sortMenu}>
       {obj.arr.map((el, i) => (
-        <li key={i}>{el}</li>
+        <li key={i}><a>{el}</a></li>
       ))}
     </ul>
   );

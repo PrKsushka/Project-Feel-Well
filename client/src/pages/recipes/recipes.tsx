@@ -22,20 +22,15 @@ const Recipes: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const data = useSelector((state: StoreState) => getRecipes(state));
   const showWindow = useSelector((state: StoreState) => state.modal.openPopUp);
-
+  const time = useRef<number>(4000);
   const saveTargetElement: any = useRef();
   useEffect(() => {
     dispatch(dataAboutRecipes());
   }, []);
-  const history = useHistory();
   useEffect(() => {
-    let time = 6000;
-    if (history.action === 'PUSH') {
-      time = 1;
-    }
     const timerShowWindow = setTimeout(() => {
       dispatch(openPopUp(false));
-    }, time);
+    }, time.current);
     return () => clearTimeout(timerShowWindow);
   }, [showWindow]);
 
@@ -44,7 +39,7 @@ const Recipes: React.FunctionComponent = () => {
   };
   const objForSortMenu = {
     arr: meal,
-    sortFunc: menuClick
+    sortFunc: menuClick,
   };
 
   return (
@@ -82,7 +77,7 @@ const Recipes: React.FunctionComponent = () => {
               ) : (
                 <Warn />
               )}
-              {showWindow ? <PopUp elem={saveTargetElement.current} /> : null}
+              {showWindow ? <PopUp elem={saveTargetElement.current} currentTime={time} /> : null}
             </div>
           </Suspense>
         </div>

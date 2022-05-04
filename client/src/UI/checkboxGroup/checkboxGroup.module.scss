@@ -2,5 +2,6 @@
 .elem{
   display: flex;
   width: 50%;
-  @include fonts(18px, $wh);
+  @include fonts(16px, $wh);
+  padding-bottom: 5px;
 }

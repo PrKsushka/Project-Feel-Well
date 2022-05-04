@@ -37,7 +37,10 @@ const User: React.FunctionComponent = () => {
           <div className={styles.info}>{`${dataAboutUser.firstName}  ${dataAboutUser.lastName} ${dataAboutUser.email}`}</div>
         </div>
         <div className={styles.shoppingList}>
-          <p className={styles.shoppingListTitle}>Список покупок</p>
+          <div className={styles.text}>
+            <p className={styles.shoppingListTitle}>Список покупок</p>
+            <span>Поставь галочку, если купил продукт</span>
+          </div>
           <ShoppingList />
         </div>
       </div>

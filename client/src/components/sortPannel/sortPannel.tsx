@@ -88,7 +88,7 @@ const SortPanel: React.FunctionComponent = () => {
           <div className={styles.wrapperForInputGroup}>
             <CheckboxGroup obj={meatProducts} />
           </div>
-          <CheckboxGroup obj={objForInputGroupTypes} />
+          {/*<CheckboxGroup obj={objForInputGroupTypes} />*/}
         </div>
       </div>
     </>

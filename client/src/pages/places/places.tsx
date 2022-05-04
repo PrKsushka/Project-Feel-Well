@@ -1,8 +1,8 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { PlaceElement, StoreState } from '../../store/types';
 import styles from './places.module.scss';
-import { dataAboutPlaces, dataAboutPlacesSortedByPlace, getDataSortedByCity } from '../../store/modules/places/places.actions';
+import { dataAboutPlaces, getDataSortedByCityOrPlace } from '../../store/modules/places/places.actions';
 import SortMenu from '../../UI/sortMenu/sortMenu';
 import Card from '../../components/card/card';
 import SelectGroup from '../../UI/selectGroup/selectGroup';
@@ -14,18 +14,26 @@ const Places: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const currentElement = useRef() as React.MutableRefObject<PlaceElement>;
   const places = useSelector((state: StoreState) => state.places.arrOfPlaces);
+  const [currentPlace, setCurrentPlace] = useState<string>('');
+  const [currentCity, setCurrentCity] = useState<string>('');
+
   useEffect(() => {
     dispatch(dataAboutPlaces());
   }, []);
+  useEffect(() => {
+    dispatch(getDataSortedByCityOrPlace(currentPlace, currentCity));
+  }, [currentCity, currentPlace]);
+
   const openModalForDetails = (el: PlaceElement) => {
     currentElement.current = el;
     dispatch(placesDetailsModalActivation(true));
   };
-  const sortDataAboutPlaces = (e: { target: { textContent: string } }) => {
-    dispatch(dataAboutPlacesSortedByPlace(e.target.textContent.toLocaleLowerCase()));
+  const sortDataAboutPlaces = (e: any) => {
+    e.target.style.color = '#F5AA20';
+    setCurrentPlace(e.target.textContent.toLocaleLowerCase());
   };
   const sortDataByCity = (e: any) => {
-    dispatch(getDataSortedByCity(e.target.value));
+    setCurrentCity(e.target.value);
   };
   const objForSortMenu = {
     arr: ['все', 'рестораны', 'кафе', 'магазины'],
