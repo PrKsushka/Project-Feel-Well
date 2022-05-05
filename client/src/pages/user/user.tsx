@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   changeDataAboutUserModalActivation, changePasswordModalActivation,
@@ -10,12 +10,12 @@ import { Link, useHistory } from 'react-router-dom';
 import links from '../../constants/links';
 import { getDataAboutUser } from '../../store/modules/user/user.actions';
 import ShoppingList from '../../components/shoppingList/shoppingList';
-import ModalForCreationANewDirectory
-  from '../../components/modals/module/modalForCreationANewDirecroty/modalForCreationANewDirectory';
 import CircleButton from '../../UI/circleButton/circleButton';
 import ModalForChangingDataAboutUser
   from '../../components/modals/module/changeInfoAboutUser/modalForChangingDataAboutUser';
 import ModalForChangingPassword from '../../components/modals/module/changeInfoAboutUser/modalForChangingPassword';
+import ModalForCreationANewDirectory
+  from '../../components/modals/module/modalForCreationANewDirecroty/modalForCreationANewDirectory';
 
 const User: React.FunctionComponent = () => {
   const dispatch = useDispatch();
