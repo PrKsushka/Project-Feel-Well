@@ -8,14 +8,12 @@
 
   .textBlockWrapper {
     position: absolute;
-    z-index: 100;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -155%);
+    font-weight: 500;
     text-align: center;
-    margin-top: 300px;
-    @include fonts(40px);
+    @include fonts(40px, $wh, 500);
 
   }
 
@@ -23,10 +21,10 @@
     @include builder(flex, 100%);
     min-height: 100vh;
     max-height: 100vh;
-    background: url('../../assets/spagetti.jpg') no-repeat center;
-    background-size: cover;
     position: absolute;
     z-index: -100;
+    background: url('../../assets/spagetti.jpg') no-repeat fixed center;
+    background-size: cover;
   }
 }
 
@@ -34,7 +32,7 @@
   @include builder(flex, 100%);
   padding: 68px 80px 0 90px;
   box-sizing: border-box;
-
+  margin-bottom: 120px;
   .columnForSort {
     @include builder(flex, 387px);
   }
@@ -48,58 +46,8 @@
     .products {
       @include builderAligment(flex, space-between, 100%);
       flex-wrap: wrap;
+      padding-top: 60px;
     }
   }
 
-}
-
-.card {
-  margin-bottom: 80px;
-  background: $wh;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 20px;
-  flex-direction: column;
-  position: relative;
-  @include builder(flex, 250px);
-    &:hover {
-      box-shadow: $shadow;
-    }
-  .image {
-    width: 100%;
-    min-height: 238px;
-    max-height: 240px;
-    background: $orange;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    border-radius: 20px;
-    margin-bottom: 40px;
-  }
-
-  .textLink {
-    text-decoration: none;
-    .mainText {
-      display: flex;
-      flex-direction: column;
-      margin-left: 14px;
-      h3 {
-        margin: 0 0 20px 0;
-        @include fonts(18px, black, 500);
-        &:hover {
-          color: $orange;
-        }
-      }
-      p {
-        margin: 0;
-        @include fonts(11px, black)
-      }
-      .ratingSec {
-        flex-direction: row;
-        @include builderAligment(flex, space-around, 100%);
-        justify-content: space-between;
-        padding: 0 14px 20px 5px;
-        box-sizing: border-box;
-      }
-    }
-  }
 }

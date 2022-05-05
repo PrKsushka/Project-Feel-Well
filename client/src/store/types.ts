@@ -6,25 +6,35 @@ type Ingredients = {
   ingredient: string;
   count: number;
   measure: string;
-}
-
+};
 export interface ProductElement {
   _id: number;
   name: string;
-  image: string;
+  image?: string;
   mealId?: number;
   healthId?: number;
-  title?: number;
+  title: string;
   ingredients?: Array<Ingredients>;
   kcal?: number;
-  time: number;
-  rating: number;
+  time?: number;
+  rating?: number;
   createdAt?: Date;
   carbohydrate?: number;
   fats?: number;
   proteins?: number;
   video?: string;
 }
+export type PlaceElement = {
+  _id: number;
+  address?: string;
+  city?: string;
+  image?: string;
+  name: string;
+  title: string;
+  content?: string;
+  typeOfPlaces?: string;
+  workingHours?: string;
+};
 
 export interface CategoryHealthElement {
   id: number;
@@ -53,6 +63,7 @@ export interface RecipesReducer {
   errorMessage: string;
   successMessage: string;
   meal: string;
+  folderColor: Array<string>;
 }
 
 export type DataAboutUser = {
@@ -74,10 +85,24 @@ export interface ModalReducer {
   registrationModal: boolean;
   createDirectoryModal: boolean;
   openPopUp: boolean;
+  placesDetails: boolean;
+  changeDataAboutUserModal: boolean;
+  changePasswordModal: boolean;
 }
 
+export interface PlacesReducer {
+  arrOfPlaces: Array<PlaceElement>;
+  successSorted: string;
+  failedSorted: string;
+}
 export interface StoreState {
   recipes: RecipesReducer;
   user: UserReducer;
   modal: ModalReducer;
+  places: PlacesReducer;
 }
+
+export type NewFolder = {
+  dirName: string;
+  color: string;
+};

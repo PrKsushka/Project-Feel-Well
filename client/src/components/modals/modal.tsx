@@ -2,7 +2,13 @@ import ReactDOM from 'react-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import React, { ReactNode } from 'react';
 import styles from './modal.module.scss';
-import { createDirectoryModalActivation, loginModalActivation, registrationModalActivation } from '../../store/modules/modals/modal.actions';
+import {
+  changeDataAboutUserModalActivation, changePasswordModalActivation, closeModal,
+  createDirectoryModalActivation,
+  loginModalActivation,
+  placesDetailsModalActivation,
+  registrationModalActivation
+} from '../../store/modules/modals/modal.actions';
 import { StoreState } from '../../store/types';
 import { userUnauthenticated, userUnregistered } from '../../store/modules/user/user.actions';
 
@@ -17,11 +23,7 @@ const Modal: React.FunctionComponent<ModalTypes> = ({ isActive, children }) => {
   const dispatch = useDispatch();
 
   const cancelModal = () => {
-    dispatch(loginModalActivation(false));
-    dispatch(registrationModalActivation(false));
-    dispatch(createDirectoryModalActivation(false));
-    // dispatch(userUnregistered(''));
-    // dispatch(userUnauthenticated(''));
+    dispatch(closeModal());
     body.style.overflowY = 'auto';
     window.history.replaceState(null, '', '/');
   };
@@ -31,7 +33,7 @@ const Modal: React.FunctionComponent<ModalTypes> = ({ isActive, children }) => {
     return ReactDOM.createPortal(
       <div className={styles.modalWrapper}>
         <div className={styles.iconCancel} onClick={cancelModal} />
-        {failedAuth !== '' ? <div className={styles.failedAuth}>{failedAuth}</div> : null}
+        {failedAuth ? <div className={styles.failedAuth}>{failedAuth}</div> : null}
         <div className={styles.modalContent}>{children}</div>
       </div>,
       portal

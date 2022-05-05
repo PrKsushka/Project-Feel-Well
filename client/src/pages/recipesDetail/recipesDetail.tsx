@@ -1,5 +1,5 @@
 import React, { ReactNode, useEffect, useRef, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { ProductElement, StoreState } from '../../store/types';
 import { getRecipes } from '../../store/modules/recipes/recipes.selectors';
@@ -107,7 +107,7 @@ const RecipesDetail: React.FunctionComponent = () => {
             <div className={styles.findRecipeTime}>
               ВРЕМЯ ПРИГОТОВЛЕНИЯ &nbsp;&nbsp;
               {findRecipeDetails.time}
-              {findRecipeDetails.time < 60 ? 'МИН' : 'Ч'}
+              {findRecipeDetails.time && findRecipeDetails.time < 60 ? 'МИН' : 'Ч'}
             </div>
             <div className={styles.findRecipeSave}>
               {saveTitleState}
@@ -134,9 +134,7 @@ const RecipesDetail: React.FunctionComponent = () => {
               {findRecipeDetails.ingredients?.map((el, i) => (
                 <label key={i} className={styles.element}>
                   <input type='checkbox' onChange={changeFunc}
-                         value={el.ingredient + ' - ' + el.count * amount + el.measure}
-                         name={el.ingredient}
-                  />
+                         value={el.ingredient + ' - ' + el.count * amount + el.measure} name={el.ingredient} />
                   {el.ingredient}
                   <span className={styles.measure}>{el.count * amount + ' ' + el.measure}</span>
                 </label>

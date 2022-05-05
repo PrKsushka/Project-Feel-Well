@@ -1,9 +1,11 @@
 @import "../../styles/mixin";
-
+header{
+  position: absolute;
+}
 .details {
   display: flex;
   padding: 80px;
-  margin: 80px;
+  margin: 120px 80px 80px 80px;
   background: white;
   border-radius: 20px 20px 0 0;
   flex-direction: row;
@@ -130,24 +132,30 @@
 }
 
 .message {
-  display: flex;
-  max-width: 400px;
-  position: absolute;
-  background: white;
-  top: 50px;
-  left: 0;
-  right: 0;
-  margin: 0 auto;
+  position: fixed;
+  right: 150px;
+  top: 0;
+  width: 30%;
   box-sizing: border-box;
-  border-radius: 20px 20px 0 0;
+  min-height: 100px;
+  justify-content: center;
+  display: flex;
+  background: #2d2c2cc7;
   flex-direction: column;
   transition: 0.1ms;
-
+  .textForMessage {
+    @include fonts(16px, $wh, 500);
+    display: flex;
+    justify-content: center;
+  }
   .line {
     display: flex;
     padding-top: 7px;
     box-sizing: border-box;
-    background: greenyellow;
+    background: $orange;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
   }
 }
 

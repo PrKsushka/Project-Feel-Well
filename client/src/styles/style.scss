@@ -1,6 +1,65 @@
 @import './_mixin.scss';
 @import './_variables.scss';
-body{
+
+body {
   background-color: $bg;
   overflow-y: auto;
+}
+
+.warn {
+  @include fonts(27px, $wh, 500);
+}
+
+.cardTextLink {
+  text-decoration: none;
+}
+
+.ratingSec {
+  flex-direction: row;
+  @include builderAligment(flex, space-around, 100%);
+  justify-content: space-between;
+  padding: 0 14px 20px 5px;
+  box-sizing: border-box;
+}
+
+.cardMainText {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 14px;
+}
+
+.cardParagraph {
+  margin: 0;
+  @include fonts(11px, black)
+}
+
+.cardTitle {
+  margin: 0 0 20px 0;
+  @include fonts(18px, black, 500);
+  width: 40%;
+  cursor: pointer;
+
+  &:hover {
+    color: $orange;
+  }
+}
+
+
+.button{
+  @include builderAligment(flex, center, 158px);
+  @include fonts(16px, $wh);
+  background: $bg;
+  text-decoration: none;
+  padding: 10px;
+  border: none;
+  border-radius: 20px;
+  align-items: center;
+  margin-top: 60px;
+  cursor: pointer;
+  margin-right: auto;
+  margin-left: auto;
+  &:hover {
+    box-shadow: $shadowTwo;
+    color: $orange;
+  }
 }

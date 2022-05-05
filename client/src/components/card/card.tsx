@@ -1,39 +1,31 @@
-import styles from '../../pages/recipes/recipes.module.scss';
+import styles from './card.module.scss';
 import { Link } from 'react-router-dom';
 import links from '../../constants/links';
-import React from 'react';
-import { ProductElement } from '../../store/types';
+import React, { ReactNode } from 'react';
+import { PlaceElement, ProductElement } from '../../store/types';
 import '../../pages/recipes/card.css';
 import SaveButton from '../../UI/saveButton/saveButton';
 
-type Obj = {
+export type Obj = {
   targetElem?: any;
+  style?: any;
   param: boolean;
 };
 
 interface Card {
-  el: ProductElement;
+  el: ProductElement | PlaceElement;
   obj: Obj;
+  children?: ReactNode;
 }
 
-const Card: React.FunctionComponent<Card> = ({ el, obj }) => {
+const Card: React.FunctionComponent<Card> = ({ el, obj, children }) => {
   return (
-    <div className={styles.card}>
+    <div className={styles.card} style={(obj.style) ? { marginRight: `${obj.style.margin}px` } : undefined}>
       <div style={{ backgroundImage: `url(${require(`../../${el.image}`)}` }} className={styles.image} />
       {obj.param ? <SaveButton el={el} targetElem={obj.targetElem} /> : null}
-      <Link to={`${links.recipes}/${el._id}`} className={styles.textLink}>
-        <div className={styles.mainText}>
-          <h3>{el.name}</h3>
-          <div className={styles.ratingSec}>
-            <p>
-             {el.time}
-              &nbsp;
-              {el.time < 60 ? 'мин' : 'ч'}
-            </p>
-            <p>{el.rating}</p>
-          </div>
-        </div>
-      </Link>
+      {
+        children
+      }
     </div>
   );
 };

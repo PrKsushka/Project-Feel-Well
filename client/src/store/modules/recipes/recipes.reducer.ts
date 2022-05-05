@@ -13,12 +13,13 @@ import {
   SORT_RECIPES_BY_MEAL_FAILED_ACTION,
   UNSAVED_FROM_FAVOURITE_RECIPES,
 } from './recipes.constants';
-import { Action, CategoryHealthElement, PayloadForSaveToAnotherDir, ProductElement } from '../../types';
+import { Action, CategoryHealthElement, NewFolder, PayloadForSaveToAnotherDir, ProductElement } from '../../types';
 import { getUniqueListBy } from '../../../utils/getUniqObjectsFromArray';
 
 const initialState = {
   recipes: [],
   favouriteRecipes: [['basic', []]],
+  folderColor: ['white'],
   shoppingList: [],
   errorMessage: '',
   successMessage: '',
@@ -122,11 +123,19 @@ const recipesReducer = (state = initialState, action: Action = { type: 'DEFAULT'
     //     ...state,
     //     errorMessage: action.payload,
     //   };
-    case CREATE_NEW_FOLDER:
+    case CREATE_NEW_FOLDER: {
+      if (action.payload) {
+        const payload = action.payload as NewFolder;
+        return {
+          ...state,
+          favouriteRecipes: [...state.favouriteRecipes, [payload.dirName, []]],
+          folderColor: [...state.folderColor, payload.color],
+        };
+      }
       return {
         ...state,
-        favouriteRecipes: [...state.favouriteRecipes, [action.payload, []]],
       };
+    }
     case SAVE_TO_ANOTHER_DIR: {
       const favRecipes = state.favouriteRecipes as any;
       const payload = action.payload as unknown as PayloadForSaveToAnotherDir;
@@ -135,11 +144,10 @@ const recipesReducer = (state = initialState, action: Action = { type: 'DEFAULT'
           if (favRecipes[i][j] === payload.str) {
             // @ts-ignore
             const newArr = [...favRecipes[i][j + 1], payload.obj.elem];
-            favRecipes[i][j + 1] = getUniqueListBy(newArr, 'id');
+            favRecipes[i][j + 1] = getUniqueListBy(newArr, '_id');
           }
         }
       }
-      console.log(favRecipes);
       return {
         ...state,
         favouriteRecipes: [...favRecipes],

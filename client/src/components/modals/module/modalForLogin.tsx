@@ -44,7 +44,7 @@ const ModalForLogin: React.FunctionComponent = () => {
         <input type="email" {...register('email')} placeholder={'Введите email'} />
         <div className={styles.error}>{errors.password?.message}</div>
         <input type="password" {...register('password')} placeholder={'Введите пароль'} />
-        <button type="submit" className={styles.buttonSubmit}>
+        <button type="submit" className='button'>
           Отправить
         </button>
       </form>

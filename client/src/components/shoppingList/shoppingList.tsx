@@ -21,17 +21,17 @@ const ShoppingList: React.FunctionComponent = () => {
   };
   if (shoppingList.length !== 0) {
     return (
-      <>
+      <div className={styles.list}>
         {shoppingList.map((el, i) => (
           <label className={styles.ingredients} key={i}>
-            {el}
             <input type="checkbox" onChange={changeFunc} checked={isChecked(el)} value={el} />
+            {el}
           </label>
         ))}
-      </>
+      </div>
     );
   } else {
-    return <div className={styles.emptyList}>Your shopping list is empty</div>;
+    return <div className={styles.emptyList}>Список покупок пуст</div>;
   }
 };
 export default ShoppingList;

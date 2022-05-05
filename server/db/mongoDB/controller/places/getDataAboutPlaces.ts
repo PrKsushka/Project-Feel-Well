@@ -3,7 +3,7 @@ import Places from '../../models/places';
 
 const getDataAboutPlaces = async (req: Request, res: Response) => {
   try {
-    let aggregationParams: any[] = [];
+    let aggregationParams: any[] = [{ $sort: { _id: 1 } }];
     if (req.query.place) {
       aggregationParams = [
         ...aggregationParams,
@@ -13,6 +13,26 @@ const getDataAboutPlaces = async (req: Request, res: Response) => {
           }
         }
       ];
+      if (req.query.place === 'все') {
+        aggregationParams = [
+          { $sort: { _id: 1 } }
+        ];
+      }
+    }
+    if (req.query.city) {
+      aggregationParams = [
+        ...aggregationParams,
+        {
+          $match: {
+            city: req.query.city
+          }
+        }
+      ];
+      if (req.query.city === 'все') {
+        aggregationParams = [
+          { $sort: { _id: 1 } }
+        ];
+      }
     }
 
     const data = await Places.aggregate(aggregationParams);

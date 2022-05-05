@@ -10,6 +10,10 @@ const placesSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  content: {
+    type: String,
+    required: true
+  },
   city: {
     type: String,
     required: true,
@@ -18,7 +22,7 @@ const placesSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  img: {
+  image: {
     type: String,
     required: true,
   },
@@ -26,7 +30,12 @@ const placesSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  workingHours: {
+    type: String,
+    required: true
+  },
 });
 placesSchema.index({ typeOfPlaces: 1 });
+placesSchema.index({ city: 1 });
 const Places = mongoose.model<PlacesTypes>('Places', placesSchema);
 export default Places;

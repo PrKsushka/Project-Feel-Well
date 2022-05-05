@@ -7,3 +7,4 @@ export const schemaForLoginForm = yup.object().shape({
     .required('Введите email!'),
   password: yup.string().required('Введите пароль!'),
 });
+

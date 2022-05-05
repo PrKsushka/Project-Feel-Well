@@ -1,0 +1,44 @@
+@import "../../../../styles/mixin";
+.message{
+  position: absolute;
+  top: 10%;
+  right: 37%;
+  background: #898989a8;
+  padding: 20px 100px;
+  box-sizing: border-box;
+  border-radius: 20px;
+  transition: all 3s ease-out;
+  @include fonts(16px, $wh);
+}
+.wrapper {
+  display: flex;
+  justify-content: space-evenly;
+  width: 800px;
+  background: white;
+  padding: 50px;
+  box-sizing: border-box;
+  border-radius: 20px;
+  flex-wrap: wrap;
+    label{
+      @include fonts(16px, $bg, 500);
+      @include builderAligment(flex, center, 100%);
+      margin-bottom: 40px;
+      span{
+        margin-right: 70px;
+      }
+      input{
+        width: 240px;
+        border-radius: 20px;
+        padding: 5px 8px;
+        box-sizing: border-box;
+        border: 1px solid #7f7f6c;
+      }
+    }
+  .colorPicker{
+    @include builderAligment(flex, center, 100%);
+    p{
+      @include fonts(16px, $bg, 500);
+      margin: 0 132px 0 0;
+    }
+  }
+}

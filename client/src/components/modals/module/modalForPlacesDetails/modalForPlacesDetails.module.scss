@@ -1,0 +1,53 @@
+@import "../../../../styles/mixin";
+.wrapper{
+@include builder(flex, 100%);
+  border-radius: 20px;
+  background: $wh;
+  padding: 20px;
+  box-sizing: border-box;
+  .image{
+    width: 590px;
+    height: 507px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-right: 60px;
+    border-radius: 20px;
+  }
+
+  .textWrapper{
+    @include builder(flex, 470px);
+    flex-direction: column;
+    flex-wrap: wrap;
+    padding: 20px;
+    box-sizing: border-box;
+    h3{
+      @include fonts(27px, $bg, 500);
+      @include builderAligment(flex, center, 100%);
+      margin: 0;
+      padding: 30px 0 20px 0;
+      box-sizing: border-box;
+    }
+    p{
+      @include fonts(16px, $bg);
+      @include builder(flex, 100%);
+      margin: 0 0 20px 0;
+    }
+    .title{
+      @include fonts(16px, $bg);
+      @include builderAligment(flex, center, 100%);
+      margin-top: 0;
+    }
+    .additionalInfo {
+      @include builder(flex, 100%);
+      flex-wrap: wrap;
+      p{
+        margin: 0;
+        @include builderAligment(flex, flex-end, 100%);
+        @include fonts(14px, $bg);
+        .boldText{
+          font-weight: 500;
+        }
+      }
+    }
+  }
+}

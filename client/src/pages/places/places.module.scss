@@ -1,0 +1,127 @@
+@import "../../styles/mixin";
+
+.placesWrapper {
+  overflow-x: hidden;
+  .placesBanner {
+    @include builder(flex, 100%);
+    background: url('../../assets/places/strawberry.jpg') no-repeat fixed center;
+    background-size: cover;
+    position: relative;
+    height: 100vh;
+
+    .bannerTitle {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -155%);
+      z-index: 5;
+      @include fonts(27px, $wh, 500);
+      width: 400px;
+      text-align: center;
+    }
+
+    .image {
+      @include builder(flex, 100%);
+      position: absolute;
+      height: 100vh;
+      z-index: 4;
+      background: rgba(0, 0, 0, 0.3);
+    }
+
+    .rectangles {
+      position: absolute;
+      width: 200px;
+      height: 200px;
+
+      &.red {
+        background-color: #D71E08;
+        z-index: 2;
+        right: 223px;
+        top: 66px;
+      }
+
+      &.darkRed {
+        background-color: #5E0C10;
+        z-index: 1;
+        right: 157px;
+        top: 22px;
+      }
+
+      &.pink {
+        background-color: #F1A792;
+        z-index: 3;
+        right: 287px;
+        top: 122px;
+      }
+    }
+  }
+
+  .secondWindow {
+    @include builder(flex, 100%);
+    padding: 126px 267px 146px 118px;
+    box-sizing: border-box;
+    position: relative;
+
+    .circleLeaves {
+      background: url("../../assets/places/circle.png") no-repeat;
+      background-size: contain;
+      width: 462px;
+      height: 480px;
+      margin-right: 308px;
+    }
+
+    .secondWindowText {
+      @include builder(flex, 300px);
+      flex-direction: column;
+      justify-content: center;
+
+      h3 {
+        @include fonts(27px, $wh, 500);
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        margin: 0 0 20px 0;
+      }
+
+      p {
+        @include fonts(16px, $wh);
+        display: flex;
+        justify-content: center;
+        margin: 0;
+      }
+    }
+    .strawberry{
+      background: url("../../assets/places/bigStrawberry.png") no-repeat;
+      width: 262.97px;
+      height: 253.39px;
+      background-size: contain;
+      position: absolute;
+      right: -115px;
+      bottom: -8px;
+    }
+  }
+  .sort {
+    @include builderAligment(flex, space-between, 100%);
+    align-items: center;
+    margin-bottom: 60px;
+    padding: 0 60px 0 155px;
+    box-sizing: border-box;
+  }
+  .places {
+    @include builder(flex, 100%);
+    padding: 0 155px;
+    box-sizing: border-box;
+    flex-wrap: wrap;
+
+    .workingHours {
+      @include builderAligment(flex, flex-end, 50%);
+      @include fonts(11px, $bg);
+    }
+
+    .title {
+      padding-bottom: 20px;
+      @include fonts(14px, $bg);
+    }
+  }
+}
+

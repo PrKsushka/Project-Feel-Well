@@ -3,16 +3,16 @@
   display: flex;
   list-style: none;
   justify-content: flex-end;
-  margin-bottom: 60px;
   li{
     padding: 0 40px;
     border-right: 1px $wh solid;
-    @include fonts(16px, $wh);
-    a{
+    cursor: pointer;
+    a {
+      @include fonts(16px, $wh);
       text-decoration: none;
-    }
-    &:hover{
-      color: $orange;
+      &:active{
+        color: orange;
+      }
     }
     &:last-child{
       border-right: none;

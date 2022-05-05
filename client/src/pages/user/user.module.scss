@@ -8,9 +8,10 @@
   @include builder(flex, 100%);
   flex-wrap: wrap;
   flex-direction: column;
-  background: #598B81;
+  background: url("../../assets/user.jpg") no-repeat fixed right;
+  background-size: cover;
+  margin-top: 120px;
   border-radius: 20px 20px 0 0;
-  margin-top: 100px;
   padding: 120px 20px 120px 20px;
   box-sizing: border-box;
 
@@ -20,7 +21,9 @@
     margin-bottom: 120px;
 
     .personalInformation {
+      justify-content: center;
       display: flex;
+      flex-wrap: wrap;
       background: $wh;
       max-height: 300px;
       min-height: 299px;
@@ -37,9 +40,9 @@
       }
 
       .info {
-        @include fonts(18px, $bg);
+        @include fonts(16px, $bg);
         font-weight: bold;
-        margin: 60px 0 0 20px;
+        width: 100%;
       }
     }
 
@@ -52,18 +55,42 @@
       box-shadow: $shadow;
       padding: 40px;
       box-sizing: border-box;
+      max-height: 500px;
+      min-height: 299px;
 
-      .shoppingListTitle {
-        @include fonts(18px, $bg);
-        font-weight: bold;
+      .text {
+        @include builderAligment(flex, space-between, 100%);
+        align-items: center;
+        margin-bottom: 40px;
+
+        .shoppingListTitle {
+          @include fonts(18px, $bg);
+          font-weight: bold;
+          margin: 0;
+        }
+
+        span {
+          @include fonts(11px, $bg);
+        }
       }
 
-      .ingredients {
-        @include fonts(14px, $bg);
+      .list {
+        @include builder(flex, 100%);
+        flex-wrap: wrap;
+
+        .ingredients {
+          @include fonts(16px, $bg);
+          width: 50%;
+          margin-bottom: 5px;
+
+          input {
+            margin-right: 20px;
+          }
+        }
       }
 
       .emptyList {
-        @include fonts(14px, $bg);
+        @include fonts(16px, $bg);
       }
     }
   }
@@ -76,6 +103,7 @@
     a {
       text-decoration: none;
       margin-bottom: 50px;
+
       .directory {
         background: $wh;
         @include builder(flex, 300px);
@@ -85,7 +113,8 @@
         box-shadow: $shadow;
         align-items: center;
         justify-content: center;
-        &:hover{
+
+        &:hover {
           box-shadow: $shadowTwo;
           transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }

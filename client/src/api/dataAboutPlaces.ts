@@ -1,5 +1,7 @@
 import axios from 'axios';
 
-export const sortPlacesByCategory = (value: string) => axios.get(`http://localhost:3001/categoryPlaces?includePlaces=true&placesCategory=${value}`);
-
 export const getDataAboutPlaces = () => axios.get('http://localhost:3001/places');
+export const getDataAboutPlacesSortedByPlaceOrCity = (value: string, city?: string) => {
+  return axios.get(`http://localhost:3001/places?place=${value}&city=${city}`);
+}
+// export const sortDataAboutPlacesByCity = (city: string) => axios.get(`http://localhost:3001/places?city=${city}`);

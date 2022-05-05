@@ -47,7 +47,7 @@ const ModalForRegistration: React.FunctionComponent = () => {
         <input type="text" {...register('firstName')} placeholder={'Введите имя'} />
         <div className={styles.error}>{errors.lastName?.message}</div>
         <input type="text" {...register('lastName')} placeholder={'Введите фамилию'} />
-        <button type="submit" className={styles.buttonSubmit}>
+        <button type="submit" className='button'>
           Отправить
         </button>
       </form>

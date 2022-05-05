@@ -1,10 +1,7 @@
-import React, { lazy, useEffect, useRef, useState, Suspense } from 'react';
+import React, { lazy, useEffect, useRef, Suspense } from 'react';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  dataAboutRecipes,
-  getFavouriteRecipes,
-  setNameOfMeal,
-} from '../../store/modules/recipes/recipes.actions';
+import { dataAboutRecipes, setNameOfMeal } from '../../store/modules/recipes/recipes.actions';
 import { StoreState } from '../../store/types';
 import { getRecipes } from '../../store/modules/recipes/recipes.selectors';
 import styles from './recipes.module.scss';
@@ -16,6 +13,9 @@ import PopUp from '../../components/popUp/popUp';
 import { MoonLoader } from 'react-spinners';
 import { openPopUp } from '../../store/modules/modals/modal.actions';
 import { useHistory } from 'react-router-dom';
+import Warn from '../../components/warn/warn';
+import links from '../../constants/links';
+import CardForRecipes from '../../components/card/module/cardForRecipes';
 
 const Card = lazy(() => import('../../components/card/card'));
 
@@ -23,20 +23,15 @@ const Recipes: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const data = useSelector((state: StoreState) => getRecipes(state));
   const showWindow = useSelector((state: StoreState) => state.modal.openPopUp);
-
+  const time = useRef<number>(4000);
   const saveTargetElement: any = useRef();
   useEffect(() => {
     dispatch(dataAboutRecipes());
   }, []);
-  const history = useHistory();
   useEffect(() => {
-    let time: number = 6000;
-    if (history.action === 'PUSH') {
-      time = 1;
-    }
     const timerShowWindow = setTimeout(() => {
       dispatch(openPopUp(false));
-    }, time);
+    }, time.current);
     return () => clearTimeout(timerShowWindow);
   }, [showWindow]);
 
@@ -45,7 +40,7 @@ const Recipes: React.FunctionComponent = () => {
   };
   const objForSortMenu = {
     arr: meal,
-    sortFunc: menuClick
+    sortFunc: menuClick,
   };
 
   return (
@@ -62,10 +57,8 @@ const Recipes: React.FunctionComponent = () => {
           <SortMenu obj={objForSortMenu} />
           <Suspense fallback={<MoonLoader />}>
             <div className={styles.products}>
-              {data.length !== 0
-                ? data.map((el) => <Card key={el._id} el={el} obj={{ targetElem: saveTargetElement, param: true }} />)
-                : 'Sorry there are no recipes'}
-              {showWindow ? <PopUp elem={saveTargetElement.current} /> : null}
+              {data.length !== 0 ? data.map((el) => <CardForRecipes el={el} obj={{ targetElem: saveTargetElement, param: true }} />) : <Warn />}
+              {showWindow ? <PopUp elem={saveTargetElement.current} currentTime={time} /> : null}
             </div>
           </Suspense>
         </div>

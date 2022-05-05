@@ -34,4 +34,4 @@ export const findRecipesByName = (param: string) => axios.get(`http://localhost:
 // export const sortRecipesByMeal = (value: string) => axios.get(`http://localhost:3001/meal?includeRecipes=true&meal=${value}`);
 // export const findByMealId = (id: number) => axios.get(`http://localhost:3001/meal?id=${id}`);
 // export const sortRecipesByRating = (val: string) => axios.get(`http://localhost:3001/recipes?rating=${val}`);
-export const getThreeRandomRecipes=()=>axios.get(`http://localhost:3001/recipes?threeRandomProducts=true`);
+export const getThreeRandomRecipes = () => axios.get(`http://localhost:3001/recipes?threeRandomProducts=true`);
