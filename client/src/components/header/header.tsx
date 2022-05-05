@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { StoreState } from '../../store/types';
 import { userUnauthenticated } from '../../store/modules/user/user.actions';
 import { loginModalActivation, registrationModalActivation } from '../../store/modules/modals/modal.actions';
+import styles from './header.module.scss';
 
 const Header: React.FunctionComponent = () => {
   const auth = useSelector((state: StoreState) => state.user.auth);
@@ -13,6 +14,7 @@ const Header: React.FunctionComponent = () => {
   const logOut = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('refreshToken');
+    localStorage.removeItem('root');
     dispatch(userUnauthenticated());
   };
   const userAuth = () => {
@@ -22,7 +24,14 @@ const Header: React.FunctionComponent = () => {
     dispatch(registrationModalActivation(true));
   };
   return (
-    <header>
+    <header style={auth ? { transform: 'none' } : undefined}>
+      <div className={styles.logo}>
+        <a href={links.home}>LOGO LOGO</a>
+        <div className={styles.description}>
+          <h3>FEEL WELL</h3>
+          <p>помощник по здоровью</p>
+        </div>
+      </div>
       <ul>
         <li>
           <Link to={links.home}>Home</Link>

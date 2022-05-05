@@ -21,10 +21,10 @@
     @include builder(flex, 100%);
     min-height: 100vh;
     max-height: 100vh;
-    background: url('../../assets/spagetti.jpg') no-repeat center;
-    background-size: cover;
     position: absolute;
     z-index: -100;
+    background: url('../../assets/spagetti.jpg') no-repeat fixed center;
+    background-size: cover;
   }
 }
 
@@ -32,7 +32,7 @@
   @include builder(flex, 100%);
   padding: 68px 80px 0 90px;
   box-sizing: border-box;
-
+  margin-bottom: 120px;
   .columnForSort {
     @include builder(flex, 387px);
   }

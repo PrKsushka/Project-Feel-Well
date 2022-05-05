@@ -29,7 +29,6 @@ const Places: React.FunctionComponent = () => {
     dispatch(placesDetailsModalActivation(true));
   };
   const sortDataAboutPlaces = (e: any) => {
-    e.target.style.color = '#F5AA20';
     setCurrentPlace(e.target.textContent.toLocaleLowerCase());
   };
   const sortDataByCity = (e: any) => {

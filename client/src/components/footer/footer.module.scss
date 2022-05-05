@@ -1,0 +1,16 @@
+@import "../../styles/mixin";
+.footer {
+  @include builderAligment(flex, flex-end, 100%);
+  background: black;
+  flex: 0 0 auto;
+  ul{
+    list-style: none;
+    @include builderAligment(flex, space-around, 500px);
+  }
+    li{
+      a{
+        text-decoration: none;
+        @include fonts(16px, $wh);
+      }
+    }
+  }

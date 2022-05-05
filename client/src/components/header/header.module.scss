@@ -4,16 +4,40 @@ header {
   justify-content: flex-end;
   z-index: 101;
   display: flex;
-  width: 1130px;
   box-sizing: border-box;
   position: fixed;
   top: 55px;
   left: 220px;
+  align-items: center;
+  transform: translate(-15%, -25%);
 
+  .logo{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-right: 250px;
+    a{
+      @include fonts(22px, $wh);
+      margin-right: 20px;
+      text-decoration: none;
+    }
+    .description {
+      h3{
+        @include fonts(25px, $wh);
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      p{
+        @include fonts(14px, $wh);
+      }
+    }
+  }
   ul {
     @include builder(flex, 348px);
     list-style: none;
-    margin-right: 220px;
 
     li {
       margin-right: 20px;

@@ -31,7 +31,7 @@ const ShoppingList: React.FunctionComponent = () => {
       </div>
     );
   } else {
-    return <div className={styles.emptyList}>Your shopping list is empty</div>;
+    return <div className={styles.emptyList}>Список покупок пуст</div>;
   }
 };
 export default ShoppingList;

@@ -15,6 +15,7 @@ import { openPopUp } from '../../store/modules/modals/modal.actions';
 import { useHistory } from 'react-router-dom';
 import Warn from '../../components/warn/warn';
 import links from '../../constants/links';
+import CardForRecipes from '../../components/card/module/cardForRecipes';
 
 const Card = lazy(() => import('../../components/card/card'));
 
@@ -56,27 +57,7 @@ const Recipes: React.FunctionComponent = () => {
           <SortMenu obj={objForSortMenu} />
           <Suspense fallback={<MoonLoader />}>
             <div className={styles.products}>
-              {data.length !== 0 ? (
-                data.map((el) => (
-                  <Card key={el._id} el={el} obj={{ targetElem: saveTargetElement, param: true }}>
-                    <Link to={`${links.recipes}/${el._id}`} className="cardTextLink">
-                      <div className="cardMainText">
-                        <h3 className="cardTitle">{el.name}</h3>
-                        <div className="ratingSec">
-                          <p className="cardParagraph">
-                            {el.time}
-                            &nbsp;
-                            {el.time && el.time < 60 ? 'мин' : 'ч'}
-                          </p>
-                          <p className="cardParagraph">{el.rating}</p>
-                        </div>
-                      </div>
-                    </Link>
-                  </Card>
-                ))
-              ) : (
-                <Warn />
-              )}
+              {data.length !== 0 ? data.map((el) => <CardForRecipes el={el} obj={{ targetElem: saveTargetElement, param: true }} />) : <Warn />}
               {showWindow ? <PopUp elem={saveTargetElement.current} currentTime={time} /> : null}
             </div>
           </Suspense>

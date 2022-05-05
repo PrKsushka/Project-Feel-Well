@@ -19,7 +19,7 @@ import {
   UNSAVED_FROM_FAVOURITE_RECIPES,
 } from './recipes.constants';
 import { getDataAboutRecipes, sortRecipes } from '../../../api/dataAboutRecipes';
-import { CategoryHealthElement, MealElement, ProductElement } from '../../types';
+import { CategoryHealthElement, MealElement, NewFolder, ProductElement } from '../../types';
 import { sortDataByHealth } from '../../../api/dataAboutCategories';
 
 function getDataAboutRecipesConfirmedAction(data: Array<object>) {
@@ -186,7 +186,7 @@ export function setNameOfMeal(meal: string) {
   };
 }
 
-export function createNewFolder(param: string) {
+export function createNewFolder(param: NewFolder) {
   return {
     type: CREATE_NEW_FOLDER,
     payload: param,

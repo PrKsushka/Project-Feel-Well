@@ -12,7 +12,7 @@ interface PopUpTypes {
 const PopUp: React.FunctionComponent<PopUpTypes> = (elem) => {
   const elems = useSelector((state: StoreState) => state.recipes.favouriteRecipes);
   const dispatch = useDispatch();
-  const [directory, setDirectory]=useState<string>("basic");
+  const [directory, setDirectory] = useState<string>('basic');
   const arr = [];
   for (let i = 0; i < elems.length; i++) {
     arr.push(elems[i][0]);

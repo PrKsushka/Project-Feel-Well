@@ -1,0 +1,17 @@
+@import "../../styles/mixin";
+
+.wrapper{
+  @include builder(flex, 100%);
+  margin-top: 120px;
+  border-radius: 20px;
+  background: white;
+  flex-wrap: wrap;
+  padding: 120px;
+  box-sizing: border-box;
+    .title{
+      @include fonts(27px, $bg, 500);
+    }
+    .cardWrapper {
+      @include builderAligment(flex, space-between, 100%);
+    }
+}

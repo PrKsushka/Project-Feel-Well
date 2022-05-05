@@ -78,7 +78,7 @@ const Home: React.FunctionComponent = () => {
         <div className={styles.cherry} />
       </div>
       <div className={styles.thirdWindow}>
-        <h3 className={styles.thirdWindowTitle}>РЕЦЕПТЫ ДЛЯ ВЕГЕТАРИАНЦЕВ</h3>
+        <h3 className={styles.thirdWindowTitle}>РЕЦЕПТЫ ДНЯ</h3>
         <div className={styles.leaf} />
         <div className={styles.cardWrapper}>
           {arrOfRandomProducts.length !== 0

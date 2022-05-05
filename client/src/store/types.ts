@@ -34,7 +34,7 @@ export type PlaceElement = {
   content?: string;
   typeOfPlaces?: string;
   workingHours?: string;
-}
+};
 
 export interface CategoryHealthElement {
   id: number;
@@ -63,6 +63,7 @@ export interface RecipesReducer {
   errorMessage: string;
   successMessage: string;
   meal: string;
+  folderColor: Array<string>;
 }
 
 export type DataAboutUser = {
@@ -85,6 +86,8 @@ export interface ModalReducer {
   createDirectoryModal: boolean;
   openPopUp: boolean;
   placesDetails: boolean;
+  changeDataAboutUserModal: boolean;
+  changePasswordModal: boolean;
 }
 
 export interface PlacesReducer {
@@ -98,3 +101,8 @@ export interface StoreState {
   modal: ModalReducer;
   places: PlacesReducer;
 }
+
+export type NewFolder = {
+  dirName: string;
+  color: string;
+};

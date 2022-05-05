@@ -6,7 +6,7 @@ import { PlaceElement, ProductElement } from '../../store/types';
 import '../../pages/recipes/card.css';
 import SaveButton from '../../UI/saveButton/saveButton';
 
-type Obj = {
+export type Obj = {
   targetElem?: any;
   style?: any;
   param: boolean;

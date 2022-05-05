@@ -9,7 +9,6 @@ interface ModalForPlacesDetails {
 }
 const ModalForPlacesDetails: React.FunctionComponent<ModalForPlacesDetails> = ({ obj: { current } }) => {
   const isActiveModal = useSelector((state: StoreState) => state.modal.placesDetails);
-  console.log(current);
   return (
     <Modal isActive={isActiveModal}>
       <div className={styles.wrapper}>

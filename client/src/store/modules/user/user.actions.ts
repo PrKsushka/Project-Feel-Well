@@ -8,6 +8,7 @@ import {
 } from './user.constants';
 import { Action, Dispatch } from 'redux';
 import { dataAboutUser } from '../../../api/user/getDataAboutUser';
+import { changeDataAboutUser } from '../../../api/user/changeData';
 
 export function userAuthenticated() {
   return {

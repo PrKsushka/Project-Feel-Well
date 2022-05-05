@@ -28,6 +28,6 @@
     box-sizing: border-box;
     border-radius: 20px;
     transition: all 3s ease-out;
-    @include fonts(14px, $bg);
+    @include fonts(14px, $wh);
   }
 }
