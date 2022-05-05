@@ -1,5 +1,6 @@
 import { Action, DataAboutUser, UserReducer } from '../../types';
-import { GET_DATA_ABOUT_USER_SUCCESS, USER_AUTHENTICATED, USER_REGISTERED, USER_UNAUTHENTICATED, USER_UNREGISTERED } from './user.constants';
+import { GET_DATA_ABOUT_USER_SUCCESS, LOG_OUT, USER_AUTHENTICATED, USER_REGISTERED, USER_UNAUTHENTICATED, USER_UNREGISTERED } from './user.constants';
+import storage from 'redux-persist/lib/storage';
 
 const initialState: UserReducer = {
   auth: false,

@@ -9,6 +9,7 @@ import ModalForRegistration from '../../components/modals/module/modalForRegistr
 import links from '../../constants/links';
 import CircleButton from '../../UI/circleButton/circleButton';
 import { getThreeRandomRecipes } from '../../api/dataAboutRecipes';
+import { getDataAboutUser } from '../../store/modules/user/user.actions';
 
 type LocationStateTypes = {
   from: {
@@ -25,6 +26,9 @@ const Home: React.FunctionComponent = () => {
   const registrationModal = useSelector((state: StoreState) => state.modal.registrationModal);
   if (!auth && history.location.search === '?signIn=false') {
     dispatch(loginModalActivation(true));
+  }
+  if (!auth && history.location.search === '/') {
+    dispatch(loginModalActivation(false));
   }
   if (auth) {
     if (locationState) {
@@ -82,8 +86,8 @@ const Home: React.FunctionComponent = () => {
         <div className={styles.leaf} />
         <div className={styles.cardWrapper}>
           {arrOfRandomProducts.length !== 0
-            ? arrOfRandomProducts.map((el: ProductElement) => (
-                <div className={styles.card} style={{ backgroundImage: `url(${require(`../../${el.image}`)})` }}>
+            ? arrOfRandomProducts.map((el: ProductElement, i) => (
+                <div key={i} className={styles.card} style={{ backgroundImage: `url(${require(`../../${el.image}`)})` }}>
                   <div className={styles.whiteElem}>
                     <h3 className={styles.cardTitle}>{el.name}</h3>
                     <CircleButton clickFunc={() => handleClick(el._id)} id={el._id} />

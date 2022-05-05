@@ -20,12 +20,10 @@ interface Card {
 
 const Card: React.FunctionComponent<Card> = ({ el, obj, children }) => {
   return (
-    <div className={styles.card} style={(obj.style) ? { marginRight: `${obj.style.margin}px` } : undefined}>
+    <div className={styles.card} style={obj.style ? { marginRight: `${obj.style.margin}px` } : undefined}>
       <div style={{ backgroundImage: `url(${require(`../../${el.image}`)}` }} className={styles.image} />
       {obj.param ? <SaveButton el={el} targetElem={obj.targetElem} /> : null}
-      {
-        children
-      }
+      {children}
     </div>
   );
 };

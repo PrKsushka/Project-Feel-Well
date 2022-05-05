@@ -3,11 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import React, { ReactNode } from 'react';
 import styles from './modal.module.scss';
 import {
-  changeDataAboutUserModalActivation, changePasswordModalActivation, closeModal,
+  changeDataAboutUserModalActivation,
+  changePasswordModalActivation,
+  closeModal,
   createDirectoryModalActivation,
   loginModalActivation,
   placesDetailsModalActivation,
-  registrationModalActivation
+  registrationModalActivation,
 } from '../../store/modules/modals/modal.actions';
 import { StoreState } from '../../store/types';
 import { userUnauthenticated, userUnregistered } from '../../store/modules/user/user.actions';

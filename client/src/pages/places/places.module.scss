@@ -112,6 +112,7 @@
     padding: 0 155px;
     box-sizing: border-box;
     flex-wrap: wrap;
+    margin-bottom: 200px;
 
     .workingHours {
       @include builderAligment(flex, flex-end, 50%);

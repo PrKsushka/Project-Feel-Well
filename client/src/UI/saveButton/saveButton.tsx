@@ -25,18 +25,18 @@ interface SaveButtonTypes {
 const SaveButton: React.FunctionComponent<SaveButtonTypes> = ({ el, targetElem, obj }) => {
   const dispatch = useDispatch();
   const favRecipes = useSelector((state: StoreState) => state.recipes.favouriteRecipes)[0];
-  const currentElem=useRef(null);
-  const [elem, setElem]=useState(false);
+  const currentElem = useRef(null);
+  const [elem, setElem] = useState(false);
   useEffect(() => {
     // @ts-ignore
-    console.log(currentElem.current.style)
+    console.log(currentElem.current.style);
     if (favRecipes[1]) {
       favRecipes[1].find((elem: ProductElement) => {
         if (obj && el._id === elem._id) {
           obj.setFoundElem(true);
         }
-        if(el._id === elem._id){
-          setElem(true)
+        if (el._id === elem._id) {
+          setElem(true);
         }
       });
     }
@@ -60,6 +60,13 @@ const SaveButton: React.FunctionComponent<SaveButtonTypes> = ({ el, targetElem, 
     }
     dispatch(getFavouriteRecipes(elem));
   };
-  return <div style={obj ? obj.style : undefined} ref={currentElem} className={obj && obj.foundElem || elem? 'saveClicked' : 'save'} onClick={handleClick(el)} />;
+  return (
+    <div
+      style={obj ? obj.style : undefined}
+      ref={currentElem}
+      className={(obj && obj.foundElem) || elem ? 'saveClicked' : 'save'}
+      onClick={handleClick(el)}
+    />
+  );
 };
 export default SaveButton;

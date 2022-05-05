@@ -1,8 +1,5 @@
 import { Action, Dispatch } from 'redux';
-import {
-  getDataAboutPlaces,
-  getDataAboutPlacesSortedByPlaceOrCity,
-} from '../../../api/dataAboutPlaces';
+import { getDataAboutPlaces, getDataAboutPlacesSortedByPlaceOrCity } from '../../../api/dataAboutPlaces';
 import {
   GET_DATA_ABOUT_PLACES_CONFIRMED,
   GET_DATA_ABOUT_PLACES_SORTED_BY_CITY_OR_PLACE_CONFIRMED,

@@ -24,27 +24,26 @@ const ModalForCreationANewDirectory: React.FunctionComponent = () => {
   };
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    if(directoryName && currentColor){
+    if (directoryName && currentColor) {
       dispatch(createNewFolder({ dirName: directoryName, color: currentColor }));
       setMessage('Папка успешно создана');
-    }
-    else {
+    } else {
       setMessage('Введите значения');
     }
   };
   return (
     <Modal isActive={openModel}>
-      {(message) ? <div className={styles.message}>{message}</div> : null}
+      {message ? <div className={styles.message}>{message}</div> : null}
       <form onSubmit={handleSubmit} className={styles.wrapper}>
         <label>
           <span>Введите название папки</span>
-          <input type='text' value={directoryName} name='createDir' onChange={handleChange} />
+          <input type="text" value={directoryName} name="createDir" onChange={handleChange} />
         </label>
         <div className={styles.colorPicker}>
           <p>Выберите цвет папки</p>
           <HexColorPicker onChange={setCurrentColor} color={currentColor} />
         </div>
-        <button type='submit' onSubmit={handleSubmit} className='button'>
+        <button type="submit" onSubmit={handleSubmit} className="button">
           Отправить
         </button>
       </form>

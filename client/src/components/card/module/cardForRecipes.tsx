@@ -20,9 +20,9 @@ const CardForRecipes: React.FunctionComponent<CardForRecipesTypes> = ({ el, obj 
             <p className="cardParagraph">
               {el.time}
               &nbsp;
-              {el.time && el.time < 60 ? 'мин' : 'ч'}
+              {el.time && el.time <= 60 ? 'мин' : 'ч'}
             </p>
-            <p className="cardParagraph">{el.rating}</p>
+            <p className="cardParagraph">Рейтинг {el.rating}</p>
           </div>
         </div>
       </Link>

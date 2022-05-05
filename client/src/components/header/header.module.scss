@@ -9,13 +9,12 @@ header {
   top: 55px;
   left: 220px;
   align-items: center;
-  transform: translate(-15%, -25%);
+  transform: translate(-4%, -25%);
 
   .logo{
     display: flex;
     justify-content: space-around;
     align-items: center;
-    margin-right: 250px;
     a{
       @include fonts(22px, $wh);
       margin-right: 20px;
@@ -36,13 +35,13 @@ header {
     }
   }
   ul {
-    @include builder(flex, 348px);
+   display: flex;
     list-style: none;
 
     li {
       margin-right: 20px;
       @include fonts(18px);
-
+      cursor: pointer;
       &:last-child {
         margin: 0 0 0 46px
       }
