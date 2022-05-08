@@ -1,4 +1,3 @@
-import { User } from "./entity/User"
 import { createConnection} from 'typeorm';
 // AppDataSource.initialize().then(async () => {
 //

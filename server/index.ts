@@ -1,7 +1,7 @@
 import express from 'express';
 import 'dotenv/config';
 import connectionToMongoDataBase from './db/mongoDB/db';
-import getDataAboutProductsMongoDB from './db/routes/products/productsRoutes';
+import recipes from './db/routes/products/productsRoutes';
 import getDataAboutArticlesMongoDB from './db/routes/articles/articlesRoutes';
 import getDataAboutMealMongoDB from './db/routes/meal/mealRoutes';
 import getDataAboutPlacesMongoDB from './db/routes/places/placesRoutes';
@@ -18,7 +18,7 @@ app.use(cors());
 
 if(process.argv[2]==='mongodb'){
   connectionToMongoDataBase();
-  app.use(getDataAboutProductsMongoDB);
+  app.use(recipes.getDataAboutProductsMongoDB);
   app.use(getDataAboutArticlesMongoDB);
   app.use(getDataAboutCategoriesMongoDB);
 // app.use(getDataAboutCategoriesPlacesMongoDB);
@@ -28,6 +28,7 @@ if(process.argv[2]==='mongodb'){
 }
 else if(process.argv[2]==='postgres'){
   connectionToPostgresDataBase();
+  app.use(recipes.getDataAboutProductsPostgres);
 }
 
 app.listen(process.env.PORT, () => {
