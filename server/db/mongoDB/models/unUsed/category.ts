@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import CategoryTypes from '../../types/categoryTypes';
+import CategoryTypes from '../../../types/categoryTypes';
 
 const categotySchema = new mongoose.Schema({
   health: {

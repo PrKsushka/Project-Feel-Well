@@ -1,4 +1,4 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import Recipes from './recipes';
 import { Ingredients } from './ingredients';
 
@@ -9,4 +9,7 @@ export class Measures {
 
   @Column()
   measure: string;
+  // @OneToMany(()=>Ingredients, (ingredients)=>ingredients.measure)
+  // @JoinColumn()
+  // measure: Measures[]
 }

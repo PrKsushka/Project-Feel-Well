@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import Products from '../../models/products';
 import CustomError from '../../../customError/customError';
+import Recipes from '../../models/recipes';
 
 const getDataAboutProducts = async (req: Request, res: Response) => {
   try {
@@ -25,20 +25,23 @@ const getDataAboutProducts = async (req: Request, res: Response) => {
     }
     if (req.query.notInclude) {
       // {ingredients: {$not: {$elemMatch: {$or: [{"food":"strawberry"},{"food":"kabachok"}]}}}}
+      // {ingredients: { $not: { $elemMatch: { $or: [{'product':{ 'product': "молоко" }}]}}}}
       const notInclude = req.query.notInclude;
       const newArr: object[] = [];
       if (notInclude instanceof Array && notInclude.length >= 2) {
         for (let i = 0; i < notInclude.length; i++) {
-          newArr.push({ 'ingredient': notInclude[i] });
+          newArr.push({ 'product': {'product': notInclude[i] }});
         }
         findOptions = {
           ...findOptions,
-          ingredients: { $not: { $elemMatch: { $or: newArr } } }
+          ingredients: {
+              $not: { $elemMatch: { $or: newArr } }
+            }
         };
       } else {
         findOptions = {
           ...findOptions,
-          ingredients: { $not: { $elemMatch: { $or: [{ 'ingredient': notInclude }] } } }
+          ingredients: {$not: { $elemMatch: { $or: [{ 'product': {'product':notInclude }}] } }}
         };
 
       }
@@ -62,11 +65,11 @@ const getDataAboutProducts = async (req: Request, res: Response) => {
         mealId: String(req.query.meal).toLowerCase()
       };
     }
-    const data = await Products.find(findOptions).sort(sortOptions).limit(Number(limit));
+    const data = await Recipes.find(findOptions).sort(sortOptions).limit(Number(limit)).populate('ingredients.measure');
     res.status(200).json(data);
   } catch (e: any) {
     const error = new CustomError(e.name, e.status, e.message);
     res.status(error.statusVal).json({ message: error.messageVal });
   }
-};
+}
 export default getDataAboutProducts;

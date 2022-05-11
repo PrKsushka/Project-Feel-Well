@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import Category from '../../models/category';
+import Category from '../../models/unUsed/category';
 import { ObjectId } from 'mongodb';
 
 const getDataAboutCategories = async (req: Request, res: Response) => {

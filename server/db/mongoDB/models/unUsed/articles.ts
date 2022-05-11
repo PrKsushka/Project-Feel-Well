@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import ArticlesTypes from '../../types/articlesTypes';
+import ArticlesTypes from '../../../types/articlesTypes';
 
 const articleSchema = new mongoose.Schema({
   title: {

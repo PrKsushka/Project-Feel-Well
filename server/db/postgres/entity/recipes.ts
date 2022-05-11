@@ -1,8 +1,20 @@
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  JoinTable,
+  ManyToMany,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn
+} from 'typeorm';
 import { Meals } from './meals';
 import { Ingredients } from './ingredients';
+import { Unique } from 'typeorm';
 
 @Entity()
+
+// @Unique(['name'])
 class Recipes {
   @PrimaryGeneratedColumn()
   id: number;
@@ -12,14 +24,14 @@ class Recipes {
 
   @ManyToOne(() => Meals, (meals) => meals.id)
   @JoinColumn()
-  'mealId': Meals;
+  meal: Meals;
 
   @Column()
   title: string;
 
-  @ManyToOne(() => Ingredients, (ingredients) => ingredients.id)
-  @JoinColumn()
-  'ingredientId': Ingredients;
+  // @ManyToOne(() => Ingredients, (ingredients) => ingredients.id)
+  // @JoinColumn()
+  // 'ingredientId': Ingredients;
 
   @Column()
   kcal: number;
@@ -48,7 +60,11 @@ class Recipes {
   @Column()
   carbodygrate: number;
 
+  @ManyToMany(() => Ingredients)
+  @JoinTable()
+  ingredients: Ingredients[];
   // @OneToMany(()=>Ingredients, (ingredient)=>(ingredient.ingredient))
   // ingredients: Ingredients[]
 }
+
 export default Recipes;

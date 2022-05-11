@@ -9,6 +9,6 @@ export class Meals {
   @Column()
   meal: string;
 
-  @OneToMany(()=>Recipes, (recipes)=>(recipes.mealId))
+  @OneToMany(()=>Recipes, (recipes)=>(recipes.meal))
   recipes: Recipes[]
 }

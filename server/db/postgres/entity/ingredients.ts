@@ -9,11 +9,11 @@ export class Ingredients {
 
   @ManyToOne(() => Products, (products) => products.id)
   @JoinColumn()
-  'productId': Products;
+  product: Products;
 
   @ManyToOne(() => Measures, (measures) => measures.id)
   @JoinColumn()
-  'measureId': Measures;
+  measure: Measures;
 
   @Column()
   count: number;

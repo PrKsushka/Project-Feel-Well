@@ -10,6 +10,7 @@ import userRoute from './db/routes/user/userRoutes';
 import getDataAboutCategoriesMongoDB from './db/routes/category/categoryRoutes';
 import "reflect-metadata"
 import connectionToPostgresDataBase from './db/postgres/db';
+import t from './db/mongoDB/controller/measureAndProducts';
 
 const app = express();
 app.use(express.urlencoded({ extended: true }));
@@ -25,6 +26,8 @@ if(process.argv[2]==='mongodb'){
   app.use(getDataAboutMealMongoDB);
   app.use(getDataAboutPlacesMongoDB);
   app.use(userRoute);
+  app.get('/measures', t.getDataAboutMeasures);
+  app.get('/products', t.getDataAboutProducts);
 }
 else if(process.argv[2]==='postgres'){
   connectionToPostgresDataBase();

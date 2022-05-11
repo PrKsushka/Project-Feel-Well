@@ -1,101 +1,104 @@
 import { Request, Response } from 'express';
 import CustomError from '../../../customError/customError';
-import { Equal, getRepository } from 'typeorm';
+import { Equal, getManager, getRepository, In, Like, Not } from 'typeorm';
 import connectionToPostgresDataBase from '../../db';
 import Recipes from '../../entity/recipes';
+import { Products } from '../../entity/products';
+import { Ingredients } from '../../entity/ingredients';
 
 
 const getDataAboutRecipes = async (req: Request, res: Response) => {
   try {
-    let limit;
-    let findOptions = {};
+
+    const recipes = await getRepository(Recipes).createQueryBuilder('recipes');
+    let result;
+
     if (req.query.param) {
-      findOptions = {
-        ...findOptions,
-        join: {
-          alias: 'recipes',
-          where: {
-            ingredientId: 'ingredients.id',
-            'ingredientId.measureId': {id: 'measures.id'},
-            'ingredientId.productId': {id: 'products.id'},
-          },
-        },
-        relations: ['ingredientId', 'ingredientId.productId', 'ingredientId.measureId'],
-        select: {
-          'ingredientId':{
-            'measureId': {
-              id: false,
-              measure: true
-            },
-            count: true,
-            id: true,
-            'productId': {
-              id: false,
-              product: true
-            }
+      result = await recipes
+        .leftJoinAndSelect('recipes.meal', 'meals')
+        .leftJoinAndSelect('recipes.ingredients', 'ingredients')
+        .leftJoinAndSelect('ingredients.product', 'products')
+        .leftJoinAndSelect('ingredients.measure', 'measures')
+        .select(['recipes.id', 'recipes.name', 'recipes.title', 'recipes.time', 'recipes.createdAt', 'recipes.rating', 'recipes.video', 'recipes.image', 'recipes.kcal', 'recipes.carbodygrate', 'recipes.fats', 'recipes.proteins', 'ingredients.id', 'ingredients.count', 'products.product', 'measures.measure', 'meals.meal'])
+        .getMany();
+
+      if (req.query.notInclude) {
+        const notInclude = req.query.notInclude;
+        const newArr = [];
+        if (notInclude instanceof Array && notInclude.length >= 2) {
+          for (let i = 0; i < notInclude.length; i++) {
+            newArr.push(notInclude[i]);
           }
+          const firstSubqueryArr = [];
+          result = await recipes
+            .where((qb) => {
+              for (let i = 0; i < newArr.length; i++) {
+                const t = qb.subQuery()
+                  .select('products.id')
+                  .from(Products, 'products')
+                  .where(`products.product='${newArr[i]}'`)
+                  .getQuery();
+                firstSubqueryArr.push(t);
+              }
+
+              let subQueryFirst: any = qb.subQuery()
+                .select(`"recipes_ingredients_ingredients"."recipesId"`)
+                .from('recipes_ingredients_ingredients', 'recipes_ingredients_ingredients')
+                .from('ingredients', 'ingredients')
+                .where(`"recipes_ingredients_ingredients"."ingredientsId"=ingredients.id `)
+                .andWhere(`"ingredients"."productId"=${firstSubqueryArr[0]}`)
+                .getQuery();
+
+              let subQuerySecond: any = qb.subQuery()
+                .select(`"recipes_ingredients_ingredients"."recipesId"`)
+                .from('recipes_ingredients_ingredients', 'recipes_ingredients_ingredients')
+                .from('ingredients', 'ingredients')
+                .andWhere(`"ingredients"."productId"=${firstSubqueryArr[1]}`)
+                .getQuery();
+
+              return 'recipes.id NOT IN' + subQueryFirst + ' AND recipes.id NOT IN' + subQuerySecond;
+            })
+            .getMany();
+
+        } else {
+          result = await recipes
+            .where((qb) => {
+              const firstSubQuery = qb.subQuery()
+                .select('products.id')
+                .from(Products, 'products')
+                .where(`products.product='${notInclude}'`)
+                .getQuery();
+              const subQuery = qb.subQuery()
+                .select(`"recipes_ingredients_ingredients"."recipesId"`)
+                .from('recipes_ingredients_ingredients', 'recipes_ingredients_ingredients')
+                .from('ingredients', 'ingredients')
+                .where(`"recipes_ingredients_ingredients"."ingredientsId"=ingredients.id `)
+                .andWhere(`"ingredients"."productId"=${firstSubQuery}`)
+                .getQuery();
+              return 'recipes.id NOT IN' + subQuery;
+            })
+            .getMany();
         }
-      };
-      // let sortOptions = {};
-      // if (req.query.name) {
-      //   findOptions = {
-      //     ...findOptions,
-      //     $text: {
-      //       $search: String(req.query.name),
-      //       $caseSensitive: false
-      //     }
-      //   };
-      // }
-      // if (req.query.threeRandomProducts === 'true') {
-      //   sortOptions = {
-      //     ...sortOptions,
-      //     _id: -1 + Math.floor(2 * Math.random())
-      //   };
-      //   limit = 3;
-      // }
-      // if (req.query.notInclude) {
-      //   // {ingredients: {$not: {$elemMatch: {$or: [{"food":"strawberry"},{"food":"kabachok"}]}}}}
-      //   const notInclude = req.query.notInclude;
-      //   const newArr: object[] = [];
-      //   if (notInclude instanceof Array && notInclude.length >= 2) {
-      //     for (let i = 0; i < notInclude.length; i++) {
-      //       newArr.push({ 'ingredient': notInclude[i] });
-      //     }
-      //     findOptions = {
-      //       ...findOptions,
-      //       ingredients: { $not: { $elemMatch: { $or: newArr } } }
-      //     };
-      //   } else {
-      //     findOptions = {
-      //       ...findOptions,
-      //       ingredients: { $not: { $elemMatch: { $or: [{ 'ingredient': notInclude }] } } }
-      //     };
-      //
-      //   }
-      // }
-      // if (req.query.rating === 'asc') {
-      //   findOptions = { ...findOptions };
-      //   sortOptions = {
-      //     ...sortOptions,
-      //     rating: 1
-      //   };
-      // } else if (req.query.rating === 'desc') {
-      //   findOptions = { ...findOptions };
-      //   sortOptions = {
-      //     ...sortOptions,
-      //     rating: -1
-      //   };
-      // }
-      // if (req.query.meal) {
-      //   findOptions = {
-      //     ...findOptions,
-      //     mealId: String(req.query.meal).toLowerCase()
-      //   };
-      // }
-      const recipes = await getRepository(Recipes);
-      const result = await recipes.find({ ...findOptions });
-      res.status(200).json(result);
+      }
     }
+    if (req.query.rating === 'asc') {
+      result=await recipes
+        .orderBy('recipes.rating', 'ASC')
+        .getMany()
+    } else if (req.query.rating === 'desc') {
+      result=await recipes
+        .orderBy('recipes.rating', 'DESC')
+        .getMany()
+    }
+    if (req.query.meal) {
+      result=await recipes
+        .where("meals.meal = :meal", {meal: req.query.meal})
+        .getMany()
+
+    }
+
+    res.status(200).json(result);
+
   } catch (e: any) {
     const error = new CustomError(e.name, e.status, e.message);
     res.status(error.statusVal).json({ message: error.messageVal });
