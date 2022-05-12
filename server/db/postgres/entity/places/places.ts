@@ -1,7 +1,7 @@
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import Cities from './cities';
 import TypeOfPlaces from './typeOfPlaces';
-import PlacesTypes from '../../../types/places.types';
+import PlacesTypes from '../../../types/places/places.types';
 
 @Entity()
 class Places implements PlacesTypes{

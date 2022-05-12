@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import ProductsTypes from '../../../types/recipes/products.types';
 
 const productsSchema = new mongoose.Schema({
   product: {
@@ -6,5 +7,5 @@ const productsSchema = new mongoose.Schema({
     required: true
   }
 });
-const Products = mongoose.model('Products', productsSchema);
+const Products = mongoose.model<ProductsTypes>('Products', productsSchema);
 export default Products;

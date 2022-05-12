@@ -1,9 +1,10 @@
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Products } from './products';
 import { Measures } from './measures';
+import IngredientsTypes from '../../../types/recipes/ingredients.types';
 
 @Entity()
-export class Ingredients {
+export class Ingredients implements IngredientsTypes {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -17,5 +18,4 @@ export class Ingredients {
 
   @Column()
   count: number;
-
 }

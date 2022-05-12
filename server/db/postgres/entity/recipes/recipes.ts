@@ -9,7 +9,7 @@ import {
 } from 'typeorm';
 import { Meals } from './meals';
 import { Ingredients } from './ingredients';
-import RecipesTypes from '../../../types/recipes.types';
+import RecipesTypes from '../../../types/recipes/recipes.types';
 
 @Entity()
 class Recipes implements RecipesTypes {

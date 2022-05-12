@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import Articles from '../../models/unUsed/articles';
+import Articles from '../../models/articles';
 
 const getDataAboutArticles = async (req: Request, res: Response) => {
   try {

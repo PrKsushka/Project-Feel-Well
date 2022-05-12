@@ -1,9 +1,8 @@
-import { Column, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import Recipes from './recipes';
-import { Ingredients } from './ingredients';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import MeasuresTypes from '../../../types/recipes/measures.types';
 
 @Entity()
-export class Measures {
+export class Measures implements MeasuresTypes {
   @PrimaryGeneratedColumn()
   id: number;
 

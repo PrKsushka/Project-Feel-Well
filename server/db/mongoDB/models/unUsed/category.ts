@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import CategoryTypes from '../../../types/categoryTypes';
 
 const categotySchema = new mongoose.Schema({
   health: {
@@ -7,5 +6,5 @@ const categotySchema = new mongoose.Schema({
     required: true,
   },
 });
-const Category = mongoose.model<CategoryTypes>('Category', categotySchema);
+const Category = mongoose.model('Category', categotySchema);
 export default Category;

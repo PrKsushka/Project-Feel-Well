@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
-import Recipes from '../../../types/recipes.types';
-import RecipesTypes from '../../../types/recipes.types';
+import Recipes from '../../../types/recipes/recipes.types';
+import RecipesTypes from '../../../types/recipes/recipes.types';
 
 const recipesSchema = new mongoose.Schema({
   name: {
