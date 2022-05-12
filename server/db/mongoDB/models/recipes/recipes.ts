@@ -1,18 +1,15 @@
 import mongoose from 'mongoose';
-import ProductTypes from '../../types/productTypes';
+import Recipes from '../../../types/recipes.types';
+import RecipesTypes from '../../../types/recipes.types';
 
 const recipesSchema = new mongoose.Schema({
   name: {
     type: String,
     require: true
   },
-  mealId: {
+  meal: {
     type: String,
     ref: 'Meal'
-  },
-  healthId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Category'
   },
   title: {
     type: String,
@@ -34,16 +31,6 @@ const recipesSchema = new mongoose.Schema({
           required: true
         }
       }
-      // product: {
-      //   type: mongoose.Schema.Types.ObjectId,
-      //   ref: 'Products'
-      // }
-
-
-      // measure: {
-      //   type: String,
-      //   required: true
-      // }
     }],
     required: true
   },
@@ -85,5 +72,5 @@ const recipesSchema = new mongoose.Schema({
   }
 });
 recipesSchema.index({ name: 1 });
-const Recipes = mongoose.model<ProductTypes>('Recipes', recipesSchema);
+const Recipes = mongoose.model<RecipesTypes>('Recipes', recipesSchema);
 export default Recipes;

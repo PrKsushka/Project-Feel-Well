@@ -4,13 +4,13 @@ import connectionToMongoDataBase from './db/mongoDB/db';
 import recipes from './db/routes/products/productsRoutes';
 import getDataAboutArticlesMongoDB from './db/routes/articles/articlesRoutes';
 import getDataAboutMealMongoDB from './db/routes/meal/mealRoutes';
-import getDataAboutPlacesMongoDB from './db/routes/places/placesRoutes';
+import places from './db/routes/places/placesRoutes';
 import cors from 'cors';
-import userRoute from './db/routes/user/userRoutes';
+import user from './db/routes/user/userRoutes';
 import getDataAboutCategoriesMongoDB from './db/routes/category/categoryRoutes';
 import "reflect-metadata"
 import connectionToPostgresDataBase from './db/postgres/db';
-import t from './db/mongoDB/controller/measureAndProducts';
+import t from './db/mongoDB/controller/unUsed/measureAndProducts';
 
 const app = express();
 app.use(express.urlencoded({ extended: true }));
@@ -24,14 +24,16 @@ if(process.argv[2]==='mongodb'){
   app.use(getDataAboutCategoriesMongoDB);
 // app.use(getDataAboutCategoriesPlacesMongoDB);
   app.use(getDataAboutMealMongoDB);
-  app.use(getDataAboutPlacesMongoDB);
-  app.use(userRoute);
+  app.use(places.getDataAboutPlacesMongoDB);
+  app.use(user.userRoute);
   app.get('/measures', t.getDataAboutMeasures);
   app.get('/products', t.getDataAboutProducts);
 }
 else if(process.argv[2]==='postgres'){
   connectionToPostgresDataBase();
   app.use(recipes.getDataAboutProductsPostgres);
+  app.use(places.getDataAboutPlacesPostgres)
+  app.use(user.userRoutePg)
 }
 
 app.listen(process.env.PORT, () => {

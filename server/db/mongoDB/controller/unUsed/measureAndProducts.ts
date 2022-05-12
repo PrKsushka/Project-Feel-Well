@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import Measures from '../models/measures';
-import Products from '../models/products';
+import Measures from '../../models/recipes/measures';
+import Products from '../../models/recipes/products';
 
 const getDataAboutMeasures=async (req: Request, res: Response)=>{
   try{

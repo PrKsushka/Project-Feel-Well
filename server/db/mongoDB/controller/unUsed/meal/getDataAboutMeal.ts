@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
-import Category from '../../models/unUsed/category';
+import Meal from '../../../models/recipes/meal';
 import { ObjectId } from 'mongodb';
 
-const getDataAboutCategories = async (req: Request, res: Response) => {
+const getDataAboutMeal = async (req: Request, res: Response) => {
   try {
     let aggregateOptions: Array<any> = [{ $sort: { _id: 1 } }];
     if (req.query.id) {
@@ -15,33 +15,33 @@ const getDataAboutCategories = async (req: Request, res: Response) => {
         },
       ];
     }
-    if (req.query.includeProducts === 'true') {
+    if (req.query.includeRecipes === 'true') {
       aggregateOptions = [
         ...aggregateOptions,
         {
           $lookup: {
             from: 'products',
-            localField: '_id',
-            foreignField: 'healthId',
+            localField: 'meal',
+            foreignField: 'mealId',
             as: 'recipes',
           },
         },
       ];
-      if (req.query.health) {
+      if (req.query.meal) {
         aggregateOptions = [
           ...aggregateOptions,
           {
             $match: {
-              health: req.query.health,
+              meal: req.query.meal,
             },
           },
         ];
       }
     }
-    const data = await Category.aggregate(aggregateOptions);
+    const data = await Meal.aggregate(aggregateOptions);
     res.status(200).json(data);
   } catch (e: any) {
     res.status(500).json({ message: e.message });
   }
 };
-export default getDataAboutCategories;
+export default getDataAboutMeal;

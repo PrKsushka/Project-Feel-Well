@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import CustomError from '../../../customError/customError';
-import Recipes from '../../models/recipes';
+import Recipes from '../../models/recipes/recipes';
 
 const getDataAboutProducts = async (req: Request, res: Response) => {
   try {

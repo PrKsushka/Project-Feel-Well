@@ -5,17 +5,14 @@ import {
   JoinTable,
   ManyToMany,
   ManyToOne,
-  OneToMany,
   PrimaryGeneratedColumn
 } from 'typeorm';
 import { Meals } from './meals';
 import { Ingredients } from './ingredients';
-import { Unique } from 'typeorm';
+import RecipesTypes from '../../../types/recipes.types';
 
 @Entity()
-
-// @Unique(['name'])
-class Recipes {
+class Recipes implements RecipesTypes {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -28,10 +25,6 @@ class Recipes {
 
   @Column()
   title: string;
-
-  // @ManyToOne(() => Ingredients, (ingredients) => ingredients.id)
-  // @JoinColumn()
-  // 'ingredientId': Ingredients;
 
   @Column()
   kcal: number;
@@ -58,13 +51,11 @@ class Recipes {
   proteins: number;
 
   @Column()
-  carbodygrate: number;
+  carbohydrate: number;
 
   @ManyToMany(() => Ingredients)
   @JoinTable()
   ingredients: Ingredients[];
-  // @OneToMany(()=>Ingredients, (ingredient)=>(ingredient.ingredient))
-  // ingredients: Ingredients[]
 }
 
 export default Recipes;
