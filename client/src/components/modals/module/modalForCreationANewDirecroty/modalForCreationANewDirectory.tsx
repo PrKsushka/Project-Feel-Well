@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Modal from '../../modal';
 import { useDispatch, useSelector } from 'react-redux';
-import { StoreState } from '../../../../store/types';
+import { StoreState } from '../../../../store/types/types';
 import { createNewFolder } from '../../../../store/modules/recipes/recipes.actions';
 import { ChromePicker, SketchPicker } from 'react-color';
 import { HexColorPicker } from 'react-colorful';

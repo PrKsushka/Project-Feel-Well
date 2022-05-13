@@ -8,7 +8,7 @@ const getDataAboutUserPg = async (req: Request | any, res: Response) => {
   try {
     const user=await getRepository(Users).createQueryBuilder("users");
     const findUser=await user
-      .where("id =:id", {id: req.query.id})
+      .where("id =:id", {id: req.user.id})
       .getOne();
     if (!findUser) {
       throw CustomError.forbiddenRequest('Something wrong');

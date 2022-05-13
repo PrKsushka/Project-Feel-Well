@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { PlaceElement, ProductElement, StoreState } from '../../store/types';
+import { PlaceElement, StoreState } from '../../store/types/types';
 import { getFavouriteRecipes, unsavedFromFavouriteRecipes } from '../../store/modules/recipes/recipes.actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { openPopUp } from '../../store/modules/modals/modal.actions';
+import { RecipeTypes } from '../../store/types/recipes.types';
 
 type Obj = {
   foundElem: boolean;
@@ -16,7 +17,7 @@ type Obj = {
 };
 
 interface SaveButtonTypes {
-  el: ProductElement | PlaceElement;
+  el: RecipeTypes | PlaceElement;
   targetElem?: any;
   obj?: Obj;
   children?: React.ReactNode;
@@ -31,7 +32,7 @@ const SaveButton: React.FunctionComponent<SaveButtonTypes> = ({ el, targetElem, 
     // @ts-ignore
     console.log(currentElem.current.style);
     if (favRecipes[1]) {
-      favRecipes[1].find((elem: ProductElement) => {
+      favRecipes[1].find((elem: RecipeTypes) => {
         if (obj && el._id === elem._id) {
           obj.setFoundElem(true);
         }
@@ -42,7 +43,7 @@ const SaveButton: React.FunctionComponent<SaveButtonTypes> = ({ el, targetElem, 
     }
   }, []);
 
-  const handleClick = (elem: ProductElement) => (e: any) => {
+  const handleClick = (elem: RecipeTypes) => (e: any) => {
     if (e.target.className === 'saveClicked') {
       e.target.className = 'save';
       dispatch(openPopUp(false));

@@ -5,7 +5,7 @@ import {
   changePasswordModalActivation,
   createDirectoryModalActivation,
 } from '../../store/modules/modals/modal.actions';
-import { StoreState } from '../../store/types';
+import { StoreState } from '../../store/types/types';
 import styles from './user.module.scss';
 import { Link, useHistory } from 'react-router-dom';
 import links from '../../constants/links';

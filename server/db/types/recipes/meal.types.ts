@@ -1,6 +1,6 @@
 interface MealTypes {
+  id?: number;
   meal: string;
-  image?: string;
   recipes?:any;
 }
 export default MealTypes;

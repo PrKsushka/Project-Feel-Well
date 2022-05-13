@@ -5,7 +5,7 @@ import {
   GET_DATA_ABOUT_PLACES_SORTED_BY_CITY_OR_PLACE_CONFIRMED,
   GET_DATA_ABOUT_PLACES_SORTED_BY_CITY_OR_PLACE_FAILED,
 } from './places.constants';
-import { PlaceElement } from '../../types';
+import { PlaceElement } from '../../types/types';
 
 function getDataAboutPlacesConfirmed(arr: Array<PlaceElement>) {
   return {

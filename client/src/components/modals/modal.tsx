@@ -11,7 +11,7 @@ import {
   placesDetailsModalActivation,
   registrationModalActivation,
 } from '../../store/modules/modals/modal.actions';
-import { StoreState } from '../../store/types';
+import { StoreState } from '../../store/types/types';
 import { userUnauthenticated, userUnregistered } from '../../store/modules/user/user.actions';
 
 interface ModalTypes {

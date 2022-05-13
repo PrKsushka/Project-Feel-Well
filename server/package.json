@@ -6,7 +6,7 @@
    "scripts": {
       "test": "echo \"Error: no test specified\" && exit 1",
       "start:mongodb": "nodemon -- mongodb",
-      "start:postgres": "nodemon -- postgres",
+      "start:postgres": "nodemon -- postgres --ignore client",
       "build": "tsc",
       "start": "ts-node db/postgres/db.ts",
       "typeorm": "typeorm-ts-node-commonjs"

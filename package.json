@@ -7,7 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "client": "npm start --prefix client",
     "server:mongodb": "npm run start:mongodb --prefix server",
-    "dev:mongodb": "concurrently \"npm run server:mongodb\" \"npm run client\""
+    "dev:mongodb": "concurrently \"npm run server:mongodb\" \"npm run client\"",
+    "server:postgres": "npm run start:postgres --prefix server",
+    "dev:postgres": "concurrently \"npm run server:postgres\" \"npm run client\""
   },
   "repository": {
     "type": "git",

@@ -1,10 +1,10 @@
 import React, { useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { ProductElement, StoreState } from '../../store/types';
-import Card from '../../components/card/card';
+import { StoreState } from '../../store/types/types';
 import styles from './savedRecipes.module.scss';
 import CardForRecipes from '../../components/card/module/cardForRecipes';
+import { RecipeTypes } from '../../store/types/recipes.types';
 
 type Saved = {
   saved: string;
@@ -22,7 +22,7 @@ const SavedRecipes: React.FunctionComponent = () => {
       <div className={styles.wrapper}>
         <p className={styles.title}>{saved}</p>
         <div className={styles.cardWrapper}>
-          {dir[1].map((el: ProductElement, i: number) => (
+          {dir[1].map((el: RecipeTypes, i: number) => (
             <CardForRecipes el={el} obj={{ targetElem: saveTargetElement, param: true }} />
           ))}
         </div>

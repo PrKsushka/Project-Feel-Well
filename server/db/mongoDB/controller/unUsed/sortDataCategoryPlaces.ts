@@ -11,7 +11,7 @@
 //         {
 //           $lookup: {
 //             from: 'places',
-//             as: 'products',
+//             as: 'recipes',
 //             let: { placesId: '$_id' },
 //             pipeline: [
 //               {

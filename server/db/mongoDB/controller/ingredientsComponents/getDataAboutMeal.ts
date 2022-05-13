@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import Meal from '../../../models/recipes/meal';
+import Meal from '../../models/recipes/meal';
 import { ObjectId } from 'mongodb';
 
 const getDataAboutMeal = async (req: Request, res: Response) => {
@@ -20,7 +20,7 @@ const getDataAboutMeal = async (req: Request, res: Response) => {
         ...aggregateOptions,
         {
           $lookup: {
-            from: 'products',
+            from: 'recipes',
             localField: 'meal',
             foreignField: 'mealId',
             as: 'recipes',

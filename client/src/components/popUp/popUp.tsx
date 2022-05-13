@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { StoreState } from '../../store/types';
+import { StoreState } from '../../store/types/types';
 import React, { ReactNode, useState } from 'react';
 import { saveToAnotherDir } from '../../store/modules/recipes/recipes.actions';
 import styles from './popUp.module.scss';

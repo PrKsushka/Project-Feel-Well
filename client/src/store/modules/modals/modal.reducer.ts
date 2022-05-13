@@ -1,4 +1,4 @@
-import { Action } from '../../types';
+import { Action } from '../../types/types';
 import {
   CHANGE_DATA_ABOUT_USER_MODAL_ACTIVATION,
   CHANGE_PASSWORD_MODAL_ACTIVATION,

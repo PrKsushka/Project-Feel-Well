@@ -8,7 +8,7 @@ const recipesSchema = new mongoose.Schema({
     require: true
   },
   meal: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'Meal'
   },
   title: {

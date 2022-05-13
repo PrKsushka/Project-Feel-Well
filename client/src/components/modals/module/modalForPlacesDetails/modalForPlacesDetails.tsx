@@ -1,6 +1,6 @@
 import Modal from '../../modal';
 import { useSelector } from 'react-redux';
-import { PlaceElement, StoreState } from '../../../../store/types';
+import { PlaceElement, StoreState } from '../../../../store/types/types';
 import React from 'react';
 import styles from './modalForPlacesDetails.module.scss';
 

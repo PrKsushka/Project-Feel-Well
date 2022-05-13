@@ -1,29 +1,10 @@
+import { RecipeTypes } from './recipes.types';
+
 export type Action = {
   type: string;
   payload?: undefined;
 };
-type Ingredients = {
-  ingredient: string;
-  count: number;
-  measure: string;
-};
-export interface ProductElement {
-  _id: number;
-  name: string;
-  image?: string;
-  mealId?: number;
-  healthId?: number;
-  title: string;
-  ingredients?: Array<Ingredients>;
-  kcal?: number;
-  time?: number;
-  rating?: number;
-  createdAt?: Date;
-  carbohydrate?: number;
-  fats?: number;
-  proteins?: number;
-  video?: string;
-}
+
 export type PlaceElement = {
   _id: number;
   address?: string;
@@ -36,28 +17,28 @@ export type PlaceElement = {
   workingHours?: string;
 };
 
-export interface CategoryHealthElement {
-  id: number;
-  health: string;
-  recipes: Array<ProductElement>;
-}
+// export interface CategoryHealthElement {
+//   id: number;
+//   health: string;
+//   recipes: Array<ProductElement>;
+// }
 
-export interface MealElement {
-  id: number;
-  meal: string;
-  image: string;
-  recipes: Array<ProductElement>;
-}
+// export interface MealElement {
+//   id: number;
+//   meal: string;
+//   image: string;
+//   recipes: Array<ProductElement>;
+// }
 
 export type PayloadForSaveToAnotherDir = {
   str: string;
   obj: object;
 };
 
-export type FavRecipesTypes = [[string, Array<ProductElement>]];
+// export type FavRecipesTypes = [[string, Array<ProductElement>]];
 
 export interface RecipesReducer {
-  recipes: Array<ProductElement>;
+  recipes: Array<RecipeTypes>;
   favouriteRecipes: Array<any>;
   shoppingList: Array<string>;
   errorMessage: string;

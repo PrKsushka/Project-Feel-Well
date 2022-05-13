@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import links from '../../constants/links';
 import './header.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import { StoreState } from '../../store/types';
+import { StoreState } from '../../store/types/types';
 import { logOutUser, userUnauthenticated } from '../../store/modules/user/user.actions';
 import { loginModalActivation, registrationModalActivation } from '../../store/modules/modals/modal.actions';
 import styles from './header.module.scss';

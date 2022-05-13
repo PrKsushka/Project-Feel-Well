@@ -1,10 +1,9 @@
 import styles from './card.module.scss';
-import { Link } from 'react-router-dom';
-import links from '../../constants/links';
 import React, { ReactNode } from 'react';
-import { PlaceElement, ProductElement } from '../../store/types';
+import { PlaceElement } from '../../store/types/types';
 import '../../pages/recipes/card.css';
 import SaveButton from '../../UI/saveButton/saveButton';
+import { RecipeTypes } from '../../store/types/recipes.types';
 
 export type Obj = {
   targetElem?: any;
@@ -13,7 +12,7 @@ export type Obj = {
 };
 
 interface Card {
-  el: ProductElement | PlaceElement;
+  el: RecipeTypes | PlaceElement;
   obj: Obj;
   children?: ReactNode;
 }

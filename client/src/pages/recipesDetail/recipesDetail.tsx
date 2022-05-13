@@ -1,12 +1,13 @@
-import React, { ReactNode, useEffect, useRef, useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import React, { useEffect, useRef, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { ProductElement, StoreState } from '../../store/types';
+import { StoreState } from '../../store/types/types';
 import { getRecipes } from '../../store/modules/recipes/recipes.selectors';
 import { deleteFromShoppingList, saveToShoppingList } from '../../store/modules/recipes/recipes.actions';
 import styles from './recipesDetail.module.scss';
 import SaveButton from '../../UI/saveButton/saveButton';
 import EnergyBlock from '../../components/energyBlock/energyBlock';
+import { RecipeTypes } from '../../store/types/recipes.types';
 
 type RecipesDetailTypes = {
   detailId: number;
@@ -16,9 +17,16 @@ const RecipesDetail: React.FunctionComponent = () => {
   const params = useParams();
   const { detailId } = params as RecipesDetailTypes;
   const recipes = useSelector((state: StoreState) => getRecipes(state));
-  const findRecipeDetails: ProductElement | undefined = recipes.find((el) => {
-    return el._id === detailId;
+  console.log(recipes);
+  const findRecipeDetails: RecipeTypes | undefined = recipes.find((el) => {
+    if (el._id) {
+      return el._id === detailId;
+    } else if (el.id) {
+      console.log(typeof detailId)
+      return el.id === Number(detailId);
+    }
   });
+  console.log(findRecipeDetails);
   const dispatch = useDispatch();
   const [width, setWidth] = useState(0);
   const [activeSuccessMessage, setActiveSuccessMessage] = useState(false);
@@ -131,11 +139,16 @@ const RecipesDetail: React.FunctionComponent = () => {
               </div>
             </div>
             <div className={styles.ingredients}>
-              {findRecipeDetails.ingredients?.map((el, i) => (
+              {findRecipeDetails.ingredients?.map((el, i: number) => (
                 <label key={i} className={styles.element}>
-                  <input type="checkbox" onChange={changeFunc} value={el.ingredient + ' - ' + el.count * amount + el.measure} name={el.ingredient} />
-                  {el.ingredient}
-                  <span className={styles.measure}>{el.count * amount + ' ' + el.measure}</span>
+                  <input
+                    type="checkbox"
+                    onChange={changeFunc}
+                    value={el.product.product + ' - ' + el.count * amount + el.measure.measure}
+                    name={el.product.product}
+                  />
+                  {el.product.product}
+                  <span className={styles.measure}>{el.count * amount + ' ' + el.measure.measure}</span>
                 </label>
               ))}
             </div>

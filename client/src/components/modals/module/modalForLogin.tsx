@@ -3,7 +3,7 @@ import Modal from '../modal';
 import { authentication } from '../../../api/user/user';
 import { userAuthenticated, userUnauthenticated } from '../../../store/modules/user/user.actions';
 import { useDispatch, useSelector } from 'react-redux';
-import { StoreState } from '../../../store/types';
+import { StoreState } from '../../../store/types/types';
 import { loginModalActivation } from '../../../store/modules/modals/modal.actions';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';

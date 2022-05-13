@@ -1,7 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import arr from '../../constants/sortRecipes';
-import { sortedRecipesByHealth } from '../../store/modules/recipes/recipes.actions';
 import { ObjTypes } from '../types';
 import style from './checkboxGroup.module.scss';
 
@@ -20,11 +19,11 @@ const CheckboxGroup: React.FunctionComponent<ObjTypes> = ({ obj }) => {
         });
       });
     }
-    arr.typesArr.forEach((el) => {
-      if (el === e.target.value) {
-        dispatch(sortedRecipesByHealth(e.target.value));
-      }
-    });
+    // arr.typesArr.forEach((el) => {
+    //   if (el === e.target.value) {
+    //     dispatch(sortedRecipesByHealth(e.target.value));
+    //   }
+    // });
   };
 
   return (

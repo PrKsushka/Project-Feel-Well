@@ -4,7 +4,7 @@ import { getRepository } from 'typeorm';
 import Recipes from '../../entity/recipes/recipes';
 import { Products } from '../../entity/recipes/products';
 
-const getDataAboutRecipes = async (req: Request, res: Response) => {
+const getDataAboutRecipesPg = async (req: Request, res: Response) => {
   try {
 
     const recipes = await getRepository(Recipes).createQueryBuilder('recipes');
@@ -15,7 +15,7 @@ const getDataAboutRecipes = async (req: Request, res: Response) => {
       .leftJoinAndSelect('recipes.ingredients', 'ingredients')
       .leftJoinAndSelect('ingredients.product', 'products')
       .leftJoinAndSelect('ingredients.measure', 'measures')
-      .select(['recipes.id', 'recipes.name', 'recipes.title', 'recipes.time', 'recipes.createdAt', 'recipes.rating', 'recipes.video', 'recipes.image', 'recipes.kcal', 'recipes.carbodygrate', 'recipes.fats', 'recipes.proteins', 'ingredients.id', 'ingredients.count', 'products.product', 'measures.measure', 'meals.meal'])
+      .select(['recipes.id', 'recipes.name', 'recipes.title', 'recipes.time', 'recipes.createdAt', 'recipes.rating', 'recipes.video', 'recipes.image', 'recipes.kcal', 'recipes.carbohydrate', 'recipes.fats', 'recipes.proteins', 'ingredients.id', 'ingredients.count', 'products.product', 'measures.measure', 'meals.meal'])
       .getMany();
 
     if (req.query.threeRandomProducts === 'true') {
@@ -55,6 +55,7 @@ const getDataAboutRecipes = async (req: Request, res: Response) => {
               .select(`"recipes_ingredients_ingredients"."recipesId"`)
               .from('recipes_ingredients_ingredients', 'recipes_ingredients_ingredients')
               .from('ingredients', 'ingredients')
+              .where(`"recipes_ingredients_ingredients"."ingredientsId"=ingredients.id `)
               .andWhere(`"ingredients"."productId"=${firstSubqueryArr[1]}`)
               .getQuery();
 
@@ -95,14 +96,11 @@ const getDataAboutRecipes = async (req: Request, res: Response) => {
       result = await recipes
         .where('meals.meal = :meal', { meal: req.query.meal })
         .getMany();
-
     }
-
     res.status(200).json(result);
-
   } catch (e: any) {
     const error = new CustomError(e.name, e.status, e.message);
     res.status(error.statusVal).json({ message: error.messageVal });
   }
 };
-export default getDataAboutRecipes;
+export default getDataAboutRecipesPg;

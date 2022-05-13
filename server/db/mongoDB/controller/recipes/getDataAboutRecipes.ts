@@ -2,11 +2,12 @@ import { Request, Response } from 'express';
 import CustomError from '../../../customError/customError';
 import Recipes from '../../models/recipes/recipes';
 
-const getDataAboutProducts = async (req: Request, res: Response) => {
+const getDataAboutRecipes = async (req: Request, res: Response) => {
   try {
     let limit;
     let findOptions = {};
     let sortOptions = {};
+    let matchOptions = {};
     if (req.query.name) {
       findOptions = {
         ...findOptions,
@@ -30,18 +31,18 @@ const getDataAboutProducts = async (req: Request, res: Response) => {
       const newArr: object[] = [];
       if (notInclude instanceof Array && notInclude.length >= 2) {
         for (let i = 0; i < notInclude.length; i++) {
-          newArr.push({ 'product': {'product': notInclude[i] }});
+          newArr.push({ 'product': { 'product': notInclude[i] } });
         }
         findOptions = {
           ...findOptions,
           ingredients: {
-              $not: { $elemMatch: { $or: newArr } }
-            }
+            $not: { $elemMatch: { $or: newArr } }
+          }
         };
       } else {
         findOptions = {
           ...findOptions,
-          ingredients: {$not: { $elemMatch: { $or: [{ 'product': {'product':notInclude }}] } }}
+          ingredients: { $not: { $elemMatch: { $or: [{ 'product': { 'product': notInclude } }] } } }
         };
 
       }
@@ -60,16 +61,27 @@ const getDataAboutProducts = async (req: Request, res: Response) => {
       };
     }
     if (req.query.meal) {
-      findOptions = {
-        ...findOptions,
-        mealId: String(req.query.meal).toLowerCase()
+      matchOptions = {
+        meal: req.query.meal
       };
     }
-    const data = await Recipes.find(findOptions).sort(sortOptions).limit(Number(limit)).populate('ingredients.measure');
+    let data = await Recipes.find(findOptions)
+      .sort(sortOptions)
+      .limit(Number(limit))
+      .populate({
+        path: 'meal',
+        match: matchOptions
+      })
+      .populate({
+        path: 'ingredients.measure'
+      });
+    data = data.filter((el) => {
+      return (el.meal !== null) ? el : null;
+    });
     res.status(200).json(data);
   } catch (e: any) {
     const error = new CustomError(e.name, e.status, e.message);
     res.status(error.statusVal).json({ message: error.messageVal });
   }
-}
-export default getDataAboutProducts;
+};
+export default getDataAboutRecipes;

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { PlaceElement, StoreState } from '../../store/types';
+import { PlaceElement, StoreState } from '../../store/types/types';
 import styles from './places.module.scss';
 import { dataAboutPlaces, getDataSortedByCityOrPlace } from '../../store/modules/places/places.actions';
 import SortMenu from '../../UI/sortMenu/sortMenu';
