@@ -1,9 +1,9 @@
 import styles from './energyBlock.module.scss';
 import React, { ReactNode } from 'react';
-import { ProductElement } from '../../store/types';
+import { RecipeTypes } from '../../store/types/recipes.types';
 
 interface EnergyBlockTypes {
-  findRecipe: ProductElement;
+  findRecipe: RecipeTypes;
   children?: ReactNode;
 }
 

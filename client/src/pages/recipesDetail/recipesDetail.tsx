@@ -1,12 +1,13 @@
-import React, { ReactNode, useEffect, useRef, useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import React, { useEffect, useRef, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { ProductElement, StoreState } from '../../store/types';
+import { StoreState } from '../../store/types/types';
 import { getRecipes } from '../../store/modules/recipes/recipes.selectors';
 import { deleteFromShoppingList, saveToShoppingList } from '../../store/modules/recipes/recipes.actions';
 import styles from './recipesDetail.module.scss';
 import SaveButton from '../../UI/saveButton/saveButton';
 import EnergyBlock from '../../components/energyBlock/energyBlock';
+import { RecipeTypes } from '../../store/types/recipes.types';
 
 type RecipesDetailTypes = {
   detailId: number;
@@ -16,9 +17,16 @@ const RecipesDetail: React.FunctionComponent = () => {
   const params = useParams();
   const { detailId } = params as RecipesDetailTypes;
   const recipes = useSelector((state: StoreState) => getRecipes(state));
-  const findRecipeDetails: ProductElement | undefined = recipes.find((el) => {
-    return el._id === detailId;
+  console.log(recipes);
+  const findRecipeDetails: RecipeTypes | undefined = recipes.find((el) => {
+    if (el._id) {
+      return el._id === detailId;
+    } else if (el.id) {
+      console.log(typeof detailId)
+      return el.id === Number(detailId);
+    }
   });
+  console.log(findRecipeDetails);
   const dispatch = useDispatch();
   const [width, setWidth] = useState(0);
   const [activeSuccessMessage, setActiveSuccessMessage] = useState(false);
@@ -85,10 +93,10 @@ const RecipesDetail: React.FunctionComponent = () => {
       top: '-4px',
       right: '-25px',
       width: '20px',
-      height: '20px'
+      height: '20px',
     },
     saveStatus: setSaveTitleState,
-    targetElem: targetElement
+    targetElem: targetElement,
   };
 
   if (findRecipeDetails) {
@@ -98,7 +106,7 @@ const RecipesDetail: React.FunctionComponent = () => {
           className={styles.image}
           style={{
             background: `url(${require(`../../${findRecipeDetails.image}`)}) no-repeat center`,
-            backgroundSize: 'cover'
+            backgroundSize: 'cover',
           }}
         ></div>
         <div className={styles.recipe}>
@@ -120,23 +128,27 @@ const RecipesDetail: React.FunctionComponent = () => {
               <div className={styles.name}>ингредиенты</div>
               <div className={styles.amount}>
                 порции
-                <button type='button' className={styles.plusMinus} onClick={decreaseAmount} disabled={disable}>
+                <button type="button" className={styles.plusMinus} onClick={decreaseAmount} disabled={disable}>
                   <div className={styles.horizontal}></div>
                 </button>
                 <div className={styles.count}>{amount}</div>
-                <button type='button' className={styles.plusMinus} onClick={increaseAmount}>
+                <button type="button" className={styles.plusMinus} onClick={increaseAmount}>
                   <div className={styles.horizontal}></div>
                   <div className={styles.vertical}></div>
                 </button>
               </div>
             </div>
             <div className={styles.ingredients}>
-              {findRecipeDetails.ingredients?.map((el, i) => (
+              {findRecipeDetails.ingredients?.map((el, i: number) => (
                 <label key={i} className={styles.element}>
-                  <input type='checkbox' onChange={changeFunc}
-                         value={el.ingredient + ' - ' + el.count * amount + el.measure} name={el.ingredient} />
-                  {el.ingredient}
-                  <span className={styles.measure}>{el.count * amount + ' ' + el.measure}</span>
+                  <input
+                    type="checkbox"
+                    onChange={changeFunc}
+                    value={el.product.product + ' - ' + el.count * amount + el.measure.measure}
+                    name={el.product.product}
+                  />
+                  {el.product.product}
+                  <span className={styles.measure}>{el.count * amount + ' ' + el.measure.measure}</span>
                 </label>
               ))}
             </div>
@@ -146,7 +158,7 @@ const RecipesDetail: React.FunctionComponent = () => {
         <div className={styles.instruction}>
           <div className={styles.instructionTitle}>ИНСТРУКЦИЯ ПРИГОТОВЛЕНИЯ</div>
           <iframe
-            allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
             src={findRecipeDetails.video}
             className={styles.video}

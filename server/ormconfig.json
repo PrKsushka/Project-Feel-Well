@@ -1,0 +1,24 @@
+{
+  "type": "postgres",
+  "host": "localhost",
+  "port": 5432,
+  "username": "prksushka",
+  "password": "test",
+  "database": "feelWell",
+  "synchronize": true,
+  "logging": true,
+  "entities": [
+    "./db/postgres/entity/**/*.ts"
+  ],
+  "migrations": [
+    "./db/postgres/migration/**/*.ts"
+  ],
+  "subscribers": [
+    "./db/postgres/subscriber/**/*.ts"
+  ],
+  "cli": {
+    "entitiesDir": "./db/postgres/entity",
+    "migrationsDir": "./db/postgres/migration",
+    "subscribersDir": "./db/postgres/subscriber"
+  }
+}

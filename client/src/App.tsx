@@ -7,9 +7,9 @@ import links from './constants/links';
 import Layout from './components/layout/layout';
 import { check } from './api/user/user';
 import { useDispatch, useSelector } from 'react-redux';
-import { userAuthenticated, userUnauthenticated } from './store/modules/user/user.actions';
+import { getDataAboutUser, userAuthenticated, userUnauthenticated } from './store/modules/user/user.actions';
 import PrivateRoute from './components/privateRoute/privateRoute';
-import { StoreState } from './store/types';
+import { StoreState } from './store/types/types';
 import User from './pages/user/user';
 import { loginModalActivation } from './store/modules/modals/modal.actions';
 import RecipesDetail from './pages/recipesDetail/recipesDetail';
@@ -36,7 +36,9 @@ function App() {
         });
     }
   }, [isLogin]);
-
+  useEffect(() => {
+    dispatch(getDataAboutUser());
+  }, []);
   return (
     <Router>
       <Layout>

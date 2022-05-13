@@ -13,8 +13,9 @@ import {
   SORT_RECIPES_BY_MEAL_FAILED_ACTION,
   UNSAVED_FROM_FAVOURITE_RECIPES,
 } from './recipes.constants';
-import { Action, CategoryHealthElement, NewFolder, PayloadForSaveToAnotherDir, ProductElement } from '../../types';
+import { Action, NewFolder, PayloadForSaveToAnotherDir } from '../../types/types';
 import { getUniqueListBy } from '../../../utils/getUniqObjectsFromArray';
+import { RecipeTypes } from '../../types/recipes.types';
 
 const initialState = {
   recipes: [],
@@ -54,7 +55,7 @@ const recipesReducer = (state = initialState, action: Action = { type: 'DEFAULT'
       break;
     case UNSAVED_FROM_FAVOURITE_RECIPES: {
       const favRecipes = state.favouriteRecipes as any;
-      const payload = action.payload as unknown as ProductElement;
+      const payload = action.payload as unknown as RecipeTypes;
       for (let i = 0; i < state.favouriteRecipes.length; i++) {
         for (let j = 0; j < state.favouriteRecipes.length; j++) {
           if (state.favouriteRecipes[i][j + 1] !== undefined) {
@@ -71,18 +72,18 @@ const recipesReducer = (state = initialState, action: Action = { type: 'DEFAULT'
         favouriteRecipes: [...favRecipes],
       };
     }
-    case SORT_RECIPES_BY_HEALTH_PROBLEMS_CONFIRMED:
-      if (action.payload !== undefined) {
-        const arr: Array<CategoryHealthElement> = [...action.payload];
-        const newArr: Array<ProductElement>[] = arr.map((el) => {
-          return el.recipes;
-        });
-        return {
-          ...state,
-          recipes: newArr[0],
-        };
-      }
-      break;
+    // case SORT_RECIPES_BY_HEALTH_PROBLEMS_CONFIRMED:
+    //   if (action.payload !== undefined) {
+    //     const arr: Array<CategoryHealthElement> = [...action.payload];
+    //     const newArr: Array<ProductElement>[] = arr.map((el) => {
+    //       return el.recipes;
+    //     });
+    //     return {
+    //       ...state,
+    //       recipes: newArr[0],
+    //     };
+    //   }
+    //   break;
     case SORT_RECIPES_BY_HEALTH_PROBLEMS_FAILED:
       return {
         ...state,

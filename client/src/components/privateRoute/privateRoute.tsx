@@ -1,7 +1,7 @@
 import React, { ReactComponentElement, ReactNode } from 'react';
 import { Redirect, Route, useHistory, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { StoreState } from '../../store/types';
+import { StoreState } from '../../store/types/types';
 import links from '../../constants/links';
 import { loginModalActivation } from '../../store/modules/modals/modal.actions';
 

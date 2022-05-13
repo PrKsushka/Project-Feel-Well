@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Modal from '../../modal';
 import { useDispatch, useSelector } from 'react-redux';
-import { StoreState } from '../../../../store/types';
+import { StoreState } from '../../../../store/types/types';
 import { createNewFolder } from '../../../../store/modules/recipes/recipes.actions';
 import { ChromePicker, SketchPicker } from 'react-color';
 import { HexColorPicker } from 'react-colorful';
@@ -37,13 +37,13 @@ const ModalForCreationANewDirectory: React.FunctionComponent = () => {
       <form onSubmit={handleSubmit} className={styles.wrapper}>
         <label>
           <span>Введите название папки</span>
-          <input type='text' value={directoryName} name='createDir' onChange={handleChange} />
+          <input type="text" value={directoryName} name="createDir" onChange={handleChange} />
         </label>
         <div className={styles.colorPicker}>
           <p>Выберите цвет папки</p>
           <HexColorPicker onChange={setCurrentColor} color={currentColor} />
         </div>
-        <button type='submit' onSubmit={handleSubmit} className='button'>
+        <button type="submit" onSubmit={handleSubmit} className="button">
           Отправить
         </button>
       </form>

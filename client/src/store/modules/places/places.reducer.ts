@@ -3,7 +3,7 @@ import {
   GET_DATA_ABOUT_PLACES_SORTED_BY_CITY_OR_PLACE_CONFIRMED,
   GET_DATA_ABOUT_PLACES_SORTED_BY_CITY_OR_PLACE_FAILED,
 } from './places.constants';
-import { PlacesReducer } from '../../types';
+import { PlacesReducer } from '../../types/types';
 
 const initialState: PlacesReducer = {
   arrOfPlaces: [],

@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { PlaceElement, ProductElement, StoreState } from '../../store/types';
+import { PlaceElement, StoreState } from '../../store/types/types';
 import { getFavouriteRecipes, unsavedFromFavouriteRecipes } from '../../store/modules/recipes/recipes.actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { openPopUp } from '../../store/modules/modals/modal.actions';
+import { RecipeTypes } from '../../store/types/recipes.types';
 
 type Obj = {
   foundElem: boolean;
@@ -16,7 +17,7 @@ type Obj = {
 };
 
 interface SaveButtonTypes {
-  el: ProductElement | PlaceElement;
+  el: RecipeTypes | PlaceElement;
   targetElem?: any;
   obj?: Obj;
   children?: React.ReactNode;
@@ -25,24 +26,24 @@ interface SaveButtonTypes {
 const SaveButton: React.FunctionComponent<SaveButtonTypes> = ({ el, targetElem, obj }) => {
   const dispatch = useDispatch();
   const favRecipes = useSelector((state: StoreState) => state.recipes.favouriteRecipes)[0];
-  const currentElem=useRef(null);
-  const [elem, setElem]=useState(false);
+  const currentElem = useRef(null);
+  const [elem, setElem] = useState(false);
   useEffect(() => {
     // @ts-ignore
-    console.log(currentElem.current.style)
+    console.log(currentElem.current.style);
     if (favRecipes[1]) {
-      favRecipes[1].find((elem: ProductElement) => {
+      favRecipes[1].find((elem: RecipeTypes) => {
         if (obj && el._id === elem._id) {
           obj.setFoundElem(true);
         }
-        if(el._id === elem._id){
-          setElem(true)
+        if (el._id === elem._id) {
+          setElem(true);
         }
       });
     }
   }, []);
 
-  const handleClick = (elem: ProductElement) => (e: any) => {
+  const handleClick = (elem: RecipeTypes) => (e: any) => {
     if (e.target.className === 'saveClicked') {
       e.target.className = 'save';
       dispatch(openPopUp(false));
@@ -60,6 +61,13 @@ const SaveButton: React.FunctionComponent<SaveButtonTypes> = ({ el, targetElem, 
     }
     dispatch(getFavouriteRecipes(elem));
   };
-  return <div style={obj ? obj.style : undefined} ref={currentElem} className={obj && obj.foundElem || elem? 'saveClicked' : 'save'} onClick={handleClick(el)} />;
+  return (
+    <div
+      style={obj ? obj.style : undefined}
+      ref={currentElem}
+      className={(obj && obj.foundElem) || elem ? 'saveClicked' : 'save'}
+      onClick={handleClick(el)}
+    />
+  );
 };
 export default SaveButton;

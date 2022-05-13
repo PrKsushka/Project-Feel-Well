@@ -20,6 +20,7 @@ body {
   justify-content: space-between;
   padding: 0 14px 20px 5px;
   box-sizing: border-box;
+  margin-top: 20px;
 }
 
 .cardMainText {
@@ -34,7 +35,7 @@ body {
 }
 
 .cardTitle {
-  margin: 0 0 20px 0;
+  margin: 0;
   @include fonts(18px, black, 500);
   width: 40%;
   cursor: pointer;

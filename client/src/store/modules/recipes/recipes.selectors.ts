@@ -1,4 +1,4 @@
-import { StoreState } from '../../types';
+import { StoreState } from '../../types/types';
 import { createSelector } from 'reselect';
 
 const dataAboutRecipes = (state: StoreState) => state.recipes.recipes;

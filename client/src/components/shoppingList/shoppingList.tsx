@@ -1,7 +1,7 @@
 import styles from '../../pages/user/user.module.scss';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { StoreState } from '../../store/types';
+import { StoreState } from '../../store/types/types';
 import { getShoppingList } from '../../store/modules/recipes/recipes.selectors';
 import { deleteFromShoppingList } from '../../store/modules/recipes/recipes.actions';
 
@@ -19,6 +19,7 @@ const ShoppingList: React.FunctionComponent = () => {
     }
     return false;
   };
+  console.log(shoppingList)
   if (shoppingList.length !== 0) {
     return (
       <div className={styles.list}>

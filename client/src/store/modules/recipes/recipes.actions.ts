@@ -19,8 +19,9 @@ import {
   UNSAVED_FROM_FAVOURITE_RECIPES,
 } from './recipes.constants';
 import { getDataAboutRecipes, sortRecipes } from '../../../api/dataAboutRecipes';
-import { CategoryHealthElement, MealElement, NewFolder, ProductElement } from '../../types';
 import { sortDataByHealth } from '../../../api/dataAboutCategories';
+import { RecipeTypes } from '../../types/recipes.types';
+import { NewFolder } from '../../types/types';
 
 function getDataAboutRecipesConfirmedAction(data: Array<object>) {
   return {
@@ -52,40 +53,10 @@ export function dataAboutRecipes() {
   };
 }
 
-export function getFavouriteRecipes(el: ProductElement) {
+export function getFavouriteRecipes(el: RecipeTypes) {
   return {
     type: FAVOURITE_RECIPES,
     payload: el,
-  };
-}
-
-function sortDataByHealthProblemsConfirmed(data: Array<CategoryHealthElement>) {
-  return {
-    type: SORT_RECIPES_BY_HEALTH_PROBLEMS_CONFIRMED,
-    payload: data,
-  };
-}
-
-function sortDataByHealthProblemsFailed(message: any) {
-  return {
-    type: SORT_RECIPES_BY_HEALTH_PROBLEMS_FAILED,
-    payload: message,
-  };
-}
-
-export function sortedRecipesByHealth(health: string) {
-  return (dispatch: Dispatch<Action>) => {
-    sortDataByHealth(health)
-      .then((res) => {
-        if (res.data) {
-          dispatch(sortDataByHealthProblemsConfirmed(res.data));
-        } else {
-          throw Error();
-        }
-      })
-      .catch((err) => {
-        dispatch(sortDataByHealthProblemsFailed(err));
-      });
   };
 }
 
@@ -103,51 +74,7 @@ function sortRecipesByComponentsFailed(err: any) {
   };
 }
 
-// export function sortedRecipesNotIncludeProducts(...args: string[]) {
-//   return (dispatch: Dispatch<Action>) => {
-//     getRecipesNotIncludedComponents(args)
-//       .then((res) => {
-//         if (res.data) {
-//           dispatch(sortRecipesByComponentsConfirmed(res.data));
-//         } else {
-//           throw Error();
-//         }
-//       })
-//       .catch((err) => {
-//         dispatch(sortRecipesByComponentsFailed(err));
-//       });
-//   };
-// }
 
-function sortRecipesByMealConfirmedAction(data: Array<MealElement>) {
-  return {
-    type: SORT_RECIPES_BY_MEAL_CONFIRMED_ACTION,
-    payload: data,
-  };
-}
-
-function sortRecipesByMealFailedAction(message: any) {
-  return {
-    type: SORT_RECIPES_BY_MEAL_FAILED_ACTION,
-    payload: message,
-  };
-}
-
-export function getRecipesSortedByMeal(...args: string[]) {
-  return (dispatch: Dispatch<Action>) => {
-    sortRecipes(args)
-      .then((res) => {
-        if (res.data) {
-          dispatch(sortRecipesByMealConfirmedAction(res.data));
-        } else {
-          throw Error();
-        }
-      })
-      .catch((err) => {
-        dispatch(sortRecipesByMealFailedAction(err));
-      });
-  };
-}
 
 function sortRecipesByRatingConfirmedAction(data: Array<object>) {
   return {
@@ -163,21 +90,6 @@ function sortRecipesByRatingFailedAction(err: any) {
   };
 }
 
-// export function sortRecipesByRatingAscDesc(...args: string[]) {
-//   return (dispatch: Dispatch<Action>) => {
-//     sortByRatingAscDesc(args)
-//       .then((res) => {
-//         if (res.data) {
-//           dispatch(sortRecipesByRatingConfirmedAction(res.data));
-//         } else {
-//           throw Error();
-//         }
-//       })
-//       .catch((err) => {
-//         dispatch(sortRecipesByRatingFailedAction(err));
-//       });
-//   };
-// }
 
 export function setNameOfMeal(meal: string) {
   return {
@@ -218,5 +130,99 @@ export function deleteFromShoppingList(ingredient: string) {
   return {
     type: DELETE_FROM_SHOPPING_LIST,
     payload: ingredient,
+  };
+}
+
+
+
+
+
+// function sortDataByHealthProblemsConfirmed(data: Array<CategoryHealthElement>) {
+//   return {
+//     type: SORT_RECIPES_BY_HEALTH_PROBLEMS_CONFIRMED,
+//     payload: data,
+//   };
+// }
+
+// function sortDataByHealthProblemsFailed(message: any) {
+//   return {
+//     type: SORT_RECIPES_BY_HEALTH_PROBLEMS_FAILED,
+//     payload: message,
+//   };
+// }
+
+// export function sortedRecipesByHealth(health: string) {
+//   return (dispatch: Dispatch<Action>) => {
+//     sortDataByHealth(health)
+//       .then((res) => {
+//         if (res.data) {
+//           dispatch(sortDataByHealthProblemsConfirmed(res.data));
+//         } else {
+//           throw Error();
+//         }
+//       })
+//       .catch((err) => {
+//         dispatch(sortDataByHealthProblemsFailed(err));
+//       });
+//   };
+// }
+
+// export function sortRecipesByRatingAscDesc(...args: string[]) {
+//   return (dispatch: Dispatch<Action>) => {
+//     sortByRatingAscDesc(args)
+//       .then((res) => {
+//         if (res.data) {
+//           dispatch(sortRecipesByRatingConfirmedAction(res.data));
+//         } else {
+//           throw Error();
+//         }
+//       })
+//       .catch((err) => {
+//         dispatch(sortRecipesByRatingFailedAction(err));
+//       });
+//   };
+// }
+// export function sortedRecipesNotIncludeProducts(...args: string[]) {
+//   return (dispatch: Dispatch<Action>) => {
+//     getRecipesNotIncludedComponents(args)
+//       .then((res) => {
+//         if (res.data) {
+//           dispatch(sortRecipesByComponentsConfirmed(res.data));
+//         } else {
+//           throw Error();
+//         }
+//       })
+//       .catch((err) => {
+//         dispatch(sortRecipesByComponentsFailed(err));
+//       });
+//   };
+// }
+function sortRecipesByMealConfirmedAction(data: Array<RecipeTypes>) {
+  return {
+    type: SORT_RECIPES_BY_MEAL_CONFIRMED_ACTION,
+    payload: data,
+  };
+}
+
+function sortRecipesByMealFailedAction(message: any) {
+  return {
+    type: SORT_RECIPES_BY_MEAL_FAILED_ACTION,
+    payload: message,
+  };
+}
+
+export function getRecipesSortedByMeal(...args: string[]) {
+  return (dispatch: Dispatch<Action>) => {
+    sortRecipes(args)
+      .then((res) => {
+        if (res.data) {
+          dispatch(sortRecipesByMealConfirmedAction(res.data));
+        } else {
+          throw Error();
+        }
+      })
+      .catch((err) => {
+        dispatch(sortRecipesByMealFailedAction(err));
+      });
   };
 }

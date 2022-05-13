@@ -1,6 +1,7 @@
 import {
   GET_DATA_ABOUT_USER_FAILED,
   GET_DATA_ABOUT_USER_SUCCESS,
+  LOG_OUT,
   USER_AUTHENTICATED,
   USER_REGISTERED,
   USER_UNAUTHENTICATED,
@@ -70,5 +71,10 @@ export function getDataAboutUser() {
       .catch((err) => {
         dispatch(getDataAboutUserFailed(err));
       });
+  };
+}
+export function logOutUser() {
+  return {
+    type: LOG_OUT,
   };
 }

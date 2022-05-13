@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Modal from '../../modal';
 import { useSelector } from 'react-redux';
-import { StoreState } from '../../../../store/types';
+import { StoreState } from '../../../../store/types/types';
 import styles from '../forms.module.scss';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';

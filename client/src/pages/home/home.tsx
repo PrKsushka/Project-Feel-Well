@@ -4,11 +4,13 @@ import ModalForLogin from '../../components/modals/module/modalForLogin';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import { loginModalActivation } from '../../store/modules/modals/modal.actions';
 import { useDispatch, useSelector } from 'react-redux';
-import { ProductElement, StoreState } from '../../store/types';
+import { StoreState } from '../../store/types/types';
 import ModalForRegistration from '../../components/modals/module/modalForRegistration';
 import links from '../../constants/links';
 import CircleButton from '../../UI/circleButton/circleButton';
 import { getThreeRandomRecipes } from '../../api/dataAboutRecipes';
+import { getDataAboutUser } from '../../store/modules/user/user.actions';
+import { RecipeTypes } from '../../store/types/recipes.types';
 
 type LocationStateTypes = {
   from: {
@@ -26,13 +28,16 @@ const Home: React.FunctionComponent = () => {
   if (!auth && history.location.search === '?signIn=false') {
     dispatch(loginModalActivation(true));
   }
+  if (!auth && history.location.search === '/') {
+    dispatch(loginModalActivation(false));
+  }
   if (auth) {
     if (locationState) {
       console.log(locationState);
       history.push(locationState.from.pathname);
     }
   }
-  const [arrOfRandomProducts, setArrOfRandomProducts] = useState<ProductElement[]>([]);
+  const [arrOfRandomProducts, setArrOfRandomProducts] = useState<Array<RecipeTypes>>([]);
   useEffect(() => {
     getThreeRandomRecipes()
       .then((res) => {
@@ -82,8 +87,8 @@ const Home: React.FunctionComponent = () => {
         <div className={styles.leaf} />
         <div className={styles.cardWrapper}>
           {arrOfRandomProducts.length !== 0
-            ? arrOfRandomProducts.map((el: ProductElement) => (
-                <div className={styles.card} style={{ backgroundImage: `url(${require(`../../${el.image}`)})` }}>
+            ? arrOfRandomProducts.map((el: RecipeTypes, i) => (
+                <div key={i} className={styles.card} style={{ backgroundImage: `url(${require(`../../${el.image}`)})` }}>
                   <div className={styles.whiteElem}>
                     <h3 className={styles.cardTitle}>{el.name}</h3>
                     <CircleButton clickFunc={() => handleClick(el._id)} id={el._id} />

@@ -2,7 +2,7 @@ import React, { lazy, useEffect, useRef, Suspense } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { dataAboutRecipes, setNameOfMeal } from '../../store/modules/recipes/recipes.actions';
-import { StoreState } from '../../store/types';
+import { StoreState } from '../../store/types/types';
 import { getRecipes } from '../../store/modules/recipes/recipes.selectors';
 import styles from './recipes.module.scss';
 import SortPanel from '../../components/sortPannel/sortPannel';

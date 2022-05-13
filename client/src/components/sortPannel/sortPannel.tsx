@@ -4,7 +4,7 @@ import arr from '../../constants/sortRecipes';
 import styles from './sortPannel.module.scss';
 import { getRecipesSortedByMeal } from '../../store/modules/recipes/recipes.actions';
 import { useDispatch, useSelector } from 'react-redux';
-import { StoreState } from '../../store/types';
+import { StoreState } from '../../store/types/types';
 import SelectGroup from '../../UI/selectGroup/selectGroup';
 
 const SortPanel: React.FunctionComponent = () => {
