@@ -9,6 +9,8 @@ import user from './db/routes/user/userRoutes';
 import cors from 'cors';
 import 'reflect-metadata';
 import connectionToPostgresDataBase from './db/postgres/db';
+import favouriteRecipes from './db/routes/recipes/favouriteRecipesRoutes';
+import folder from './db/routes/recipes/actionsOverFolder';
 
 const app = express();
 app.use(express.urlencoded({ extended: true }));
@@ -24,6 +26,8 @@ if (process.argv[2] === 'mongodb') {
   app.use(ingredientsComponentsMD);
 } else if (process.argv[2] === 'postgres') {
   connectionToPostgresDataBase();
+  app.use(favouriteRecipes);
+  app.use(folder);
   app.use(recipes.getDataAboutProductsPostgres);
   app.use(places.getDataAboutPlacesPostgres);
   app.use(user.userRoutePg);

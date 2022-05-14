@@ -44,7 +44,7 @@ const recipesReducer = (state = initialState, action: Action = { type: 'DEFAULT'
       if (action.payload !== undefined) {
         state.favouriteRecipes.filter((el: any, i) => {
           if (el[i] === 'basic') {
-            el[i + 1] = getUniqueListBy([...el[i + 1], action.payload], '_id');
+            el[i + 1] = getUniqueListBy([...el[i + 1], action.payload], 'name');
           }
         });
         return {

@@ -19,7 +19,6 @@ import {
   UNSAVED_FROM_FAVOURITE_RECIPES,
 } from './recipes.constants';
 import { getDataAboutRecipes, sortRecipes } from '../../../api/dataAboutRecipes';
-import { sortDataByHealth } from '../../../api/dataAboutCategories';
 import { RecipeTypes } from '../../types/recipes.types';
 import { NewFolder } from '../../types/types';
 
