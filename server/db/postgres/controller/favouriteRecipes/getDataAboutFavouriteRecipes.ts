@@ -23,9 +23,9 @@ const getDataAboutFavouriteRecipes = async (req: Request | any, res: Response) =
         return 'folders.userId IN' + subQuery;
       })
       .getMany();
-    if(req.query.meal){
+    if(req.query.folder){
       result=await favouriteRecipes
-        .andWhere('folders.folder=:name', {name: String(req.query.meal)})
+        .andWhere('folders.folder=:name', {name: String(req.query.folder)})
         .getMany()
     }
     res.status(200).json(result);

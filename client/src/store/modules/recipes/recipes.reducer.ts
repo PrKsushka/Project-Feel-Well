@@ -2,6 +2,10 @@ import {
   CREATE_NEW_FOLDER,
   DELETE_FROM_SHOPPING_LIST,
   FAVOURITE_RECIPES,
+  GET_DATA_ABOUT_FAVOURITE_RECIPES_CONFIRMED,
+  GET_DATA_ABOUT_FAVOURITE_RECIPES_FAILED,
+  GET_DATA_ABOUT_FOLDERS_NAMES_CONFIRMED,
+  GET_DATA_ABOUT_FOLDERS_NAMES_FAILED,
   GET_DATA_ABOUT_RECIPES_CONFIRMED_ACTIONS,
   GET_DATA_ABOUT_RECIPES_FAILED_ACTIONS,
   SAVE_TO_ANOTHER_DIR,
@@ -13,14 +17,16 @@ import {
   SORT_RECIPES_BY_MEAL_FAILED_ACTION,
   UNSAVED_FROM_FAVOURITE_RECIPES,
 } from './recipes.constants';
-import { Action, NewFolder, PayloadForSaveToAnotherDir } from '../../types/types';
+import { Action, NewFolder, ObjectForGatDataAboutFolders, ObjectOfFavouriteRecipe, PayloadForSaveToAnotherDir } from '../../types/types';
 import { getUniqueListBy } from '../../../utils/getUniqObjectsFromArray';
 import { RecipeTypes } from '../../types/recipes.types';
 
 const initialState = {
   recipes: [],
   favouriteRecipes: [['basic', []]],
+  favouriteRecipesWithDB: [],
   folderColor: ['white'],
+  folders: [],
   shoppingList: [],
   errorMessage: '',
   successMessage: '',
@@ -70,6 +76,29 @@ const recipesReducer = (state = initialState, action: Action = { type: 'DEFAULT'
       return {
         ...state,
         favouriteRecipes: [...favRecipes],
+      };
+    }
+    case GET_DATA_ABOUT_FAVOURITE_RECIPES_CONFIRMED: {
+      if (action.payload) {
+        const payload = action.payload as Array<ObjectOfFavouriteRecipe>;
+        const newArr = payload.map((el) => {
+          return el.recipes;
+        });
+        return {
+          ...state,
+          favouriteRecipesWithDB: getUniqueListBy(newArr, 'name'),
+        };
+      } else {
+        return {
+          ...state,
+        };
+      }
+    }
+    case GET_DATA_ABOUT_FAVOURITE_RECIPES_FAILED: {
+      return {
+        ...state,
+        favouriteRecipesWithDB: [],
+        errorMessage: action.payload,
       };
     }
     // case SORT_RECIPES_BY_HEALTH_PROBLEMS_CONFIRMED:
@@ -130,11 +159,32 @@ const recipesReducer = (state = initialState, action: Action = { type: 'DEFAULT'
         return {
           ...state,
           favouriteRecipes: [...state.favouriteRecipes, [payload.dirName, []]],
-          folderColor: [...state.folderColor, payload.color],
+          // folderColor: [...state.folderColor, payload.color],
         };
       }
       return {
         ...state,
+      };
+    }
+    case GET_DATA_ABOUT_FOLDERS_NAMES_CONFIRMED: {
+      if (action.payload) {
+        const payload = action.payload as ObjectForGatDataAboutFolders;
+        return {
+          ...state,
+          folders: payload.folders,
+          folderColor: payload.colors,
+        };
+      } else {
+        return {
+          ...state,
+        };
+      }
+    }
+    case GET_DATA_ABOUT_FOLDERS_NAMES_FAILED: {
+      return {
+        ...state,
+        folders: [],
+        errorMessage: action.payload,
       };
     }
     case SAVE_TO_ANOTHER_DIR: {

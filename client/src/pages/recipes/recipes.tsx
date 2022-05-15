@@ -1,7 +1,11 @@
 import React, { lazy, useEffect, useRef, Suspense } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { dataAboutRecipes, setNameOfMeal } from '../../store/modules/recipes/recipes.actions';
+import {
+  dataAboutRecipes,
+  getDataAboutFavouriteRecipes,
+  setNameOfMeal
+} from '../../store/modules/recipes/recipes.actions';
 import { StoreState } from '../../store/types/types';
 import { getRecipes } from '../../store/modules/recipes/recipes.selectors';
 import styles from './recipes.module.scss';
@@ -27,6 +31,7 @@ const Recipes: React.FunctionComponent = () => {
   const saveTargetElement: any = useRef();
   useEffect(() => {
     dispatch(dataAboutRecipes());
+    dispatch(getDataAboutFavouriteRecipes('basic'));
   }, []);
   useEffect(() => {
     const timerShowWindow = setTimeout(() => {

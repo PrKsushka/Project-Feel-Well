@@ -15,6 +15,7 @@ import ModalForCreationANewDirectory from '../../components/modals/module/modalF
 import CircleButton from '../../UI/circleButton/circleButton';
 import ModalForChangingDataAboutUser from '../../components/modals/module/changeInfoAboutUser/modalForChangingDataAboutUser';
 import ModalForChangingPassword from '../../components/modals/module/changeInfoAboutUser/modalForChangingPassword';
+import { getDataAboutFolders } from '../../store/modules/recipes/recipes.actions';
 
 const User: React.FunctionComponent = () => {
   const dispatch = useDispatch();
@@ -25,7 +26,11 @@ const User: React.FunctionComponent = () => {
     }
     dispatch(getDataAboutUser());
   }, []);
-
+  const folders = useSelector((state: StoreState) => state.recipes.folders);
+  useEffect(() => {
+    dispatch(getDataAboutFolders());
+  }, []);
+console.log(folders)
   const directories = useSelector((state: StoreState) => state.recipes.favouriteRecipes);
   const dataAboutUser = useSelector((state: StoreState) => state.user.dataAboutUser);
   const color: string[] = useSelector((state: StoreState) => state.recipes.folderColor);
@@ -72,10 +77,17 @@ const User: React.FunctionComponent = () => {
           <p>Избранное</p>
           <CircleButton clickFunc={() => openModalForCreationDirectory} />
         </div>
-        {directories.map((el, i) => (
-          <Link to={`${links.user}/${el[0]}`}>
+        {/*{directories.map((el, i) => (*/}
+        {/*  <Link to={`${links.user}/${el[0]}`}>*/}
+        {/*    <div className={styles.directory} key={i} style={{ background: color[i] }}>*/}
+        {/*      {el[0]}*/}
+        {/*    </div>*/}
+        {/*  </Link>*/}
+        {/*))}*/}
+        {folders.map((el, i) => (
+          <Link to={`${links.user}/${el}`}>
             <div className={styles.directory} key={i} style={{ background: color[i] }}>
-              {el[0]}
+              {el}
             </div>
           </Link>
         ))}

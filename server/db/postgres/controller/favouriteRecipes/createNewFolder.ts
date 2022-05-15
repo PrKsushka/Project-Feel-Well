@@ -7,7 +7,7 @@ const createNewFolder=async (req: Request | any, res: Response)=>{
     const folder=await getRepository(Folders).createQueryBuilder('folders');
     console.log(req.user.id, req.body.folder)
     await folder.insert().into(Folders)
-      .values({user:()=> String(req.user.id), folder: req.body.folder})
+      .values({user:()=> String(req.user.id), folder: req.body.folder, color: req.body.color})
       .execute();
     res.status(200).json({message: 'folder created successfully'})
   }catch (e){

@@ -3,7 +3,11 @@ import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { StoreState } from '../../store/types/types';
 import { getRecipes } from '../../store/modules/recipes/recipes.selectors';
-import { deleteFromShoppingList, saveToShoppingList } from '../../store/modules/recipes/recipes.actions';
+import {
+  deleteFromShoppingList,
+  getDataAboutFavouriteRecipes,
+  saveToShoppingList
+} from '../../store/modules/recipes/recipes.actions';
 import styles from './recipesDetail.module.scss';
 import SaveButton from '../../UI/saveButton/saveButton';
 import EnergyBlock from '../../components/energyBlock/energyBlock';
@@ -17,16 +21,16 @@ const RecipesDetail: React.FunctionComponent = () => {
   const params = useParams();
   const { detailId } = params as RecipesDetailTypes;
   const recipes = useSelector((state: StoreState) => getRecipes(state));
-  console.log(recipes);
+
   const findRecipeDetails: RecipeTypes | undefined = recipes.find((el) => {
     if (el._id) {
       return el._id === detailId;
-    } else if (el.id) {
-      console.log(typeof detailId)
+    }
+    if (el.id) {
       return el.id === Number(detailId);
     }
   });
-  console.log(findRecipeDetails);
+
   const dispatch = useDispatch();
   const [width, setWidth] = useState(0);
   const [activeSuccessMessage, setActiveSuccessMessage] = useState(false);
@@ -62,7 +66,9 @@ const RecipesDetail: React.FunctionComponent = () => {
       setSaveTitleState('Сохранено в избранное');
     }
   }, [findElem, amount]);
-
+  useEffect(() => {
+    dispatch(getDataAboutFavouriteRecipes('basic'));
+  },[])
   const changeFunc = (e: React.SyntheticEvent) => {
     const { value, checked } = e.target as HTMLInputElement;
     if (checked && value !== ' ') {
@@ -85,7 +91,7 @@ const RecipesDetail: React.FunctionComponent = () => {
   const decreaseAmount = () => {
     setAmount((prevState) => prevState - 1);
   };
-  const targetElement = useRef();
+  const targetElement = useRef(findRecipeDetails);
   const objForSaveButton = {
     foundElem: findElem,
     setFoundElem: setFindElem,

@@ -13,5 +13,8 @@ class Folders implements FoldersTypes{
   @ManyToOne(() => Users, (user) => user.id)
   @JoinColumn()
   user: Users;
+
+  @Column()
+  color:string;
 }
 export default Folders;

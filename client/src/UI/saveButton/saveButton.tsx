@@ -4,6 +4,7 @@ import { getFavouriteRecipes, unsavedFromFavouriteRecipes } from '../../store/mo
 import { useDispatch, useSelector } from 'react-redux';
 import { openPopUp } from '../../store/modules/modals/modal.actions';
 import { RecipeTypes } from '../../store/types/recipes.types';
+import Store from '../../store/store';
 
 type Obj = {
   foundElem: boolean;
@@ -26,17 +27,26 @@ interface SaveButtonTypes {
 const SaveButton: React.FunctionComponent<SaveButtonTypes> = ({ el, targetElem, obj }) => {
   const dispatch = useDispatch();
   const favRecipes = useSelector((state: StoreState) => state.recipes.favouriteRecipes)[0];
+  const favouriteRec = useSelector((state: StoreState) => state.recipes.favouriteRecipesWithDB);
   const currentElem = useRef(null);
   const [elem, setElem] = useState(false);
   useEffect(() => {
-    // @ts-ignore
-    console.log(currentElem.current.style);
-    if (favRecipes[1]) {
-      favRecipes[1].find((elem: RecipeTypes) => {
-        if (obj && el._id === elem._id) {
+    // if (favRecipes[1]) {
+    //   favRecipes[1].find((elem: RecipeTypes) => {
+    //     if (obj && el._id === elem._id) {
+    //       obj.setFoundElem(true);
+    //     }
+    //     if (el._id === elem._id) {
+    //       setElem(true);
+    //     }
+    //   });
+    // }
+    if (favouriteRec) {
+      favouriteRec.find((elem: RecipeTypes) => {
+        if ((obj && elem.id === obj.targetElem.current.id) || (elem._id !== undefined && obj && elem._id === obj.targetElem.current._id)) {
           obj.setFoundElem(true);
         }
-        if (el._id === elem._id) {
+        if (elem.id === el.id) {
           setElem(true);
         }
       });
@@ -62,12 +72,7 @@ const SaveButton: React.FunctionComponent<SaveButtonTypes> = ({ el, targetElem, 
     dispatch(getFavouriteRecipes(elem));
   };
   return (
-    <div
-      style={obj ? obj.style : undefined}
-      ref={currentElem}
-      className={(obj && obj.foundElem) || elem ? 'saveClicked' : 'save'}
-      onClick={handleClick(el)}
-    />
+    <div style={obj ? obj.style : undefined} ref={currentElem} className={(obj && obj.foundElem) || elem ? 'saveClicked' : 'save'} onClick={handleClick(el)} />
   );
 };
 export default SaveButton;

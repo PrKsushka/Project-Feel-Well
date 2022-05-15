@@ -4,6 +4,7 @@ import bcrypt from 'bcrypt';
 import TokenService from '../../../../utilsForToken/tokenService';
 import { getRepository } from 'typeorm';
 import Users from '../../entity/user/users';
+import Folders from '../../entity/favouriRecipes/folders';
 
 const registerPg = async (req: Request, res: Response) => {
   try {
@@ -29,6 +30,12 @@ const registerPg = async (req: Request, res: Response) => {
     const findNewUser = await user
       .where('users.email=:email', { email: email })
       .getOne();
+    const folder=await getRepository(Folders).createQueryBuilder('folders');
+    await folder
+      .insert()
+      .into(Folders)
+      .values({user:()=> String(findNewUser.id), folder: 'basic', color: 'white'})
+      .execute();
     const token = TokenService.generateToken(findNewUser.id, findNewUser.email, 'user');
     return res.status(200).json(token);
   } catch (e: any) {
