@@ -5,7 +5,6 @@ import Folders from '../../entity/favouriRecipes/folders';
 const createNewFolder=async (req: Request | any, res: Response)=>{
   try{
     const folder=await getRepository(Folders).createQueryBuilder('folders');
-    console.log(req.user.id, req.body.folder)
     await folder.insert().into(Folders)
       .values({user:()=> String(req.user.id), folder: req.body.folder, color: req.body.color})
       .execute();

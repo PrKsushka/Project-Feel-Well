@@ -9,7 +9,7 @@ import user from './db/routes/user/userRoutes';
 import cors from 'cors';
 import 'reflect-metadata';
 import connectionToPostgresDataBase from './db/postgres/db';
-import favouriteRecipes from './db/routes/recipes/favouriteRecipesRoutes';
+import favRecipes from './db/routes/recipes/favouriteRecipesRoutes';
 import folder from './db/routes/recipes/actionsOverFolder';
 
 const app = express();
@@ -24,10 +24,12 @@ if (process.argv[2] === 'mongodb') {
   app.use(places.getDataAboutPlacesMongoDB);
   app.use(user.userRoute);
   app.use(ingredientsComponentsMD);
+  app.use(favRecipes.favouriteRecipesMD);
+  app.use(folder.folderMD)
 } else if (process.argv[2] === 'postgres') {
   connectionToPostgresDataBase();
-  app.use(favouriteRecipes);
-  app.use(folder);
+  app.use(favRecipes.favouriteRecipes);
+  app.use(folder.folder);
   app.use(recipes.getDataAboutProductsPostgres);
   app.use(places.getDataAboutPlacesPostgres);
   app.use(user.userRoutePg);

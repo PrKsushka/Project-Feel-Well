@@ -9,7 +9,6 @@ import ModalForRegistration from '../../components/modals/module/modalForRegistr
 import links from '../../constants/links';
 import CircleButton from '../../UI/circleButton/circleButton';
 import { getThreeRandomRecipes } from '../../api/dataAboutRecipes';
-import { getDataAboutUser } from '../../store/modules/user/user.actions';
 import { RecipeTypes } from '../../store/types/recipes.types';
 
 type LocationStateTypes = {
@@ -91,7 +90,7 @@ const Home: React.FunctionComponent = () => {
                 <div key={i} className={styles.card} style={{ backgroundImage: `url(${require(`../../${el.image}`)})` }}>
                   <div className={styles.whiteElem}>
                     <h3 className={styles.cardTitle}>{el.name}</h3>
-                    <CircleButton clickFunc={() => handleClick(el._id)} id={el._id} />
+                    <CircleButton clickFunc={() => handleClick(el._id || el.id)} id={el._id || el.id} />
                   </div>
                 </div>
               ))

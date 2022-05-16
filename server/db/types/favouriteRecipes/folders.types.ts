@@ -1,5 +1,8 @@
+import { Schema } from 'inspector';
+
 interface FoldersTypes {
-  id: number;
+  id?: number;
+  _id?: string;
   folder: string;
   user: any;
   color: string;

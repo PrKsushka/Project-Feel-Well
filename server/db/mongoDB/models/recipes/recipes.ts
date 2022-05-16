@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import Recipes from '../../../types/recipes/recipes.types';
 import RecipesTypes from '../../../types/recipes/recipes.types';
 
-const recipesSchema = new mongoose.Schema({
+export const recipesSchema = new mongoose.Schema({
   name: {
     type: String,
     require: true
