@@ -30,7 +30,7 @@ const User: React.FunctionComponent = () => {
   useEffect(() => {
     dispatch(getDataAboutFolders());
   }, []);
-console.log(folders)
+
   const directories = useSelector((state: StoreState) => state.recipes.favouriteRecipes);
   const dataAboutUser = useSelector((state: StoreState) => state.user.dataAboutUser);
   const color: string[] = useSelector((state: StoreState) => state.recipes.folderColor);

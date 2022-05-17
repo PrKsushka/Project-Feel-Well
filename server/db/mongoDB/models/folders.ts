@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import FoldersTypes from '../../../types/favouriteRecipes/folders.types';
+import FoldersTypes from '../../types/favouriteRecipes/folders.types';
 
 const foldersSchema = new mongoose.Schema({
   folder: {

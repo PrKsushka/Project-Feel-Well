@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import Folders from '../../models/unUsed/folders';
+import Folders from '../../models/folders';
 
 const getDataAboutFoldersMD = async (req: Request | any, res: Response) => {
   try {

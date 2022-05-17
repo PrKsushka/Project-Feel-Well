@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import Folders from '../../models/unUsed/folders';
+import Folders from '../../models/folders';
 
 const createNewFolderMD=async (req: Request | any, res: Response)=>{
   try{

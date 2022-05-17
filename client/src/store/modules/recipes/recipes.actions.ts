@@ -55,8 +55,8 @@ export function dataAboutRecipes() {
 
 export function getFavouriteRecipes(el: RecipeTypes) {
   return (dispatch: Dispatch<Action>) => {
-    if (el.id !== undefined) {
-      saveRecipeToFolder('basic', el.id)
+    if (el && (el.id !== undefined || el._id !== undefined)) {
+      saveRecipeToFolder('basic', el.id || el._id)
         .then((r) => {
           if (r) {
             dispatch({
@@ -71,10 +71,6 @@ export function getFavouriteRecipes(el: RecipeTypes) {
           console.log(err);
         });
     }
-  };
-  return {
-    type: FAVOURITE_RECIPES,
-    payload: el,
   };
 }
 
@@ -113,8 +109,8 @@ export function createNewFolder(param: NewFolder) {
 
 export function saveToAnotherDir(param1: string, param2: ObjectForSaveToAnotherDir) {
   return (dispatch: Dispatch<Action>) => {
-    if (param2.elem.id) {
-      saveRecipeToFolder(param1, param2.elem.id)
+    if (param2.elem.id || param2.elem._id) {
+      saveRecipeToFolder(param1, param2.elem.id || param2.elem._id)
         .then((r) => {
           if (r) {
             dispatch({
@@ -135,8 +131,8 @@ export function saveToAnotherDir(param1: string, param2: ObjectForSaveToAnotherD
 export function unsavedFromFavouriteRecipes(el: RecipeTypes) {
   console.log(el);
   return (dispatch: Dispatch<Action>) => {
-    if (el.id) {
-      deleteFromFavRecipes(el.id)
+    if (el.id || el._id) {
+      deleteFromFavRecipes(el.id || el._id)
         .then((res) => {
           if (res) {
             dispatch({
@@ -151,10 +147,6 @@ export function unsavedFromFavouriteRecipes(el: RecipeTypes) {
           console.log(err);
         });
     }
-  };
-  return {
-    type: UNSAVED_FROM_FAVOURITE_RECIPES,
-    payload: el,
   };
 }
 
@@ -217,10 +209,12 @@ function getDataAboutFavouriteRecipesFailed(err: any) {
 }
 
 export function getDataAboutFavouriteRecipes(folder: string) {
+  console.log(folder)
   return (dispatch: Dispatch<Action>) => {
     getDataAboutFavRecipes(folder)
       .then((res) => {
         if (res.data) {
+          console.log(res.data)
           return dispatch(getDataAboutFavouriteRecipesConfirmed(res.data));
         } else {
           throw new Error();

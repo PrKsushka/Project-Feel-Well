@@ -31,28 +31,23 @@ const SaveButton: React.FunctionComponent<SaveButtonTypes> = ({ el, targetElem, 
   const currentElem = useRef(null);
   const [elem, setElem] = useState(false);
   useEffect(() => {
-    // if (favRecipes[1]) {
-    //   favRecipes[1].find((elem: RecipeTypes) => {
-    //     if (obj && el._id === elem._id) {
-    //       obj.setFoundElem(true);
-    //     }
-    //     if (el._id === elem._id) {
-    //       setElem(true);
-    //     }
-    //   });
-    // }
-    if (favouriteRec) {
+    if (favouriteRec.length > 0) {
       favouriteRec.find((elem: RecipeTypes) => {
-        if ((obj && elem.id === obj.targetElem.current.id) || (elem._id !== undefined && obj && elem._id === obj.targetElem.current._id)) {
-          obj.setFoundElem(true);
+        if (obj) {
+          if (elem.id !== undefined && elem.id === obj.targetElem.current.id) {
+            obj.setFoundElem(true);
+          } else if (elem._id !== undefined && elem._id === obj.targetElem.current._id) {
+            obj.setFoundElem(true);
+          } else {
+            obj.setFoundElem(false);
+          }
         }
-        if (elem.id === el.id) {
+        if ((elem.id !== undefined && elem.id === el.id) || (elem._id !== undefined && elem._id === el._id)) {
           setElem(true);
         }
       });
     }
   }, []);
-
   const handleClick = (elem: RecipeTypes) => (e: any) => {
     if (e.target.className === 'saveClicked') {
       e.target.className = 'save';
@@ -72,7 +67,12 @@ const SaveButton: React.FunctionComponent<SaveButtonTypes> = ({ el, targetElem, 
     dispatch(getFavouriteRecipes(elem));
   };
   return (
-    <div style={obj ? obj.style : undefined} ref={currentElem} className={(obj && obj.foundElem) || elem ? 'saveClicked' : 'save'} onClick={handleClick(el)} />
+    <div
+      style={obj ? obj.style : undefined}
+      ref={currentElem}
+      className={(obj && obj.foundElem) || elem ? 'saveClicked' : 'save'}
+      onClick={handleClick(el)}
+    />
   );
 };
 export default SaveButton;

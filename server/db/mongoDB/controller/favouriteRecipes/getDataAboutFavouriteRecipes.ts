@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import User from '../../models/user';
-import Folders from '../../models/unUsed/folders';
+import Folders from '../../models/folders';
 import { ObjectId } from 'mongodb';
 import FoldersTypes from '../../../types/favouriteRecipes/folders.types';
 
@@ -29,7 +29,7 @@ const getDataAboutFavouriteRecipesMD=async (req: Request |any, res: Response)=>{
         }
       ])
     }
-    res.status(200).json(result)
+    res.status(200).json(result[0].favouriteRecipes)
   }catch (e){
     res.status(500).json(e)
   }

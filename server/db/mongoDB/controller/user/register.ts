@@ -3,6 +3,7 @@ import CustomError from '../../../customError/customError';
 import User from '../../models/user';
 import bcrypt from 'bcrypt';
 import TokenService from '../../../../utilsForToken/tokenService';
+import Folders from '../../models/folders';
 
 const register = async (req: Request, res: Response) => {
   try {
@@ -17,6 +18,8 @@ const register = async (req: Request, res: Response) => {
     const hashPassword = await bcrypt.hash(String(password), 5);
     const user = await User.create({ email: email, password: hashPassword, firstName: firstName, lastName: lastName });
     const token = TokenService.generateToken(user.id, user.email, user.role);
+    const createdUser = await User.findOne({ email });
+    await Folders.create({ folder: 'basic', user: createdUser._id, color: 'white' });
     return res.status(200).json(token);
   } catch (e: any) {
     const error = new CustomError(e.name, e.status, e.message);

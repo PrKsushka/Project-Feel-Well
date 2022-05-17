@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import Folders from '../../models/unUsed/folders';
+import Folders from '../../models/folders';
 import FoldersTypes from '../../../types/favouriteRecipes/folders.types';
 import { ObjectId } from 'mongodb';
 import User from '../../models/user';
