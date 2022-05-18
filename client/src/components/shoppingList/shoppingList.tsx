@@ -19,6 +19,7 @@ const ShoppingList: React.FunctionComponent = () => {
     }
     return false;
   };
+  console.log(shoppingList)
   if (shoppingList.length !== 0) {
     return (
       <div className={styles.list}>
