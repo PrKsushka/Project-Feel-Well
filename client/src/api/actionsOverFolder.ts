@@ -1,6 +1,6 @@
 import { authHost } from './user';
 
-export const saveRecipeToFolder = async (folderName = 'basic', recipeId: number | undefined) =>
+export const saveRecipeToFolder = async (folderName: string, recipeId: number | undefined) =>
   await authHost.post('/saveRecipeToFolder', { folderName, recipeId });
 
 export const createFolder = async (folder: string, color: string) => await authHost.post('/createNewFolder', { folder, color });

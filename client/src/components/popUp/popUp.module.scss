@@ -21,7 +21,7 @@
   }
 
   .savedCollection {
-    margin-right: 60px;
+    margin: 0 30px 30px 0;
     border-radius: 20px;
     @include fonts(16px, $bg, 500);
     @include builderAligment(flex, center, 120px);

@@ -10,6 +10,7 @@ import links from '../../constants/links';
 import CircleButton from '../../UI/circleButton/circleButton';
 import { getThreeRandomRecipes } from '../../api/dataAboutRecipes';
 import { RecipeTypes } from '../../store/types/recipes.types';
+import { getDataAboutUser } from '../../store/modules/user/user.actions';
 
 type LocationStateTypes = {
   from: {
@@ -41,7 +42,6 @@ const Home: React.FunctionComponent = () => {
     getThreeRandomRecipes()
       .then((res) => {
         if (res.data) {
-          console.log(res.data);
           setArrOfRandomProducts((prevState) => {
             return [...prevState, ...res.data];
           });

@@ -56,6 +56,11 @@ const userReducer = (state = initialState, action: UserAction = { type: 'DEFAULT
         },
       };
     }
+    case LOG_OUT: {
+      return {
+        ...initialState,
+      };
+    }
     default:
       return state;
   }

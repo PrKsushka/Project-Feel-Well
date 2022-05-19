@@ -4,7 +4,6 @@ import React, { ReactNode, useState } from 'react';
 import { saveToAnotherDir } from '../../store/modules/recipes/recipes.actions';
 import styles from './popUp.module.scss';
 import { RecipeTypes } from '../../store/types/recipes.types';
-import Store from '../../store/store';
 
 interface PopUpTypes {
   elem: RecipeTypes;
@@ -12,14 +11,10 @@ interface PopUpTypes {
   children?: ReactNode;
 }
 const PopUp: React.FunctionComponent<PopUpTypes> = (elem) => {
-  // const elems = useSelector((state: StoreState) => state.recipes.favouriteRecipes);
   const dispatch = useDispatch();
   const [directory, setDirectory] = useState<string>('basic');
   const folders=useSelector((state: StoreState)=> state.recipes.folders);
-  // const arr = [];
-  // for (let i = 0; i < elems.length; i++) {
-  //   arr.push(elems[i][0]);
-  // }
+
   const handleClick = (e: any) => {
     setDirectory(e.target.textContent);
     dispatch(saveToAnotherDir(e.target.textContent, elem));

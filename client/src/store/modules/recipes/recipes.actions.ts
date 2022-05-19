@@ -9,6 +9,7 @@ import {
   GET_DATA_ABOUT_FOLDERS_NAMES_FAILED,
   GET_DATA_ABOUT_RECIPES_CONFIRMED_ACTIONS,
   GET_DATA_ABOUT_RECIPES_FAILED_ACTIONS,
+  GET_DATA_ABOUT_SHOPPING_LIST,
   SAVE_TO_ANOTHER_DIR,
   SAVE_TO_SHOPPING_LIST,
   SORT_MEAL,
@@ -22,6 +23,7 @@ import { RecipeTypes } from '../../types/recipes.types';
 import { NewFolder, ObjectForSaveToAnotherDir } from '../../types/types';
 import { createFolder, deleteFromFavRecipes, getDataAboutFolderNames, saveRecipeToFolder } from '../../../api/actionsOverFolder';
 import { getDataAboutFavRecipes } from '../../../api/dataAboutFavouriteRecipes';
+import { deletePositionFromShoppingList, getFullDataAboutShoppingList, savePositionToShoppingList } from '../../../api/actionsOverShoppingList';
 
 function getDataAboutRecipesConfirmedAction(data: Array<object>) {
   return {
@@ -151,16 +153,51 @@ export function unsavedFromFavouriteRecipes(el: RecipeTypes) {
 }
 
 export function saveToShoppingList(ingredient: string) {
-  return {
-    type: SAVE_TO_SHOPPING_LIST,
-    payload: ingredient,
+  return (dispatch: Dispatch<Action>) => {
+    savePositionToShoppingList(ingredient)
+      .then((res) => {
+        return dispatch({
+          type: SAVE_TO_SHOPPING_LIST,
+          payload: res.data
+        });
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   };
 }
 
 export function deleteFromShoppingList(ingredient: string) {
-  return {
-    type: DELETE_FROM_SHOPPING_LIST,
-    payload: ingredient,
+  return (dispatch: Dispatch<Action>) => {
+    deletePositionFromShoppingList(ingredient)
+      .then((res) => {
+        return dispatch({
+          type: DELETE_FROM_SHOPPING_LIST,
+          payload: res.data,
+        });
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+}
+export function getDataAboutShoppingList() {
+  return (dispatch: Dispatch<Action>) => {
+    getFullDataAboutShoppingList()
+      .then((res) => {
+        if (res.data) {
+          console.log(res.data)
+          return dispatch({
+            type: GET_DATA_ABOUT_SHOPPING_LIST,
+            payload: res.data,
+          });
+        } else {
+          throw Error();
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   };
 }
 
@@ -209,12 +246,12 @@ function getDataAboutFavouriteRecipesFailed(err: any) {
 }
 
 export function getDataAboutFavouriteRecipes(folder: string) {
-  console.log(folder)
+  console.log(folder);
   return (dispatch: Dispatch<Action>) => {
     getDataAboutFavRecipes(folder)
       .then((res) => {
         if (res.data) {
-          console.log(res.data)
+          console.log(res.data);
           return dispatch(getDataAboutFavouriteRecipesConfirmed(res.data));
         } else {
           throw new Error();

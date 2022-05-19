@@ -4,14 +4,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { StoreState } from '../../store/types/types';
 import { getRecipes } from '../../store/modules/recipes/recipes.selectors';
 import {
+  dataAboutRecipes,
   deleteFromShoppingList,
   getDataAboutFavouriteRecipes,
-  saveToShoppingList
+  saveToShoppingList,
 } from '../../store/modules/recipes/recipes.actions';
 import styles from './recipesDetail.module.scss';
 import SaveButton from '../../UI/saveButton/saveButton';
 import EnergyBlock from '../../components/energyBlock/energyBlock';
 import { RecipeTypes } from '../../store/types/recipes.types';
+import { deletePositionFromShoppingList, savePositionToShoppingList } from '../../api/actionsOverShoppingList';
 
 type RecipesDetailTypes = {
   detailId: number;
@@ -21,7 +23,19 @@ const RecipesDetail: React.FunctionComponent = () => {
   const params = useParams();
   const { detailId } = params as RecipesDetailTypes;
   const recipes = useSelector((state: StoreState) => getRecipes(state));
-
+  const dispatch = useDispatch();
+  const [width, setWidth] = useState(0);
+  const [activeSuccessMessage, setActiveSuccessMessage] = useState(false);
+  const [timer, setTimer] = useState<any>(null);
+  const [findElem, setFindElem] = useState<boolean>(false);
+  const [amount, setAmount] = useState<number>(1);
+  const [disable, setDisable] = useState<boolean>(false);
+  const [saveTitleState, setSaveTitleState] = useState<string>('Сохранить в избранное');
+  useEffect(() => {
+    dispatch(dataAboutRecipes());
+    dispatch(getDataAboutFavouriteRecipes('basic'));
+    window.scrollTo(0, 0);
+  }, []);
   const findRecipeDetails: RecipeTypes | undefined = recipes.find((el) => {
     if (el._id) {
       return el._id === detailId;
@@ -31,14 +45,6 @@ const RecipesDetail: React.FunctionComponent = () => {
     }
   });
 
-  const dispatch = useDispatch();
-  const [width, setWidth] = useState(0);
-  const [activeSuccessMessage, setActiveSuccessMessage] = useState(false);
-  const [timer, setTimer] = useState<any>(null);
-  const [findElem, setFindElem] = useState<boolean>(false);
-  const [amount, setAmount] = useState<number>(1);
-  const [disable, setDisable] = useState<boolean>(false);
-  const [saveTitleState, setSaveTitleState] = useState<string>('Сохранить в избранное');
   useEffect(() => {
     let timeoutForActiveSuccessMessage: NodeJS.Timeout;
     if (activeSuccessMessage) {
@@ -58,7 +64,7 @@ const RecipesDetail: React.FunctionComponent = () => {
   useEffect(() => {
     if (amount < 1) {
       setDisable((prevState) => !prevState);
-      alert('Value can not be less than one');
+      alert('Значение не может быть меньше 1');
     } else {
       setDisable(false);
     }
@@ -66,13 +72,12 @@ const RecipesDetail: React.FunctionComponent = () => {
       setSaveTitleState('Сохранено в избранное');
     }
   }, [findElem, amount]);
-  useEffect(() => {
-    dispatch(getDataAboutFavouriteRecipes('basic'));
-  },[])
+
   const changeFunc = (e: React.SyntheticEvent) => {
     const { value, checked } = e.target as HTMLInputElement;
     if (checked && value !== ' ') {
       dispatch(saveToShoppingList(value));
+      savePositionToShoppingList(value).catch((e) => console.log(e));
       setActiveSuccessMessage(true);
       const activeLineForSuccessMessage = setInterval(() => {
         setWidth((prevState) => (prevState !== 100 ? prevState + 5 : 100));
@@ -81,6 +86,7 @@ const RecipesDetail: React.FunctionComponent = () => {
     }
     if (!checked) {
       dispatch(deleteFromShoppingList(value));
+      deletePositionFromShoppingList(value).catch((e) => console.log(e));
       setActiveSuccessMessage(false);
     }
     return timer;

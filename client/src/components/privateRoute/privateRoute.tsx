@@ -1,9 +1,9 @@
-import React, { ReactComponentElement, ReactNode } from 'react';
-import { Redirect, Route, useHistory, useLocation } from 'react-router-dom';
+import React, { ReactNode, useEffect } from 'react';
+import { Redirect, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { StoreState } from '../../store/types/types';
 import links from '../../constants/links';
-import { loginModalActivation } from '../../store/modules/modals/modal.actions';
+import { getDataAboutUser } from '../../store/modules/user/user.actions';
 
 interface PrivateRouteTypes {
   component: any;
@@ -14,6 +14,10 @@ interface PrivateRouteTypes {
 
 const PrivateRoute: React.FunctionComponent<PrivateRouteTypes> = ({ component: Component, ...rest }) => {
   const auth = useSelector((state: StoreState) => state.user.auth);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getDataAboutUser());
+  }, []);
   return (
     <Route
       {...rest}

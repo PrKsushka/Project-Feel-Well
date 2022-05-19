@@ -26,6 +26,7 @@ const SavedRecipes: React.FunctionComponent = () => {
       }
     }
     const result: string = savedArr.join('');
+    console.log(result)
     dispatch(getDataAboutFavouriteRecipes(result));
   }, []);
   const favouriteRecipes = useSelector((state: StoreState) => state.recipes.favouriteRecipesWithDB);

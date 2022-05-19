@@ -8,10 +8,10 @@ import {
   GET_DATA_ABOUT_FOLDERS_NAMES_FAILED,
   GET_DATA_ABOUT_RECIPES_CONFIRMED_ACTIONS,
   GET_DATA_ABOUT_RECIPES_FAILED_ACTIONS,
+  GET_DATA_ABOUT_SHOPPING_LIST,
   SAVE_TO_ANOTHER_DIR,
   SAVE_TO_SHOPPING_LIST,
   SORT_MEAL,
-  SORT_RECIPES_BY_HEALTH_PROBLEMS_CONFIRMED,
   SORT_RECIPES_BY_HEALTH_PROBLEMS_FAILED,
   SORT_RECIPES_BY_MEAL_CONFIRMED_ACTION,
   SORT_RECIPES_BY_MEAL_FAILED_ACTION,
@@ -84,6 +84,7 @@ const recipesReducer = (state = initialState, action: Action = { type: 'DEFAULT'
         const newArr = payload.map((el) => {
           return el.recipes;
         });
+        localStorage.setItem('new', JSON.stringify(getUniqueListBy(newArr, 'name')));
         return {
           ...state,
           favouriteRecipesWithDB: getUniqueListBy(newArr, 'name'),
@@ -159,7 +160,7 @@ const recipesReducer = (state = initialState, action: Action = { type: 'DEFAULT'
         return {
           ...state,
           favouriteRecipes: [...state.favouriteRecipes, [payload.dirName, []]],
-          // folderColor: [...state.folderColor, payload.color],
+          successMessage: 'folder created',
         };
       }
       return {
@@ -205,26 +206,27 @@ const recipesReducer = (state = initialState, action: Action = { type: 'DEFAULT'
       };
     }
     case SAVE_TO_SHOPPING_LIST: {
-      const set = new Set([...state.shoppingList, action.payload]);
       return {
         ...state,
-        shoppingList: [...set],
+        successMessage: action.payload,
       };
     }
     case DELETE_FROM_SHOPPING_LIST: {
-      const shoppingList = state.shoppingList as Array<string>;
-      shoppingList.forEach((el) => {
-        if (el === action.payload) {
-          shoppingList.splice(shoppingList.indexOf(el), 1);
-        }
-      });
       return {
         ...state,
-        shoppingList: [...shoppingList],
+        successMessage: action.payload,
+      };
+    }
+    case GET_DATA_ABOUT_SHOPPING_LIST: {
+      return {
+        ...state,
+        shoppingList: action.payload,
       };
     }
     default:
-      return state;
+      return {
+        ...state,
+      };
   }
 };
 export default recipesReducer;

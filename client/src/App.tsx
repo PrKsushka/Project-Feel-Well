@@ -15,6 +15,7 @@ import { loginModalActivation } from './store/modules/modals/modal.actions';
 import RecipesDetail from './pages/recipesDetail/recipesDetail';
 import SavedRecipes from './pages/savedRecipes/savedRecipes';
 import Places from './pages/places/places';
+import { getDataAboutFavouriteRecipes } from './store/modules/recipes/recipes.actions';
 
 function App() {
   const dispatch = useDispatch();
@@ -36,9 +37,7 @@ function App() {
         });
     }
   }, [isLogin]);
-  useEffect(() => {
-    dispatch(getDataAboutUser());
-  }, []);
+
   return (
     <Router>
       <Layout>

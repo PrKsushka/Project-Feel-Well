@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import links from '../../constants/links';
 import './header.module.scss';
@@ -15,7 +15,7 @@ const Header: React.FunctionComponent = () => {
   const logOut = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('refreshToken');
-    localStorage.removeItem('root');
+    localStorage.removeItem('new');
     dispatch(logOutUser());
     dispatch(userUnauthenticated());
   };
@@ -26,7 +26,7 @@ const Header: React.FunctionComponent = () => {
     dispatch(registrationModalActivation(true));
   };
   return (
-    <header style={auth ? { transform: 'none' } : undefined}>
+    <header>
       <div className={styles.logo} style={auth ? { marginRight: '250px' } : undefined}>
         <a href={links.home}>LOGO LOGO</a>
         <div className={styles.description}>
@@ -47,15 +47,21 @@ const Header: React.FunctionComponent = () => {
         <li>
           <Link to={links.places}>Места</Link>
         </li>
-        <li>
+        <li className={styles.lastLi}>
           <Link to={links.user}>{auth ? dataAboutUser.firstName : 'Кабинет'}</Link>
         </li>
         {auth ? (
-          <li onClick={logOut}>Выйти</li>
+          <button type="button" onClick={logOut} className={styles.menuButton}>
+            Выйти
+          </button>
         ) : (
           <>
-            <li onClick={userAuth}>Авторизоваться</li>
-            <li onClick={userRegister}>Зарегистрироваться</li>
+            <button type="button" onClick={userAuth} className={styles.menuButton}>
+              Авторизоваться
+            </button>
+            <button type="button" onClick={userRegister} className={styles.menuButton}>
+              Зарегистрироваться
+            </button>
           </>
         )}
       </ul>

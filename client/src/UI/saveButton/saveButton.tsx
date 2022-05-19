@@ -1,10 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { PlaceElement, StoreState } from '../../store/types/types';
-import { getFavouriteRecipes, unsavedFromFavouriteRecipes } from '../../store/modules/recipes/recipes.actions';
+import {
+  getFavouriteRecipes,
+  unsavedFromFavouriteRecipes,
+} from '../../store/modules/recipes/recipes.actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { openPopUp } from '../../store/modules/modals/modal.actions';
 import { RecipeTypes } from '../../store/types/recipes.types';
-import Store from '../../store/store';
 
 type Obj = {
   foundElem: boolean;
@@ -26,28 +28,20 @@ interface SaveButtonTypes {
 
 const SaveButton: React.FunctionComponent<SaveButtonTypes> = ({ el, targetElem, obj }) => {
   const dispatch = useDispatch();
-  const favRecipes = useSelector((state: StoreState) => state.recipes.favouriteRecipes)[0];
   const favouriteRec = useSelector((state: StoreState) => state.recipes.favouriteRecipesWithDB);
   const currentElem = useRef(null);
   const [elem, setElem] = useState(false);
+  const fav: any = localStorage.getItem('new');
+  const arr = JSON.parse(fav);
   useEffect(() => {
     if (favouriteRec.length > 0) {
       favouriteRec.find((elem: RecipeTypes) => {
-        if (obj) {
-          if (elem.id !== undefined && elem.id === obj.targetElem.current.id) {
-            obj.setFoundElem(true);
-          } else if (elem._id !== undefined && elem._id === obj.targetElem.current._id) {
-            obj.setFoundElem(true);
-          } else {
-            obj.setFoundElem(false);
-          }
-        }
         if ((elem.id !== undefined && elem.id === el.id) || (elem._id !== undefined && elem._id === el._id)) {
           setElem(true);
         }
       });
     }
-  }, []);
+  }, [arr]);
   const handleClick = (elem: RecipeTypes) => (e: any) => {
     if (e.target.className === 'saveClicked') {
       e.target.className = 'save';
@@ -66,13 +60,6 @@ const SaveButton: React.FunctionComponent<SaveButtonTypes> = ({ el, targetElem, 
     }
     dispatch(getFavouriteRecipes(elem));
   };
-  return (
-    <div
-      style={obj ? obj.style : undefined}
-      ref={currentElem}
-      className={(obj && obj.foundElem) || elem ? 'saveClicked' : 'save'}
-      onClick={handleClick(el)}
-    />
-  );
+  return <div style={obj ? obj.style : undefined} ref={currentElem} className={elem ? 'saveClicked' : 'save'} onClick={handleClick(el)} />;
 };
 export default SaveButton;

@@ -6,7 +6,7 @@
   .firstBanner {
     @include builderAligment(flex, flex-end, 100%);
     height: 100vh;
-    background: #90b4ad;
+    background: #889690;
     margin-bottom: 120px;
     .bannerImage{
       background: url('../../assets/about/banner.jpg') no-repeat;

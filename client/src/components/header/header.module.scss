@@ -7,9 +7,8 @@ header {
   box-sizing: border-box;
   position: fixed;
   top: 55px;
-  left: 220px;
   align-items: center;
-  transform: translate(-4%, -25%);
+  transform: translate(14%, -25%);
 
   .logo{
     display: flex;
@@ -37,7 +36,7 @@ header {
   ul {
    display: flex;
     list-style: none;
-
+    align-items: center;
     li {
       margin-right: 20px;
       @include fonts(18px);
@@ -54,6 +53,26 @@ header {
         @include fonts(18px);
         text-decoration: none;
       }
+    }
+    .lastLi{
+      margin-right: 85px;
+    }
+    .menuButton {
+      display: flex;
+      justify-content: center;
+      font-size: 16px;
+      font-family: "Roboto", sans-serif;
+      color: white;
+      font-weight: 300;
+      background: #F5AA20;
+      text-decoration: none;
+      padding: 10px;
+      border: none;
+      border-radius: 20px;
+      align-items: center;
+      cursor: pointer;
+      margin-left: auto;
+      margin-right: 20px;
     }
   }
 }

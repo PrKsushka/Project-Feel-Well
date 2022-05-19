@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   changeDataAboutUserModalActivation,
@@ -15,29 +15,30 @@ import ModalForCreationANewDirectory from '../../components/modals/module/modalF
 import CircleButton from '../../UI/circleButton/circleButton';
 import ModalForChangingDataAboutUser from '../../components/modals/module/changeInfoAboutUser/modalForChangingDataAboutUser';
 import ModalForChangingPassword from '../../components/modals/module/changeInfoAboutUser/modalForChangingPassword';
-import { getDataAboutFolders } from '../../store/modules/recipes/recipes.actions';
+import { getDataAboutFolders, getDataAboutShoppingList } from '../../store/modules/recipes/recipes.actions';
+import { getShoppingList } from '../../store/modules/recipes/recipes.selectors';
+import { strictEqual } from 'assert';
 
 const User: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  useEffect(() => {
-    if (history.action === 'POP') {
-      dispatch(createDirectoryModalActivation(false));
-    }
-    dispatch(getDataAboutUser());
-  }, []);
-  const folders = useSelector((state: StoreState) => state.recipes.folders);
-  useEffect(() => {
-    dispatch(getDataAboutFolders());
-  }, []);
-
-  const directories = useSelector((state: StoreState) => state.recipes.favouriteRecipes);
+  const shoppingList = useSelector((state: StoreState) => getShoppingList(state));
   const dataAboutUser = useSelector((state: StoreState) => state.user.dataAboutUser);
   const color: string[] = useSelector((state: StoreState) => state.recipes.folderColor);
+  const folders = useSelector((state: StoreState) => state.recipes.folders);
 
   const isActiveModalForChangingDataAboutUser = useSelector((state: StoreState) => state.modal.changeDataAboutUserModal);
   const isActiveModalForCreationNewDir = useSelector((state: StoreState) => state.modal.createDirectoryModal);
   const isActiveModalForChangingPassword = useSelector((state: StoreState) => state.modal.changePasswordModal);
+  const successMessage = useSelector((state: StoreState) => state.recipes.successMessage);
+  useEffect(() => {
+    if (history.action === 'POP') {
+      dispatch(createDirectoryModalActivation(false));
+    }
+  }, []);
+  useEffect(() => {
+    dispatch(getDataAboutFolders());
+  }, [successMessage]);
 
   const openModalForCreationDirectory = () => {
     dispatch(createDirectoryModalActivation(true));
@@ -85,8 +86,8 @@ const User: React.FunctionComponent = () => {
         {/*  </Link>*/}
         {/*))}*/}
         {folders.map((el, i) => (
-          <Link to={`${links.user}/${el}`}>
-            <div className={styles.directory} key={i} style={{ background: color[i] }}>
+          <Link to={`${links.user}/${el}`} key={i}>
+            <div className={styles.directory} style={{ background: color[i] }}>
               {el}
             </div>
           </Link>
