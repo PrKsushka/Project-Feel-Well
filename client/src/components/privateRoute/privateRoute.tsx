@@ -15,9 +15,9 @@ interface PrivateRouteTypes {
 const PrivateRoute: React.FunctionComponent<PrivateRouteTypes> = ({ component: Component, ...rest }) => {
   const auth = useSelector((state: StoreState) => state.user.auth);
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getDataAboutUser());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getDataAboutUser());
+  // }, []);
   return (
     <Route
       {...rest}

@@ -79,6 +79,7 @@ export interface UserReducer {
   successAuth: string;
   failedAuth: string;
   dataAboutUser: DataAboutUser;
+  lightOrDarkTheme: boolean;
 }
 
 export interface ModalReducer {

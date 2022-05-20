@@ -6,6 +6,7 @@ import store from './store/store';
 import './styles/style.scss';
 import { PersistGate } from 'redux-persist/integration/react';
 import { LoaderProvider } from 'react-loader-ts';
+import 'normalize.css';
 
 ReactDOM.render(
   <Provider store={store.store}>

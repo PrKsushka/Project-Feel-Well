@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { PlaceElement, StoreState } from '../../store/types/types';
 import {
+  getDataAboutFavouriteRecipes,
   getFavouriteRecipes,
-  unsavedFromFavouriteRecipes,
+  unsavedFromFavouriteRecipes
 } from '../../store/modules/recipes/recipes.actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { openPopUp } from '../../store/modules/modals/modal.actions';
@@ -31,9 +32,9 @@ const SaveButton: React.FunctionComponent<SaveButtonTypes> = ({ el, targetElem, 
   const favouriteRec = useSelector((state: StoreState) => state.recipes.favouriteRecipesWithDB);
   const currentElem = useRef(null);
   const [elem, setElem] = useState(false);
-  const fav: any = localStorage.getItem('new');
-  const arr = JSON.parse(fav);
+
   useEffect(() => {
+    console.log(1)
     if (favouriteRec.length > 0) {
       favouriteRec.find((elem: RecipeTypes) => {
         if ((elem.id !== undefined && elem.id === el.id) || (elem._id !== undefined && elem._id === el._id)) {
@@ -41,7 +42,7 @@ const SaveButton: React.FunctionComponent<SaveButtonTypes> = ({ el, targetElem, 
         }
       });
     }
-  }, [arr]);
+  }, [favouriteRec]);
   const handleClick = (elem: RecipeTypes) => (e: any) => {
     if (e.target.className === 'saveClicked') {
       e.target.className = 'save';

@@ -52,7 +52,7 @@ const RecipesDetail: React.FunctionComponent = () => {
         setActiveSuccessMessage(false);
         clearInterval(timer);
         setWidth(0);
-      }, 3000);
+      }, 4000);
     }
 
     return () => {

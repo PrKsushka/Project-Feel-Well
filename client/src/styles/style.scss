@@ -9,6 +9,7 @@ body {
 
 .warn {
   @include fonts(27px, $wh, 500);
+  min-height: 100vh;
 }
 
 .cardTextLink {
@@ -54,9 +55,8 @@ body {
   text-decoration: none;
   padding: 10px;
   border: none;
-  border-radius: 20px;
+  border-radius: 50px;
   align-items: center;
-  margin-top: 60px;
   cursor: pointer;
   margin-right: auto;
   margin-left: auto;

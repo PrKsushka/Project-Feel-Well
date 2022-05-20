@@ -19,18 +19,13 @@ const CheckboxGroup: React.FunctionComponent<ObjTypes> = ({ obj }) => {
         });
       });
     }
-    // arr.typesArr.forEach((el) => {
-    //   if (el === e.target.value) {
-    //     dispatch(sortedRecipesByHealth(e.target.value));
-    //   }
-    // });
   };
 
   return (
     <>
       {obj.arr.map((el, i) => (
         <label key={i} className={style.elem}>
-          <input type="checkbox" value={el} onChange={handleChange} name={el} />
+          <input type="checkbox" value={el} onChange={handleChange} name={el} className={style.elemInp}/>
           {el}
         </label>
       ))}

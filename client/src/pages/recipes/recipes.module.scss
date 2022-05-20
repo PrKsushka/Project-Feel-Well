@@ -44,7 +44,7 @@
     box-sizing: border-box;
 
     .products {
-      @include builderAligment(flex, space-between, 100%);
+      @include builder(flex, 100%);
       flex-wrap: wrap;
       padding-top: 60px;
     }

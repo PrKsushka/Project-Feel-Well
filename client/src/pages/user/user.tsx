@@ -22,7 +22,7 @@ import { strictEqual } from 'assert';
 const User: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const shoppingList = useSelector((state: StoreState) => getShoppingList(state));
+
   const dataAboutUser = useSelector((state: StoreState) => state.user.dataAboutUser);
   const color: string[] = useSelector((state: StoreState) => state.recipes.folderColor);
   const folders = useSelector((state: StoreState) => state.recipes.folders);
@@ -35,6 +35,7 @@ const User: React.FunctionComponent = () => {
     if (history.action === 'POP') {
       dispatch(createDirectoryModalActivation(false));
     }
+    window.scrollTo(0, 0);
   }, []);
   useEffect(() => {
     dispatch(getDataAboutFolders());
@@ -53,7 +54,6 @@ const User: React.FunctionComponent = () => {
     <div className={styles.wrapper}>
       <div className={styles.firstBlockWrapper}>
         <div className={styles.personalInformation}>
-          {/*<div className={styles.circle}></div>*/}
           <div className={styles.info}>
             <p>Привет, {`${dataAboutUser.firstName}  ${dataAboutUser.lastName}`}</p>
             <p>{dataAboutUser.email}</p>
@@ -78,13 +78,6 @@ const User: React.FunctionComponent = () => {
           <p>Избранное</p>
           <CircleButton clickFunc={() => openModalForCreationDirectory} />
         </div>
-        {/*{directories.map((el, i) => (*/}
-        {/*  <Link to={`${links.user}/${el[0]}`}>*/}
-        {/*    <div className={styles.directory} key={i} style={{ background: color[i] }}>*/}
-        {/*      {el[0]}*/}
-        {/*    </div>*/}
-        {/*  </Link>*/}
-        {/*))}*/}
         {folders.map((el, i) => (
           <Link to={`${links.user}/${el}`} key={i}>
             <div className={styles.directory} style={{ background: color[i] }}>

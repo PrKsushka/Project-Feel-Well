@@ -1,0 +1,21 @@
+@import "../../styles/mixin";
+.wrapperList{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 170px;
+  .list {
+    @include builder(flex, 100%);
+    flex-wrap: wrap;
+
+    .ingredients {
+      @include fonts(16px, $bg);
+      width: 50%;
+      margin-bottom: 5px;
+
+      input {
+        margin-right: 20px;
+      }
+    }
+  }
+}

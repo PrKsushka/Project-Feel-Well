@@ -52,7 +52,7 @@
       p {
         margin: 0;
         font-weight: 400;
-        @include fonts(27px);
+        @include fonts(21px);
         @include builder(flex, 100%);
         justify-content: center;
       }
@@ -99,15 +99,17 @@
     position: relative;
     @include builderAligment(flex, space-around, 100%);
     flex-wrap: wrap;
+    margin-bottom: 120px;
 
     .leaf {
       background: url("../../assets/bigLeaf.png") no-repeat;
       position: absolute;
-      width: 400px;
-      height: 500px;
-      background-size: contain;
+      width: 423.12px;
+      height: 502.29px;
+      background-size: cover;
       bottom: 80px;
       right: -120px;
+
 
       &:before {
         box-shadow: $shadowTwo;
@@ -124,17 +126,13 @@
       background-size: contain;
     }
 
-    .thirdWindowTitle {
-      @include builderAligment(flex, center, 100%);
-      @include fonts(28px);
-      margin-bottom: 80px;
-    }
 
     .cardWrapper {
       @include builderAligment(flex, center, 100%);
 
       .card {
         @include builder(flex, 285px);
+        box-shadow: $shadowTwo;
         height: 336px;
         border-radius: 20px;
         background: url("../../assets/salmon-518032_1920.jpg") no-repeat;
@@ -162,6 +160,64 @@
       }
     }
   }
+  .fourthWindow {
+    @include builder(flex, 100%);
+    flex-wrap: wrap;
+    box-sizing: border-box;
+    padding: 120px 0 120px 0;
+    .factsWrapper{
+      @include builderAligment(flex, center, 100%);
+      .facts {
+        @include builderAligment(flex, center, 300px);
+        flex-wrap: wrap;
+        margin-right: 60px;
+        .factsImage{
+          @include builder(flex, 275px);
+          height: 275px;
+          border-radius: 50%;
+          background-position: center;
+          box-shadow: $shadowTwo;
+        }
+        .factsContent {
+          @include builder(flex, 100%);
+          flex-wrap: wrap;
+          h3{
+            margin: 30px 0 0 0;
+            justify-content: center;
+            @include fonts(18px, $wh, 500);
+            @include builder(flex, 100%);
+          }
+          p{
+            @include fonts(16px, $wh);
+            @include builder(flex, 100%);
+          }
+        }
+        &:last-child{
+          margin-right: 0;
+        }
+      }
+    }
+  }
+  .fifthWindow {
+    @include builderAligment(flex, center, 100%);
+    height: 100vh;
+    background: url("../../assets/anotherPage.png") no-repeat center;
+    background-size: cover;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+    h3 {
+      @include fonts(40px, $wh, 500);
+      margin: 0;
+      display: flex;
+    }
+    p{
+      display: flex;
+      @include fonts(27px);
+      width: 500px;
+      text-align: center;
+    }
+  }
 }
 .beigeButton {
   border: #E2D4C4 solid;
@@ -180,4 +236,8 @@
   }
 }
 
-
+.title {
+  @include builderAligment(flex, center, 100%);
+  @include fonts(28px);
+  margin-bottom: 80px;
+}

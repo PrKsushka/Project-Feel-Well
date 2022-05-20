@@ -4,4 +4,8 @@
   width: 50%;
   @include fonts(16px, $wh);
   padding-bottom: 5px;
+  align-items: center;
+  .elemInp {
+    margin-right: 10px;
+  }
 }

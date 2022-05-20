@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { StoreState } from '../../store/types/types';
@@ -26,8 +26,8 @@ const SavedRecipes: React.FunctionComponent = () => {
       }
     }
     const result: string = savedArr.join('');
-    console.log(result)
     dispatch(getDataAboutFavouriteRecipes(result));
+    window.scrollTo(0, 0);
   }, []);
   const favouriteRecipes = useSelector((state: StoreState) => state.recipes.favouriteRecipesWithDB);
   if (favouriteRecipes.length > 0) {

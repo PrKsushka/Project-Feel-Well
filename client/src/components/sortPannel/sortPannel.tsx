@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import CheckboxGroup from '../../UI/checkboxGroup/checkboxGroup';
 import arr from '../../constants/sortRecipes';
 import styles from './sortPannel.module.scss';
-import { getRecipesSortedByMeal } from '../../store/modules/recipes/recipes.actions';
+import { getDataAboutFavouriteRecipes, getRecipesSortedByMeal } from '../../store/modules/recipes/recipes.actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { StoreState } from '../../store/types/types';
 import SelectGroup from '../../UI/selectGroup/selectGroup';
 
 const SortPanel: React.FunctionComponent = () => {
-  const [types, setTypes] = useState([]);
+  const dispatch = useDispatch();
   const [vegetablesProd, setVegetablesProd] = useState([]);
   const [milkProd, setMilkProd] = useState([]);
   const [fruitsProd, setFruitsProd] = useState([]);
@@ -16,15 +16,21 @@ const SortPanel: React.FunctionComponent = () => {
   const [meatProd, setMeatProd] = useState([]);
   const [selectRating, setSelectedRating] = useState('');
   const menuMeal = useSelector((state: StoreState) => state.recipes.meal);
-  const dispatch = useDispatch();
+  const darkOrLightTheme = useSelector((state: StoreState) => state.user.lightOrDarkTheme);
+  const sortColumn = useRef<HTMLDivElement>(null);
   useEffect(() => {
     dispatch(getRecipesSortedByMeal(menuMeal, selectRating, ...vegetablesProd, ...milkProd, ...fruitsProd, ...backedGoodsProd, ...meatProd));
   }, [vegetablesProd, milkProd, fruitsProd, backedGoodsProd, meatProd, selectRating, menuMeal]);
-  const objForInputGroupTypes = {
-    arr: arr.typesArr,
-    input: types,
-    inputFunc: setTypes,
-  };
+
+  useEffect(() => {
+    if(sortColumn.current) {
+      if (darkOrLightTheme) {
+        sortColumn.current.className = `${styles.mainSortColumn} ${styles.light}`;
+      } else {
+        sortColumn.current.className = `${styles.mainSortColumn} ${styles.dark}`;
+      }
+    }
+  }, [darkOrLightTheme]);
   const milkProducts = {
     arr: arr.milkProductsArr,
     input: milkProd,
@@ -63,7 +69,7 @@ const SortPanel: React.FunctionComponent = () => {
   };
   return (
     <>
-      <div className={styles.mainSortColumn}>
+      <div className={styles.mainSortColumn} ref={sortColumn}>
         <h2 className={styles.mainTitle}>{menuMeal}</h2>
         <div>
           <SelectGroup obj={objForSelectRating} />

@@ -4,11 +4,17 @@
   justify-content: flex-start;
   flex-direction: column;
   border-radius: 20px;
-  background-color: #ffffff4f;;
+  background-color: $sortColumn;
   width: 100%;
   box-sizing: border-box;
   padding: 50px 0;
-  box-sizing: border-box;
+  box-shadow: $shadowTwo;
+  &.dark {
+    background-color: $sortColumn;
+  }
+  &.light {
+    background-color: #36412b;
+  }
   select {
     margin-left: 60px;
     border-radius: 20px;

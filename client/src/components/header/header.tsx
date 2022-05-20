@@ -1,17 +1,22 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import links from '../../constants/links';
 import './header.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { StoreState } from '../../store/types/types';
-import { logOutUser, userUnauthenticated } from '../../store/modules/user/user.actions';
+import { changeTheme, logOutUser, userUnauthenticated } from '../../store/modules/user/user.actions';
 import { loginModalActivation, registrationModalActivation } from '../../store/modules/modals/modal.actions';
 import styles from './header.module.scss';
+import Store from '../../store/store';
 
 const Header: React.FunctionComponent = () => {
+  const dispatch = useDispatch();
   const auth = useSelector((state: StoreState) => state.user.auth);
   const dataAboutUser = useSelector((state: StoreState) => state.user.dataAboutUser);
-  const dispatch = useDispatch();
+  const header = useRef<HTMLElement>(null);
+  const circle = useRef<HTMLDivElement>(null);
+  const darkOrLightTheme = useSelector((state: StoreState) => state.user.lightOrDarkTheme);
+
   const logOut = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('refreshToken');
@@ -25,9 +30,48 @@ const Header: React.FunctionComponent = () => {
   const userRegister = () => {
     dispatch(registrationModalActivation(true));
   };
+
+  useEffect(() => {
+    console.log(darkOrLightTheme);
+    if (circle.current && header.current) {
+      if (darkOrLightTheme) {
+        circle.current.className = `${styles.right}`;
+        document.body.style.background = '#8a9d74';
+        header.current.className = `${styles.headerInMove} ${styles.light}`;
+        if (circle.current.parentElement) {
+          circle.current.parentElement.className = `${styles.switch} ${styles.lightBorder}`;
+        }
+      } else {
+        circle.current.className = `${styles.circle}`;
+        document.body.style.background = '#0C1715';
+        header.current.className = `${styles.headerInMove} ${styles.dark}`;
+        if (circle.current.parentElement) {
+          circle.current.parentElement.className = `${styles.switch} ${styles.darkBorder}`;
+        }
+      }
+    }
+  }, [darkOrLightTheme]);
+  const moveCircle = () => {
+    dispatch(changeTheme(!darkOrLightTheme));
+  };
+
+  const scrollHeader = () => {
+    const { current } = header;
+    if (current) {
+      if (window.scrollY >= 30 && !darkOrLightTheme) {
+        current.className = `${styles.headerInMove} ${styles.dark}`;
+      } else if (window.scrollY >= 30 && darkOrLightTheme) {
+        current.className = `${styles.headerInMove} ${styles.light}`;
+      } else {
+        current.className = '';
+      }
+    }
+  };
+  window.addEventListener('scroll', scrollHeader);
+
   return (
-    <header>
-      <div className={styles.logo} style={auth ? { marginRight: '250px' } : undefined}>
+    <header ref={header}>
+      <div className={styles.logo}>
         <a href={links.home}>LOGO LOGO</a>
         <div className={styles.description}>
           <h3>FEEL WELL</h3>
@@ -51,9 +95,14 @@ const Header: React.FunctionComponent = () => {
           <Link to={links.user}>{auth ? dataAboutUser.firstName : 'Кабинет'}</Link>
         </li>
         {auth ? (
-          <button type="button" onClick={logOut} className={styles.menuButton}>
-            Выйти
-          </button>
+          <>
+            <div className={`${styles.switch} ${styles.darkBorder}`}>
+              <div className={styles.circle} onClick={moveCircle} ref={circle}></div>
+            </div>
+            <button type="button" onClick={logOut} className={styles.menuButton}>
+              Выйти
+            </button>
+          </>
         ) : (
           <>
             <button type="button" onClick={userAuth} className={styles.menuButton}>

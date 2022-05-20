@@ -19,6 +19,7 @@ const Places: React.FunctionComponent = () => {
 
   useEffect(() => {
     dispatch(dataAboutPlaces());
+    window.scrollTo(0, 0);
   }, []);
   useEffect(() => {
     dispatch(getDataSortedByCityOrPlace(currentPlace, currentCity));

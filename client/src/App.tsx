@@ -29,6 +29,7 @@ function App() {
           console.log(1);
           dispatch(userAuthenticated());
           dispatch(loginModalActivation(false));
+          dispatch(getDataAboutUser());
           body.style.overflowY = 'auto';
         })
         .catch((err) => {

@@ -8,6 +8,7 @@
   flex-wrap: wrap;
   padding: 120px;
   box-sizing: border-box;
+  min-height: 100vh;
     .title{
       @include fonts(27px, $bg, 500);
     }

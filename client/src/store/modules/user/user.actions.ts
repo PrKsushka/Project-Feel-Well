@@ -1,4 +1,5 @@
 import {
+  CHANGE_THEME,
   GET_DATA_ABOUT_USER_FAILED,
   GET_DATA_ABOUT_USER_SUCCESS,
   LOG_OUT,
@@ -9,7 +10,6 @@ import {
 } from './user.constants';
 import { Action, Dispatch } from 'redux';
 import { dataAboutUser } from '../../../api/user/getDataAboutUser';
-import { changeDataAboutUser } from '../../../api/user/changeData';
 
 export function userAuthenticated() {
   return {
@@ -76,5 +76,12 @@ export function getDataAboutUser() {
 export function logOutUser() {
   return {
     type: LOG_OUT,
+  };
+}
+
+export function changeTheme(param: boolean) {
+  return {
+    type: CHANGE_THEME,
+    payload: param,
   };
 }

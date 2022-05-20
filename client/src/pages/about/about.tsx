@@ -24,15 +24,14 @@ const About: React.FunctionComponent = () => {
       .catch((err) => {
         console.log(err);
       });
+    window.scrollTo(0, 0);
   }, []);
   return (
     <div className={styles.wrapper}>
       <div className={styles.firstBanner}>
         <div className={styles.textForBanner}>
           <h3>Здоровый образ жизни</h3>
-          <p>
-            полезные заметки о питании, спорте
-          </p>
+          <p>полезные заметки о питании, спорте</p>
         </div>
         <div className={styles.bannerImage}></div>
       </div>

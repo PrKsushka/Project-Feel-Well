@@ -1,6 +1,6 @@
 @import "../../styles/mixin";
 .footer {
-  @include builderAligment(flex, flex-end, 100%);
+  @include builderAligment(flex, space-around, 100%);
   background: black;
   flex: 0 0 auto;
   ul{

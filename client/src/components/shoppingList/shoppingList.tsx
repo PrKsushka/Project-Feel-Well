@@ -1,11 +1,9 @@
-import styles from '../../pages/user/user.module.scss';
-import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import styles from './shoppingList.module.scss';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { StoreState } from '../../store/types/types';
 import { getShoppingList } from '../../store/modules/recipes/recipes.selectors';
 import { deleteFromShoppingList, getDataAboutShoppingList } from '../../store/modules/recipes/recipes.actions';
-import arr from '../../constants/sortRecipes';
-import { set } from 'react-hook-form';
 
 const ShoppingList: React.FunctionComponent = () => {
   const dispatch = useDispatch();
@@ -39,7 +37,7 @@ const ShoppingList: React.FunctionComponent = () => {
 
   if (shoppingList.length !== 0) {
     return (
-      <div>
+      <div className={styles.wrapperList}>
         <div className={styles.list}>
           {shoppingList.map((el, i) => (
             <label className={styles.ingredients} key={i}>

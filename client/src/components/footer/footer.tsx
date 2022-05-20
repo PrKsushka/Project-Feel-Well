@@ -8,16 +8,19 @@ const Footer: React.FunctionComponent = () => {
     <footer className={styles.footer}>
       <ul>
         <li>
-          <Link to={links.home}>Home</Link>
+          <Link to={links.home}>Главная</Link>
         </li>
         <li>
-          <Link to={links.about}>About</Link>
+          <Link to={links.about}>О нас</Link>
         </li>
         <li>
-          <Link to={links.places}>About</Link>
+          <Link to={links.recipes}>Рецепты</Link>
         </li>
         <li>
-          <Link to={links.recipes}>Recipes</Link>
+          <Link to={links.places}>Места</Link>
+        </li>
+        <li className={styles.lastLi}>
+          <Link to={links.user}>Кабинет</Link>
         </li>
       </ul>
     </footer>

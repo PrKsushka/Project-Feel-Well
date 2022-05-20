@@ -1,7 +1,5 @@
 @import "../../styles/mixin";
-header{
-  position: absolute;
-}
+
 .details {
   display: flex;
   padding: 80px;
@@ -133,16 +131,18 @@ header{
 
 .message {
   position: fixed;
-  right: 150px;
-  top: 0;
+  right: 0;
   width: 30%;
   box-sizing: border-box;
   min-height: 100px;
   justify-content: center;
   display: flex;
-  background: #2d2c2cc7;
   flex-direction: column;
   transition: 0.1ms;
+  height: 300px;
+  border-radius: 20px 0 0 0;
+  bottom: 0;
+  background: #192e2b9e;
   .textForMessage {
     @include fonts(16px, $wh, 500);
     display: flex;

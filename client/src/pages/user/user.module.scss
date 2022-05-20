@@ -43,6 +43,7 @@
         @include fonts(16px, $bg);
         font-weight: bold;
         width: 100%;
+        margin-bottom: 108px;
       }
     }
 
@@ -53,7 +54,7 @@
       flex-wrap: wrap;
       border-radius: 20px;
       box-shadow: $shadow;
-      padding: 40px;
+      padding: 40px 40px 0 40px;
       box-sizing: border-box;
       max-height: 500px;
       min-height: 299px;
@@ -71,21 +72,6 @@
 
         span {
           @include fonts(11px, $bg);
-        }
-      }
-
-      .list {
-        @include builder(flex, 100%);
-        flex-wrap: wrap;
-
-        .ingredients {
-          @include fonts(16px, $bg);
-          width: 50%;
-          margin-bottom: 5px;
-
-          input {
-            margin-right: 20px;
-          }
         }
       }
 

@@ -31,6 +31,7 @@ const Recipes: React.FunctionComponent = () => {
     dispatch(dataAboutRecipes());
     dispatch(getDataAboutFolders());
     dispatch(getDataAboutFavouriteRecipes('basic'));
+    window.scrollTo(0, 0);
   }, []);
   useEffect(() => {
     const timerShowWindow = setTimeout(() => {
