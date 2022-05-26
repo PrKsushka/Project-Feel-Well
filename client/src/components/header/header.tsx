@@ -32,21 +32,28 @@ const Header: React.FunctionComponent = () => {
   };
 
   useEffect(() => {
-    console.log(darkOrLightTheme);
     if (circle.current && header.current) {
       if (darkOrLightTheme) {
         circle.current.className = `${styles.right}`;
         document.body.style.background = '#8a9d74';
-        header.current.className = `${styles.headerInMove} ${styles.light}`;
         if (circle.current.parentElement) {
           circle.current.parentElement.className = `${styles.switch} ${styles.lightBorder}`;
         }
-      } else {
+        if (window.scrollY !== 0) {
+          header.current.className = `${styles.headerInMove} ${styles.light}`;
+        } else {
+          header.current.className = '';
+        }
+      } else if (!darkOrLightTheme) {
         circle.current.className = `${styles.circle}`;
         document.body.style.background = '#0C1715';
-        header.current.className = `${styles.headerInMove} ${styles.dark}`;
         if (circle.current.parentElement) {
           circle.current.parentElement.className = `${styles.switch} ${styles.darkBorder}`;
+        }
+        if (window.scrollY !== 0) {
+          header.current.className = `${styles.headerInMove} ${styles.dark}`;
+        } else {
+          header.current.className = '';
         }
       }
     }

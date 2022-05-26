@@ -19,3 +19,6 @@
     }
   }
 }
+.emptyList {
+  @include fonts(16px, $bg);
+}

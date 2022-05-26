@@ -13,6 +13,6 @@
       @include fonts(27px, $bg, 500);
     }
     .cardWrapper {
-      @include builderAligment(flex, space-between, 100%);
+      @include builder(flex, 100%);
     }
 }

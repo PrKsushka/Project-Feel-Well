@@ -8,7 +8,7 @@ import Folders from '../../entity/favouriRecipes/folders';
 
 const registerPg = async (req: Request, res: Response) => {
   try {
-    const { email, password, role, firstName, lastName } = req.body;
+    const { email, password, firstName, lastName } = req.body;
     const user = await getRepository(Users).createQueryBuilder('users');
 
     if (!email || !password) {

@@ -1,10 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { PlaceElement, StoreState } from '../../store/types/types';
-import {
-  getDataAboutFavouriteRecipes,
-  getFavouriteRecipes,
-  unsavedFromFavouriteRecipes
-} from '../../store/modules/recipes/recipes.actions';
+import { getFavouriteRecipes, unsavedFromFavouriteRecipes } from '../../store/modules/recipes/recipes.actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { openPopUp } from '../../store/modules/modals/modal.actions';
 import { RecipeTypes } from '../../store/types/recipes.types';
@@ -34,7 +30,7 @@ const SaveButton: React.FunctionComponent<SaveButtonTypes> = ({ el, targetElem, 
   const [elem, setElem] = useState(false);
 
   useEffect(() => {
-    console.log(1)
+    console.log(1);
     if (favouriteRec.length > 0) {
       favouriteRec.find((elem: RecipeTypes) => {
         if ((elem.id !== undefined && elem.id === el.id) || (elem._id !== undefined && elem._id === el._id)) {

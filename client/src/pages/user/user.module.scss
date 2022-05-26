@@ -74,10 +74,6 @@
           @include fonts(11px, $bg);
         }
       }
-
-      .emptyList {
-        @include fonts(16px, $bg);
-      }
     }
   }
 
@@ -120,5 +116,4 @@
 
     }
   }
-
 }
