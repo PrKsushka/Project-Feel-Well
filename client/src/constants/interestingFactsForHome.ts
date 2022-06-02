@@ -21,8 +21,9 @@ const interestingFactsForHome: Array<InterestingFactsTypes> = [
   {
     id: 3,
     image: 'assets/eggs.png',
-    name: 'Сахарный диабет',
-    content: 'Группа эндокринных заболеваний, связанных с нарушением усвоения глюкозы и развивающихся вследствие абсолютной или относительной...',
+    name: 'Важность белка',
+    content:
+      'Белки необходимы для роста и восстановления клеток тела. Белковая пища - мясо, рыба, яйца, молочные продукты...',
   },
 ];
 export default interestingFactsForHome;

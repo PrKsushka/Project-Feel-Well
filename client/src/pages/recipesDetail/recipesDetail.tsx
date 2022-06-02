@@ -127,7 +127,7 @@ const RecipesDetail: React.FunctionComponent = () => {
             <div className={styles.findRecipeTime}>
               ВРЕМЯ ПРИГОТОВЛЕНИЯ &nbsp;&nbsp;
               {findRecipeDetails.time}
-              {findRecipeDetails.time && findRecipeDetails.time < 60 ? 'МИН' : 'Ч'}
+              {findRecipeDetails.time && findRecipeDetails.time <= 60 ? 'МИН' : 'Ч'}
             </div>
             <div className={styles.findRecipeSave}>
               {saveTitleState}

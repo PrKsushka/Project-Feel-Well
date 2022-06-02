@@ -20,7 +20,7 @@ body {
   flex-direction: row;
   @include builderAligment(flex, space-around, 100%);
   justify-content: space-between;
-  padding: 0 14px 20px 5px;
+  padding: 28px 14px 20px 5px;
   box-sizing: border-box;
   margin-top: 20px;
 }
@@ -39,7 +39,7 @@ body {
 .cardTitle {
   margin: 0;
   @include fonts(18px, black, 500);
-  width: 40%;
+  width: 100%;
   cursor: pointer;
 
   &:hover {
@@ -64,4 +64,15 @@ body {
     box-shadow: $shadowTwo;
     color: $orange;
   }
+}
+.vector {
+  background: url('../assets/vector.png') no-repeat fixed center;
+  position: absolute;
+  width: 88px;
+  height: 30px;
+  left: 50%;
+  transform: translate(-50%, -155%);
+  z-index: 5;
+  bottom: -30px;
+  background-size: contain;
 }

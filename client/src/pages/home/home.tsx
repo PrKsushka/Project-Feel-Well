@@ -64,9 +64,13 @@ const Home: React.FunctionComponent = () => {
       <div className={styles.mainBanner}>
         <div className={styles.salads} />
         <div className={styles.leaf} />
-        <div className={styles.desk}>
+        <div className={styles.textBlock}>
           <h3>Healthy wealthy life</h3>
           <p>прямо здесь прямо сейчас</p>
+        </div>
+        <div className="vector"></div>
+        <div className={styles.wrapperForDesc}>
+          <div className={styles.desk}></div>
         </div>
       </div>
       <div className={styles.secondWindow}>
@@ -76,7 +80,7 @@ const Home: React.FunctionComponent = () => {
             Привет! Добро пожаловать в мир полезной еды, классных ребят, крутых мест. Приложение-помощник, котрое поможет тебе поддерживать свое
             здоровье. Здесь ты найдешь отличные рецепты в зависимости от твоих особенностей огранизма, узнаешь много нового.{' '}
           </p>
-          <Link to={links.about} className={styles.beigeButton}>
+          <Link to={links.health} className={styles.beigeButton}>
             Перейти
           </Link>
         </div>
@@ -114,7 +118,7 @@ const Home: React.FunctionComponent = () => {
               <div className={styles.factsContent}>
                 <h3>{el.name}</h3>
                 <p>{el.content}</p>
-                <Link to={links.about} className={styles.beigeButton} style={{ margin: '20px 0 0 0', marginInline: 'auto' }}>
+                <Link to={links.health} className={styles.beigeButton} style={{ margin: '20px 0 0 0', marginInline: 'auto' }}>
                   Читать
                 </Link>
               </div>

@@ -4,7 +4,7 @@ import style from './sortMenu.module.scss';
 
 const SortMenu: React.FunctionComponent<ObjTypes> = ({ obj }) => {
   return (
-    <ul onClick={obj.sortFunc} className={style.sortMenu}>
+    <ul onClick={obj.sortFunc} className={style.sortMenu} style={obj.styleOptions ? { marginRight: `${obj.styleOptions}px` } : undefined}>
       {obj.arr.map((el, i) => (
         <li key={i}>
           <a>{el}</a>

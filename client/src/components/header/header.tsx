@@ -79,7 +79,7 @@ const Header: React.FunctionComponent = () => {
   return (
     <header ref={header}>
       <div className={styles.logo}>
-        <a href={links.home}>LOGO LOGO</a>
+        <a href={links.home}></a>
         <div className={styles.description}>
           <h3>FEEL WELL</h3>
           <p>помощник по здоровью</p>
@@ -90,7 +90,7 @@ const Header: React.FunctionComponent = () => {
           <Link to={links.home}>Главная</Link>
         </li>
         <li>
-          <Link to={links.about}>О нас</Link>
+          <Link to={links.health}>Здоровье</Link>
         </li>
         <li>
           <Link to={links.recipes}>Рецепты</Link>

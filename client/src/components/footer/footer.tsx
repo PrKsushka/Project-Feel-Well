@@ -11,7 +11,7 @@ const Footer: React.FunctionComponent = () => {
           <Link to={links.home}>Главная</Link>
         </li>
         <li>
-          <Link to={links.about}>О нас</Link>
+          <Link to={links.health}>Здоровье</Link>
         </li>
         <li>
           <Link to={links.recipes}>Рецепты</Link>

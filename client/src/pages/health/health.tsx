@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getDataAboutArticles } from '../../api/dataAboutArticles';
-import styles from './about.module.scss';
+import styles from './health.module.scss';
 
 interface ArticlesTypes {
   id?: number;
@@ -10,7 +10,7 @@ interface ArticlesTypes {
   image: string;
 }
 
-const About: React.FunctionComponent = () => {
+const Health: React.FunctionComponent = () => {
   const [arrOfArticles, setArrOfArticles] = useState<Array<ArticlesTypes>>([]);
   useEffect(() => {
     getDataAboutArticles()
@@ -33,6 +33,7 @@ const About: React.FunctionComponent = () => {
           <h3>Здоровый образ жизни</h3>
           <p>полезные заметки о питании, спорте</p>
         </div>
+        <div className="vector"></div>
         <div className={styles.bannerImage}></div>
       </div>
       {arrOfArticles.map((el) => (
@@ -53,4 +54,4 @@ const About: React.FunctionComponent = () => {
     </div>
   );
 };
-export default About;
+export default Health;

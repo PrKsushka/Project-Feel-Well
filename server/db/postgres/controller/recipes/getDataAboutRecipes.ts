@@ -94,7 +94,7 @@ const getDataAboutRecipesPg = async (req: Request, res: Response) => {
     }
     if (req.query.meal) {
       result = await recipes
-        .where('meals.meal = :meal', { meal: req.query.meal })
+        .andWhere('meals.meal = :meal', { meal: req.query.meal })
         .getMany();
     }
     res.status(200).json(result);

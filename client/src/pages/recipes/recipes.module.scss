@@ -3,7 +3,7 @@
 .darkGlass {
   @include builder(flex, 100%);
   min-height: 100vh;
-  background: rgba(4, 4, 4, 0.3);
+  background: rgb(4 4 4 / 48%);
   position: relative;
 
   .textBlockWrapper {
@@ -30,7 +30,7 @@
 
 .mainContent {
   @include builder(flex, 100%);
-  padding: 68px 80px 0 90px;
+  padding: 68px 40px 0 90px;
   box-sizing: border-box;
   margin-bottom: 120px;
   .columnForSort {

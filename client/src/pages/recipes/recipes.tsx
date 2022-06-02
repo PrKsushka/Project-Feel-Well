@@ -1,11 +1,6 @@
 import React, { lazy, useEffect, useRef, Suspense } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  dataAboutRecipes,
-  getDataAboutFavouriteRecipes,
-  getDataAboutFolders,
-  setNameOfMeal
-} from '../../store/modules/recipes/recipes.actions';
+import { dataAboutRecipes, getDataAboutFavouriteRecipes, getDataAboutFolders, setNameOfMeal } from '../../store/modules/recipes/recipes.actions';
 import { StoreState } from '../../store/types/types';
 import { getRecipes } from '../../store/modules/recipes/recipes.selectors';
 import styles from './recipes.module.scss';
@@ -46,12 +41,14 @@ const Recipes: React.FunctionComponent = () => {
   const objForSortMenu = {
     arr: meal,
     sortFunc: menuClick,
+    styleOptions: 30,
   };
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.darkGlass}>
         <div className={styles.textBlockWrapper}>Лучшие рецепты</div>
+        <div className="vector"></div>
         <div className={styles.banner} />
       </div>
       <div className={styles.mainContent}>

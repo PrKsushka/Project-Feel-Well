@@ -7,7 +7,7 @@ export const sortRecipes = (args: Array<string>) => {
   if (args[0] === 'все') {
     args[0] = '';
   }
-  const arr: string[] = [`&meal=${args[0]}&rating=${args[1]}`];
+  const arr: string[] = [`meal=${args[0]}&rating=${args[1]}`];
   for (let i = 2; i < args.length; i++) {
     arr.push(notInclude + args[i]);
   }
