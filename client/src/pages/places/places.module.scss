@@ -19,13 +19,12 @@
       width: 400px;
       text-align: center;
     }
-
     .image {
       @include builder(flex, 100%);
       position: absolute;
       height: 100vh;
       z-index: 4;
-      background: rgba(0, 0, 0, 0.3);
+      background: rgb(0 0 0 / 58%);
     }
 
     .rectangles {
@@ -58,16 +57,16 @@
 
   .secondWindow {
     @include builder(flex, 100%);
-    padding: 126px 267px 146px 118px;
+    padding: 126px 210px 146px 118px;
     box-sizing: border-box;
     position: relative;
-
+    justify-content: center;
     .circleLeaves {
       background: url("../../assets/places/circle.png") no-repeat;
       background-size: contain;
       width: 462px;
       height: 480px;
-      margin-right: 308px;
+      margin-right: 200px;
     }
 
     .secondWindowText {
@@ -84,20 +83,20 @@
       }
 
       p {
-        @include fonts(16px, $wh);
+        @include fonts(18px, $lightWh);
         display: flex;
         justify-content: center;
         margin: 0;
       }
     }
     .strawberry{
-      background: url("../../assets/places/bigStrawberry.png") no-repeat;
-      width: 262.97px;
-      height: 253.39px;
-      background-size: contain;
+      background: url("../../assets/bigLeaf.png") no-repeat;
+      width: 423.12px;
+      height: 502.29px;
+      background-size: cover;
       position: absolute;
-      right: -115px;
-      bottom: -8px;
+      right: -150px;
+      bottom: -150px;
     }
   }
   .sort {
@@ -110,13 +109,13 @@
   .places {
     @include builder(flex, 100%);
     padding: 0 155px;
-    box-sizing: border-box;
     flex-wrap: wrap;
     margin-bottom: 200px;
 
     .workingHours {
-      @include builderAligment(flex, flex-end, 50%);
+      @include builderAligment(flex, flex-end, 100%);
       @include fonts(11px, $bg);
+      margin-right: 30px;
     }
 
     .title {

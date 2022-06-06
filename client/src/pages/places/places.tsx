@@ -19,6 +19,7 @@ const Places: React.FunctionComponent = () => {
 
   useEffect(() => {
     dispatch(dataAboutPlaces());
+    window.scrollTo(0, 0);
   }, []);
   useEffect(() => {
     dispatch(getDataSortedByCityOrPlace(currentPlace, currentCity));
@@ -37,6 +38,7 @@ const Places: React.FunctionComponent = () => {
   const objForSortMenu = {
     arr: ['все', 'рестораны', 'кафе', 'магазины'],
     sortFunc: sortDataAboutPlaces,
+    styleOptions: 70,
   };
 
   const objForSelectGroup = {
@@ -48,10 +50,8 @@ const Places: React.FunctionComponent = () => {
     <div className={styles.placesWrapper}>
       <div className={styles.placesBanner}>
         <h3 className={styles.bannerTitle}>Магазины, рестораны, кафе подходящие именно тебе</h3>
+        <div className="vector"></div>
         <div className={styles.image}></div>
-        <div className={`${styles.rectangles} ${styles.red}`} />
-        <div className={`${styles.rectangles} ${styles.darkRed}`} />
-        <div className={`${styles.rectangles} ${styles.pink}`} />
       </div>
       <div className={styles.secondWindow}>
         <div className={styles.circleLeaves} />
@@ -70,7 +70,7 @@ const Places: React.FunctionComponent = () => {
       <div className={styles.places}>
         {places.length > 0 ? (
           places.map((el: PlaceElement, i) => (
-            <Card el={el} obj={{ param: false, style: { margin: 70 } }} key={i}>
+            <Card el={el} obj={{ param: false, style: undefined }} key={i}>
               <div className="cardMainText">
                 <h3 className="cardTitle" onClick={() => openModalForDetails(el)}>
                   {el.name}

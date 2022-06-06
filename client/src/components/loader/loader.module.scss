@@ -1,0 +1,26 @@
+@import "../../styles/mixin";
+.spinner {
+  background: url("../../assets/spinner2.gif") no-repeat;
+  width: 230px;
+  height: 230px;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  text-align: center;
+  transform: translate(7%, 128%);
+}
+.loaderWrapper{
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  text-align: center;
+  width: 100vw;
+  height: 100vh;
+  background: antiquewhite;
+  top: 0;
+  z-index: 1000;
+}

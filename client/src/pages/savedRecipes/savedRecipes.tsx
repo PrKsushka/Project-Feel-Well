@@ -1,31 +1,45 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { StoreState } from '../../store/types/types';
 import styles from './savedRecipes.module.scss';
 import CardForRecipes from '../../components/card/module/cardForRecipes';
 import { RecipeTypes } from '../../store/types/recipes.types';
+import { getDataAboutFavouriteRecipes } from '../../store/modules/recipes/recipes.actions';
+import Loader from '../../components/loader/loader';
+import useLoader from '../../hooks/useLoader';
 
 type Saved = {
   saved: string;
 };
 const SavedRecipes: React.FunctionComponent = () => {
   const params = useParams();
+  const dispatch = useDispatch();
   const { saved } = params as Saved;
-  const directories = useSelector((state: StoreState) => state.recipes.favouriteRecipes);
-  const dir = directories.find((el) => {
-    return el[0] === saved;
-  });
   const saveTargetElement = useRef();
-  if (dir[1].length > 0) {
+  const [isLoading, activeLoader] = useLoader();
+  useEffect(() => {
+    const savedArr: string[] = saved.split('');
+    for (let i = 0; i < savedArr.length; i++) {
+      if (savedArr[i] === '%') {
+        savedArr.splice(0, 3, ' ');
+      }
+    }
+    const result: string = savedArr.join('');
+    dispatch(getDataAboutFavouriteRecipes(result));
+    window.scrollTo(0, 0);
+  }, []);
+  const favouriteRecipes = useSelector((state: StoreState) => state.recipes.favouriteRecipesWithDB);
+  if (favouriteRecipes.length > 0) {
     return (
       <div className={styles.wrapper}>
         <p className={styles.title}>{saved}</p>
-        <div className={styles.cardWrapper}>
-          {dir[1].map((el: RecipeTypes, i: number) => (
-            <CardForRecipes el={el} obj={{ targetElem: saveTargetElement, param: true }} />
+        <div className={styles.cardWrapper} style={isLoading ? { display: 'none' } : undefined}>
+          {favouriteRecipes.map((el: RecipeTypes, i: number) => (
+            <CardForRecipes el={el} obj={{ targetElem: saveTargetElement, param: true }} key={el.id || el._id} />
           ))}
         </div>
+        {isLoading ? <Loader /> : null}
       </div>
     );
   } else {

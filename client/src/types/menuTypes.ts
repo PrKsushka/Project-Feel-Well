@@ -1,6 +1,6 @@
 interface MenuTypes {
   home: string;
-  about: string;
+  health: string;
   places: string;
   recipes: string;
   user: string;

@@ -2,7 +2,7 @@ import MenuTypes from '../types/menuTypes';
 
 const links: MenuTypes = {
   home: '/',
-  about: '/about',
+  health: '/health',
   recipes: '/recipes',
   places: '/places',
   user: '/user',

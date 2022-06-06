@@ -3,11 +3,17 @@ import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { StoreState } from '../../store/types/types';
 import { getRecipes } from '../../store/modules/recipes/recipes.selectors';
-import { deleteFromShoppingList, saveToShoppingList } from '../../store/modules/recipes/recipes.actions';
+import {
+  dataAboutRecipes,
+  deleteFromShoppingList,
+  getDataAboutFavouriteRecipes,
+  saveToShoppingList,
+} from '../../store/modules/recipes/recipes.actions';
 import styles from './recipesDetail.module.scss';
 import SaveButton from '../../UI/saveButton/saveButton';
 import EnergyBlock from '../../components/energyBlock/energyBlock';
 import { RecipeTypes } from '../../store/types/recipes.types';
+import { deletePositionFromShoppingList, savePositionToShoppingList } from '../../api/actionsOverShoppingList';
 
 type RecipesDetailTypes = {
   detailId: number;
@@ -17,16 +23,6 @@ const RecipesDetail: React.FunctionComponent = () => {
   const params = useParams();
   const { detailId } = params as RecipesDetailTypes;
   const recipes = useSelector((state: StoreState) => getRecipes(state));
-  console.log(recipes);
-  const findRecipeDetails: RecipeTypes | undefined = recipes.find((el) => {
-    if (el._id) {
-      return el._id === detailId;
-    } else if (el.id) {
-      console.log(typeof detailId)
-      return el.id === Number(detailId);
-    }
-  });
-  console.log(findRecipeDetails);
   const dispatch = useDispatch();
   const [width, setWidth] = useState(0);
   const [activeSuccessMessage, setActiveSuccessMessage] = useState(false);
@@ -36,13 +32,27 @@ const RecipesDetail: React.FunctionComponent = () => {
   const [disable, setDisable] = useState<boolean>(false);
   const [saveTitleState, setSaveTitleState] = useState<string>('Сохранить в избранное');
   useEffect(() => {
+    dispatch(dataAboutRecipes());
+    dispatch(getDataAboutFavouriteRecipes('basic'));
+    window.scrollTo(0, 0);
+  }, []);
+  const findRecipeDetails: RecipeTypes | undefined = recipes.find((el) => {
+    if (el._id) {
+      return el._id === detailId;
+    }
+    if (el.id) {
+      return el.id === Number(detailId);
+    }
+  });
+
+  useEffect(() => {
     let timeoutForActiveSuccessMessage: NodeJS.Timeout;
     if (activeSuccessMessage) {
       timeoutForActiveSuccessMessage = setTimeout(() => {
         setActiveSuccessMessage(false);
         clearInterval(timer);
         setWidth(0);
-      }, 3000);
+      }, 4000);
     }
 
     return () => {
@@ -54,7 +64,7 @@ const RecipesDetail: React.FunctionComponent = () => {
   useEffect(() => {
     if (amount < 1) {
       setDisable((prevState) => !prevState);
-      alert('Value can not be less than one');
+      alert('Значение не может быть меньше 1');
     } else {
       setDisable(false);
     }
@@ -67,6 +77,7 @@ const RecipesDetail: React.FunctionComponent = () => {
     const { value, checked } = e.target as HTMLInputElement;
     if (checked && value !== ' ') {
       dispatch(saveToShoppingList(value));
+      savePositionToShoppingList(value).catch((e) => console.log(e));
       setActiveSuccessMessage(true);
       const activeLineForSuccessMessage = setInterval(() => {
         setWidth((prevState) => (prevState !== 100 ? prevState + 5 : 100));
@@ -75,6 +86,7 @@ const RecipesDetail: React.FunctionComponent = () => {
     }
     if (!checked) {
       dispatch(deleteFromShoppingList(value));
+      deletePositionFromShoppingList(value).catch((e) => console.log(e));
       setActiveSuccessMessage(false);
     }
     return timer;
@@ -85,7 +97,7 @@ const RecipesDetail: React.FunctionComponent = () => {
   const decreaseAmount = () => {
     setAmount((prevState) => prevState - 1);
   };
-  const targetElement = useRef();
+  const targetElement = useRef(findRecipeDetails);
   const objForSaveButton = {
     foundElem: findElem,
     setFoundElem: setFindElem,
@@ -115,7 +127,7 @@ const RecipesDetail: React.FunctionComponent = () => {
             <div className={styles.findRecipeTime}>
               ВРЕМЯ ПРИГОТОВЛЕНИЯ &nbsp;&nbsp;
               {findRecipeDetails.time}
-              {findRecipeDetails.time && findRecipeDetails.time < 60 ? 'МИН' : 'Ч'}
+              {findRecipeDetails.time && findRecipeDetails.time <= 60 ? 'МИН' : 'Ч'}
             </div>
             <div className={styles.findRecipeSave}>
               {saveTitleState}

@@ -1,16 +1,16 @@
 @import "../../styles/mixin";
 
 header {
-  justify-content: flex-end;
+  justify-content: space-around;
   z-index: 101;
   display: flex;
   box-sizing: border-box;
   position: fixed;
-  top: 55px;
-  left: 220px;
+  top: 20px;
   align-items: center;
-  transform: translate(-4%, -25%);
-
+  width: 100%;
+  transition: 0.5s;
+  padding: 10px 0;
   .logo{
     display: flex;
     justify-content: space-around;
@@ -19,6 +19,10 @@ header {
       @include fonts(22px, $wh);
       margin-right: 20px;
       text-decoration: none;
+      background: url("../../assets/logo.png") no-repeat;
+      width: 50px;
+      height: 50px;
+      background-size: contain;
     }
     .description {
       h3{
@@ -31,13 +35,16 @@ header {
       }
       p{
         @include fonts(14px, $wh);
+        margin: 0;
       }
     }
   }
   ul {
    display: flex;
     list-style: none;
-
+    align-items: center;
+    margin: 0;
+    margin-left: 90px;
     li {
       margin-right: 20px;
       @include fonts(18px);
@@ -55,5 +62,74 @@ header {
         text-decoration: none;
       }
     }
+    .lastLi{
+      margin-right: 85px;
+    }
+    .menuButton {
+      display: flex;
+      justify-content: center;
+      font-size: 16px;
+      font-family: "Roboto", sans-serif;
+      color: white;
+      font-weight: 300;
+      background: #F5AA20;
+      text-decoration: none;
+      padding: 10px;
+      border: none;
+      border-radius: 20px;
+      align-items: center;
+      cursor: pointer;
+      margin-left: auto;
+      margin-right: 20px;
+    }
+  }
+}
+
+.headerInMove{
+  top: 0;
+  box-shadow: $shadowTwo;
+  &.dark{
+    background: #192f2b;
+  }
+  &.light{
+    background: #465238;
+  }
+}
+.switch{
+  display: flex;
+  position: relative;
+  width: 70px;
+  margin-right: 20px;
+  .circle {
+    cursor: pointer;
+    transition: 0.5s;
+    position: absolute;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    z-index: 100;
+    top: -14px;
+    background: antiquewhite;
+    box-shadow: $shadowTwo;
+  }
+  .right {
+    cursor: pointer;
+    transition: 0.5s;
+    position: absolute;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    z-index: 100;
+    top: -14px;
+    background: antiquewhite;
+    right: 0;
+  }
+
+  &.darkBorder{
+    border: 4px solid $orange;
+  }
+
+  &.lightBorder {
+    border: 4px solid #38402f;
   }
 }

@@ -1,7 +1,7 @@
 @import "../../styles/mixin";
 .footer {
-  @include builderAligment(flex, flex-end, 100%);
-  background: black;
+  @include builderAligment(flex, space-around, 100%);
+  background: #1c2423;;
   flex: 0 0 auto;
   ul{
     list-style: none;

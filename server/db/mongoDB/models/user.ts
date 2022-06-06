@@ -1,5 +1,8 @@
 import mongoose from 'mongoose';
 import User from '../../types/user.types';
+import folder from '../../routes/recipes/actionsOverFolder';
+import Recipes, { recipesSchema } from './recipes/recipes';
+import { Schema } from 'inspector';
 
 const userSchema = new mongoose.Schema({
   email: {
@@ -23,10 +26,15 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  favouriteRecipes: {
-    type: Array,
-    required: true
-  }
+  favouriteRecipes: [
+    {
+      folder: {
+        type: mongoose.Types.ObjectId,
+        ref: 'Folders'
+      },
+      recipes: recipesSchema
+    }
+  ]
 });
 
 const User = mongoose.model<User>('User', userSchema);

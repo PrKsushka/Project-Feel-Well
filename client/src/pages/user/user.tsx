@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   changeDataAboutUserModalActivation,
@@ -15,24 +15,31 @@ import ModalForCreationANewDirectory from '../../components/modals/module/modalF
 import CircleButton from '../../UI/circleButton/circleButton';
 import ModalForChangingDataAboutUser from '../../components/modals/module/changeInfoAboutUser/modalForChangingDataAboutUser';
 import ModalForChangingPassword from '../../components/modals/module/changeInfoAboutUser/modalForChangingPassword';
+import { getDataAboutFolders, getDataAboutShoppingList } from '../../store/modules/recipes/recipes.actions';
+import { getShoppingList } from '../../store/modules/recipes/recipes.selectors';
+import { strictEqual } from 'assert';
 
 const User: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  useEffect(() => {
-    if (history.action === 'POP') {
-      dispatch(createDirectoryModalActivation(false));
-    }
-    dispatch(getDataAboutUser());
-  }, []);
 
-  const directories = useSelector((state: StoreState) => state.recipes.favouriteRecipes);
   const dataAboutUser = useSelector((state: StoreState) => state.user.dataAboutUser);
   const color: string[] = useSelector((state: StoreState) => state.recipes.folderColor);
+  const folders = useSelector((state: StoreState) => state.recipes.folders);
 
   const isActiveModalForChangingDataAboutUser = useSelector((state: StoreState) => state.modal.changeDataAboutUserModal);
   const isActiveModalForCreationNewDir = useSelector((state: StoreState) => state.modal.createDirectoryModal);
   const isActiveModalForChangingPassword = useSelector((state: StoreState) => state.modal.changePasswordModal);
+  const successMessage = useSelector((state: StoreState) => state.recipes.successMessage);
+  useEffect(() => {
+    if (history.action === 'POP') {
+      dispatch(createDirectoryModalActivation(false));
+    }
+    window.scrollTo(0, 0);
+  }, []);
+  useEffect(() => {
+    dispatch(getDataAboutFolders());
+  }, [successMessage]);
 
   const openModalForCreationDirectory = () => {
     dispatch(createDirectoryModalActivation(true));
@@ -47,7 +54,6 @@ const User: React.FunctionComponent = () => {
     <div className={styles.wrapper}>
       <div className={styles.firstBlockWrapper}>
         <div className={styles.personalInformation}>
-          {/*<div className={styles.circle}></div>*/}
           <div className={styles.info}>
             <p>Привет, {`${dataAboutUser.firstName}  ${dataAboutUser.lastName}`}</p>
             <p>{dataAboutUser.email}</p>
@@ -72,10 +78,10 @@ const User: React.FunctionComponent = () => {
           <p>Избранное</p>
           <CircleButton clickFunc={() => openModalForCreationDirectory} />
         </div>
-        {directories.map((el, i) => (
-          <Link to={`${links.user}/${el[0]}`}>
-            <div className={styles.directory} key={i} style={{ background: color[i] }}>
-              {el[0]}
+        {folders.map((el, i) => (
+          <Link to={`${links.user}/${el}`} key={i}>
+            <div className={styles.directory} style={{ background: color[i] }}>
+              {el}
             </div>
           </Link>
         ))}

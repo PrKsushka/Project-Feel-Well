@@ -1,7 +1,11 @@
+@import "../../styles/mixin";
 .selectElem {
   width: 207px;
   height: 31px;
   display: flex;
   background: #DDD8D7;
   border: none;
+  @include fonts(14px, $bg);
+  padding-left: 10px;
+  box-sizing: border-box;
 }

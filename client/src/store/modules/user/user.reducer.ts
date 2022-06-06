@@ -1,5 +1,13 @@
 import { Action, DataAboutUser, UserReducer } from '../../types/types';
-import { GET_DATA_ABOUT_USER_SUCCESS, LOG_OUT, USER_AUTHENTICATED, USER_REGISTERED, USER_UNAUTHENTICATED, USER_UNREGISTERED } from './user.constants';
+import {
+  CHANGE_THEME,
+  GET_DATA_ABOUT_USER_SUCCESS,
+  LOG_OUT,
+  USER_AUTHENTICATED,
+  USER_REGISTERED,
+  USER_UNAUTHENTICATED,
+  USER_UNREGISTERED,
+} from './user.constants';
 import storage from 'redux-persist/lib/storage';
 
 const initialState: UserReducer = {
@@ -12,6 +20,7 @@ const initialState: UserReducer = {
     firstName: '',
     lastName: '',
   },
+  lightOrDarkTheme: false,
 };
 type UserAction = {
   type: string;
@@ -54,6 +63,17 @@ const userReducer = (state = initialState, action: UserAction = { type: 'DEFAULT
           firstName: action.payload?.firstName,
           lastName: action.payload?.lastName,
         },
+      };
+    }
+    case LOG_OUT: {
+      return {
+        ...initialState,
+      };
+    }
+    case CHANGE_THEME: {
+      return {
+        ...state,
+        lightOrDarkTheme: action.payload,
       };
     }
     default:

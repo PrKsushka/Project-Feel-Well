@@ -1,0 +1,83 @@
+@import "../../styles/mixin";
+
+.wrapper {
+  @include builder(flex, 100%);
+  flex-wrap: wrap;
+
+  .firstBanner {
+    @include builderAligment(flex, flex-end, 100%);
+    height: 100vh;
+    background: rgb(23 42 39 / 55%);
+    margin-bottom: 120px;
+
+    .bannerImage {
+      background: url('../../assets/about/banner.jpg') no-repeat;
+      width: 50%;
+      background-size: cover;
+      display: flex;
+    }
+
+    .textForBanner {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 5;
+
+      h3 {
+        @include fonts(27px, $wh, 500);
+        text-align: center;
+      }
+
+      p {
+        @include fonts(22px);
+        text-align: center;
+      }
+    }
+  }
+
+  .topic {
+    @include builderAligment(flex, space-between, 100%);
+    flex-direction: row;
+    align-items: center;
+    padding: 0px 160px 120px 160px;
+    box-sizing: border-box;
+
+    .image {
+      display: flex;
+      width: 393px;
+      height: 356px;
+      border-radius: 70px;
+      margin-right: 120px;
+
+      &:nth-child(even) {
+        margin-left: 120px;
+        margin-right: 0;
+      }
+    }
+
+    .text {
+      @include builder(flex, 635px);
+      flex-direction: column;
+
+      .title {
+        @include fonts(22px, $wh, 500);
+        text-align: center;
+      }
+
+      .mainText {
+        @include fonts(18px, $lightWh);
+        margin: 0;
+      }
+    }
+
+    &:nth-child(odd) {
+      flex-direction: row-reverse;
+    }
+
+    &:nth-child(odd) .image {
+      margin-left: 120px;
+      margin-right: 0;
+    }
+  }
+}

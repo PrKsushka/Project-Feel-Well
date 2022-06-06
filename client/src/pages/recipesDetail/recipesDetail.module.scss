@@ -1,13 +1,11 @@
 @import "../../styles/mixin";
-header{
-  position: absolute;
-}
+
 .details {
   display: flex;
   padding: 80px;
   margin: 120px 80px 80px 80px;
   background: white;
-  border-radius: 20px 20px 0 0;
+  border-radius: 20px;
   flex-direction: row;
   justify-content: space-around;
   box-sizing: border-box;
@@ -25,13 +23,14 @@ header{
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    width: 370px;
+    width: 400px;
 
     .title {
       @include fonts(27px, $bg);
       @include builderAligment(flex, center, 100%);
       font-weight: bold;
       margin-bottom: 40px;
+      width: 100%;
     }
 
     .elems {
@@ -43,7 +42,7 @@ header{
 
       .findRecipeTime {
         @include fonts(11px, $bg);
-        margin-right: 45px;
+        margin-right: 62px;
       }
 
       .findRecipeSave {
@@ -59,11 +58,11 @@ header{
     .ingredientsWrapper {
       @include builderAligment(flex, center, 100%);
       flex-wrap: wrap;
-      padding: 80px 0 0 0;
+      padding: 20px 0 0 0;
       box-sizing: border-box;
       .ingredientsTitle {
         @include builderAligment(flex, space-between, 100%);
-        margin-bottom: 40px;
+        margin-bottom: 20px;
         .name {
           @include fonts(16px, $bg, 500);
           align-items: center;
@@ -133,16 +132,18 @@ header{
 
 .message {
   position: fixed;
-  right: 150px;
-  top: 0;
+  right: 0;
   width: 30%;
   box-sizing: border-box;
   min-height: 100px;
   justify-content: center;
   display: flex;
-  background: #2d2c2cc7;
   flex-direction: column;
   transition: 0.1ms;
+  height: 300px;
+  border-radius: 20px 0 0 0;
+  bottom: 0;
+  background: #192e2b9e;
   .textForMessage {
     @include fonts(16px, $wh, 500);
     display: flex;

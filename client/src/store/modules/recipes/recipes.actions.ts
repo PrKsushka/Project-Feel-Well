@@ -3,25 +3,27 @@ import {
   CREATE_NEW_FOLDER,
   DELETE_FROM_SHOPPING_LIST,
   FAVOURITE_RECIPES,
+  GET_DATA_ABOUT_FAVOURITE_RECIPES_CONFIRMED,
+  GET_DATA_ABOUT_FAVOURITE_RECIPES_FAILED,
+  GET_DATA_ABOUT_FOLDERS_NAMES_CONFIRMED,
+  GET_DATA_ABOUT_FOLDERS_NAMES_FAILED,
   GET_DATA_ABOUT_RECIPES_CONFIRMED_ACTIONS,
   GET_DATA_ABOUT_RECIPES_FAILED_ACTIONS,
+  GET_DATA_ABOUT_SHOPPING_LIST,
   SAVE_TO_ANOTHER_DIR,
   SAVE_TO_SHOPPING_LIST,
   SORT_MEAL,
-  SORT_RECIPES_BY_COMPONENTS__FAILED,
   SORT_RECIPES_BY_COMPONENTS_CONFIRMED,
-  SORT_RECIPES_BY_HEALTH_PROBLEMS_CONFIRMED,
-  SORT_RECIPES_BY_HEALTH_PROBLEMS_FAILED,
   SORT_RECIPES_BY_MEAL_CONFIRMED_ACTION,
   SORT_RECIPES_BY_MEAL_FAILED_ACTION,
-  SORT_RECIPES_BY_RATING_CONFIRMED_ACTION,
-  SORT_RECIPES_BY_RATING_FAILED_ACTION,
   UNSAVED_FROM_FAVOURITE_RECIPES,
 } from './recipes.constants';
 import { getDataAboutRecipes, sortRecipes } from '../../../api/dataAboutRecipes';
-import { sortDataByHealth } from '../../../api/dataAboutCategories';
 import { RecipeTypes } from '../../types/recipes.types';
-import { NewFolder } from '../../types/types';
+import { NewFolder, ObjectForSaveToAnotherDir } from '../../types/types';
+import { createFolder, deleteFromFavRecipes, getDataAboutFolderNames, saveRecipeToFolder } from '../../../api/actionsOverFolder';
+import { getDataAboutFavRecipes } from '../../../api/dataAboutFavouriteRecipes';
+import { deletePositionFromShoppingList, getFullDataAboutShoppingList, savePositionToShoppingList } from '../../../api/actionsOverShoppingList';
 
 function getDataAboutRecipesConfirmedAction(data: Array<object>) {
   return {
@@ -54,9 +56,23 @@ export function dataAboutRecipes() {
 }
 
 export function getFavouriteRecipes(el: RecipeTypes) {
-  return {
-    type: FAVOURITE_RECIPES,
-    payload: el,
+  return (dispatch: Dispatch<Action>) => {
+    if (el && (el.id !== undefined || el._id !== undefined)) {
+      saveRecipeToFolder('basic', el.id || el._id)
+        .then((r) => {
+          if (r) {
+            dispatch({
+              type: FAVOURITE_RECIPES,
+              payload: el,
+            });
+          } else {
+            throw Error('something went wrong');
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 }
 
@@ -67,30 +83,6 @@ function sortRecipesByComponentsConfirmed(data: Array<object>) {
   };
 }
 
-function sortRecipesByComponentsFailed(err: any) {
-  return {
-    type: SORT_RECIPES_BY_COMPONENTS__FAILED,
-    payload: err,
-  };
-}
-
-
-
-function sortRecipesByRatingConfirmedAction(data: Array<object>) {
-  return {
-    type: SORT_RECIPES_BY_RATING_CONFIRMED_ACTION,
-    payload: data,
-  };
-}
-
-function sortRecipesByRatingFailedAction(err: any) {
-  return {
-    type: SORT_RECIPES_BY_RATING_FAILED_ACTION,
-    payload: err,
-  };
-}
-
-
 export function setNameOfMeal(meal: string) {
   return {
     type: SORT_MEAL,
@@ -99,104 +91,116 @@ export function setNameOfMeal(meal: string) {
 }
 
 export function createNewFolder(param: NewFolder) {
-  return {
-    type: CREATE_NEW_FOLDER,
-    payload: param,
+  return (dispatch: Dispatch<Action>) => {
+    createFolder(param.dirName, param.color)
+      .then((r) => {
+        if (r) {
+          return dispatch({
+            type: CREATE_NEW_FOLDER,
+            payload: param,
+          });
+        } else {
+          throw Error('something went wrong');
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 }
 
-export function saveToAnotherDir(param1: string, param2: object) {
-  return {
-    type: SAVE_TO_ANOTHER_DIR,
-    payload: { str: param1, obj: param2 },
+export function saveToAnotherDir(param1: string, param2: ObjectForSaveToAnotherDir) {
+  return (dispatch: Dispatch<Action>) => {
+    if (param2.elem.id || param2.elem._id) {
+      saveRecipeToFolder(param1, param2.elem.id || param2.elem._id)
+        .then((r) => {
+          if (r) {
+            dispatch({
+              type: SAVE_TO_ANOTHER_DIR,
+              payload: { str: param1, obj: param2 },
+            });
+          } else {
+            throw Error('something went wrong');
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 }
 
-export function unsavedFromFavouriteRecipes(el: object) {
-  return {
-    type: UNSAVED_FROM_FAVOURITE_RECIPES,
-    payload: el,
+export function unsavedFromFavouriteRecipes(el: RecipeTypes) {
+  console.log(el);
+  return (dispatch: Dispatch<Action>) => {
+    if (el.id || el._id) {
+      deleteFromFavRecipes(el.id || el._id)
+        .then((res) => {
+          if (res) {
+            dispatch({
+              type: UNSAVED_FROM_FAVOURITE_RECIPES,
+              payload: el,
+            });
+          } else {
+            throw Error();
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 }
 
 export function saveToShoppingList(ingredient: string) {
-  return {
-    type: SAVE_TO_SHOPPING_LIST,
-    payload: ingredient,
+  return (dispatch: Dispatch<Action>) => {
+    savePositionToShoppingList(ingredient)
+      .then((res) => {
+        return dispatch({
+          type: SAVE_TO_SHOPPING_LIST,
+          payload: res.data
+        });
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   };
 }
 
 export function deleteFromShoppingList(ingredient: string) {
-  return {
-    type: DELETE_FROM_SHOPPING_LIST,
-    payload: ingredient,
+  return (dispatch: Dispatch<Action>) => {
+    deletePositionFromShoppingList(ingredient)
+      .then((res) => {
+        return dispatch({
+          type: DELETE_FROM_SHOPPING_LIST,
+          payload: res.data,
+        });
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+}
+export function getDataAboutShoppingList() {
+  return (dispatch: Dispatch<Action>) => {
+    getFullDataAboutShoppingList()
+      .then((res) => {
+        if (res.data) {
+          console.log(res.data)
+          return dispatch({
+            type: GET_DATA_ABOUT_SHOPPING_LIST,
+            payload: res.data,
+          });
+        } else {
+          throw Error();
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   };
 }
 
-
-
-
-
-// function sortDataByHealthProblemsConfirmed(data: Array<CategoryHealthElement>) {
-//   return {
-//     type: SORT_RECIPES_BY_HEALTH_PROBLEMS_CONFIRMED,
-//     payload: data,
-//   };
-// }
-
-// function sortDataByHealthProblemsFailed(message: any) {
-//   return {
-//     type: SORT_RECIPES_BY_HEALTH_PROBLEMS_FAILED,
-//     payload: message,
-//   };
-// }
-
-// export function sortedRecipesByHealth(health: string) {
-//   return (dispatch: Dispatch<Action>) => {
-//     sortDataByHealth(health)
-//       .then((res) => {
-//         if (res.data) {
-//           dispatch(sortDataByHealthProblemsConfirmed(res.data));
-//         } else {
-//           throw Error();
-//         }
-//       })
-//       .catch((err) => {
-//         dispatch(sortDataByHealthProblemsFailed(err));
-//       });
-//   };
-// }
-
-// export function sortRecipesByRatingAscDesc(...args: string[]) {
-//   return (dispatch: Dispatch<Action>) => {
-//     sortByRatingAscDesc(args)
-//       .then((res) => {
-//         if (res.data) {
-//           dispatch(sortRecipesByRatingConfirmedAction(res.data));
-//         } else {
-//           throw Error();
-//         }
-//       })
-//       .catch((err) => {
-//         dispatch(sortRecipesByRatingFailedAction(err));
-//       });
-//   };
-// }
-// export function sortedRecipesNotIncludeProducts(...args: string[]) {
-//   return (dispatch: Dispatch<Action>) => {
-//     getRecipesNotIncludedComponents(args)
-//       .then((res) => {
-//         if (res.data) {
-//           dispatch(sortRecipesByComponentsConfirmed(res.data));
-//         } else {
-//           throw Error();
-//         }
-//       })
-//       .catch((err) => {
-//         dispatch(sortRecipesByComponentsFailed(err));
-//       });
-//   };
-// }
 function sortRecipesByMealConfirmedAction(data: Array<RecipeTypes>) {
   return {
     type: SORT_RECIPES_BY_MEAL_CONFIRMED_ACTION,
@@ -223,6 +227,75 @@ export function getRecipesSortedByMeal(...args: string[]) {
       })
       .catch((err) => {
         dispatch(sortRecipesByMealFailedAction(err));
+      });
+  };
+}
+
+function getDataAboutFavouriteRecipesConfirmed(arr: Array<RecipeTypes>) {
+  return {
+    type: GET_DATA_ABOUT_FAVOURITE_RECIPES_CONFIRMED,
+    payload: arr,
+  };
+}
+
+function getDataAboutFavouriteRecipesFailed(err: any) {
+  return {
+    type: GET_DATA_ABOUT_FAVOURITE_RECIPES_FAILED,
+    payload: err,
+  };
+}
+
+export function getDataAboutFavouriteRecipes(folder: string) {
+  console.log(folder);
+  return (dispatch: Dispatch<Action>) => {
+    getDataAboutFavRecipes(folder)
+      .then((res) => {
+        if (res.data) {
+          console.log(res.data);
+          return dispatch(getDataAboutFavouriteRecipesConfirmed(res.data));
+        } else {
+          throw new Error();
+        }
+      })
+      .catch((err) => {
+        return dispatch(getDataAboutFavouriteRecipesFailed(err));
+      });
+  };
+}
+
+function getDataAboutFoldersConfirmed(arr: any) {
+  console.log(arr);
+  return {
+    type: GET_DATA_ABOUT_FOLDERS_NAMES_CONFIRMED,
+    payload: arr,
+  };
+}
+
+function getDataAboutFoldersFailed(err: any) {
+  return {
+    type: GET_DATA_ABOUT_FOLDERS_NAMES_FAILED,
+    payload: err,
+  };
+}
+
+export function getDataAboutFolders() {
+  return (dispatch: Dispatch<Action>) => {
+    getDataAboutFolderNames()
+      .then((res) => {
+        if (res.data) {
+          const folders = [];
+          const colors = [];
+          for (let i = 0; i < res.data.length; i++) {
+            folders.push(res.data[i].folder);
+            colors.push(res.data[i].color);
+          }
+          return dispatch(getDataAboutFoldersConfirmed({ folders: folders, colors: colors }));
+        } else {
+          throw Error();
+        }
+      })
+      .catch((err) => {
+        dispatch(getDataAboutFoldersFailed(err));
       });
   };
 }

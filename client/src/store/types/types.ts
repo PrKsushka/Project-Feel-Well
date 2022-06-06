@@ -6,7 +6,8 @@ export type Action = {
 };
 
 export type PlaceElement = {
-  _id: number;
+  _id?: number;
+  id?: number;
   address?: string;
   city?: string;
   image?: string;
@@ -30,9 +31,26 @@ export type PlaceElement = {
 //   recipes: Array<ProductElement>;
 // }
 
+export type ObjectForSaveToAnotherDir = {
+  currentTime?: any;
+  elem: RecipeTypes;
+};
 export type PayloadForSaveToAnotherDir = {
   str: string;
-  obj: object;
+  obj: ObjectForSaveToAnotherDir;
+};
+export type ObjectForGatDataAboutFolders = {
+  folders: Array<string>;
+  colors: Array<string>;
+};
+export type ObjectOfFavouriteRecipe = {
+  id?: number;
+  folder?: {
+    id?: number;
+    folder?: string;
+    color?: string;
+  };
+  recipes: RecipeTypes;
 };
 
 // export type FavRecipesTypes = [[string, Array<ProductElement>]];
@@ -40,6 +58,8 @@ export type PayloadForSaveToAnotherDir = {
 export interface RecipesReducer {
   recipes: Array<RecipeTypes>;
   favouriteRecipes: Array<any>;
+  favouriteRecipesWithDB: Array<RecipeTypes>;
+  folders: Array<string>;
   shoppingList: Array<string>;
   errorMessage: string;
   successMessage: string;
@@ -59,6 +79,7 @@ export interface UserReducer {
   successAuth: string;
   failedAuth: string;
   dataAboutUser: DataAboutUser;
+  lightOrDarkTheme: boolean;
 }
 
 export interface ModalReducer {

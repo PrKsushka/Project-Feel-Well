@@ -1,9 +1,12 @@
 @import "../../styles/mixin";
-.homeWrapper{
+
+.homeWrapper {
   height: 2000px;
 }
+
 .mainWrapper {
   overflow-x: hidden;
+
   .mainBanner {
     display: flex;
     width: 100%;
@@ -37,10 +40,12 @@
       bottom: -45px;
     }
 
-    .desk {
-      background: url("../../assets/mainWindowDesc.png");
-      width: 859px;
-      background-size: cover;
+    .textBlock {
+      display: flex;
+      width: 500px;
+      position: absolute;
+      flex-direction: column;
+      right: 155px;
 
       h3 {
         @include fonts(55px, $wh, 500);
@@ -52,9 +57,24 @@
       p {
         margin: 0;
         font-weight: 400;
-        @include fonts(27px);
+        @include fonts(21px);
         @include builder(flex, 100%);
         justify-content: center;
+      }
+    }
+
+    .wrapperForDesc {
+      display: flex;
+      justify-content: flex-end;
+      width: 100%;
+      background: rgb(0 0 0 / 33%);
+
+      .desk {
+        background: url("../../assets/mainWindowDesc.png");
+        width: 859px;
+        background-size: cover;
+        z-index: -1;
+
       }
     }
   }
@@ -90,7 +110,7 @@
       p {
         margin: 0;
         @include builder(flex, 100%);
-        @include fonts(18px);
+        @include fonts(18px, $lightWh);
       }
     }
   }
@@ -99,15 +119,17 @@
     position: relative;
     @include builderAligment(flex, space-around, 100%);
     flex-wrap: wrap;
+    margin-bottom: 120px;
 
     .leaf {
       background: url("../../assets/bigLeaf.png") no-repeat;
       position: absolute;
-      width: 400px;
-      height: 500px;
-      background-size: contain;
+      width: 423.12px;
+      height: 502.29px;
+      background-size: cover;
       bottom: 80px;
       right: -120px;
+
 
       &:before {
         box-shadow: $shadowTwo;
@@ -124,17 +146,13 @@
       background-size: contain;
     }
 
-    .thirdWindowTitle {
-      @include builderAligment(flex, center, 100%);
-      @include fonts(28px);
-      margin-bottom: 80px;
-    }
 
     .cardWrapper {
       @include builderAligment(flex, center, 100%);
 
       .card {
         @include builder(flex, 285px);
+        box-shadow: $shadowTwo;
         height: 336px;
         border-radius: 20px;
         background: url("../../assets/salmon-518032_1920.jpg") no-repeat;
@@ -143,9 +161,10 @@
         justify-content: end;
         background-position: center;
         margin-right: 60px;
-          &:last-child {
-            margin-right: 0;
-          }
+
+        &:last-child {
+          margin-right: 0;
+        }
 
         .whiteElem {
           @include builder(flex, 100%);
@@ -162,7 +181,82 @@
       }
     }
   }
+
+  .fourthWindow {
+    @include builder(flex, 100%);
+    flex-wrap: wrap;
+    box-sizing: border-box;
+    padding: 120px 0 120px 0;
+
+    .factsWrapper {
+      @include builderAligment(flex, center, 100%);
+      align-items: center;
+
+      .facts {
+        @include builderAligment(flex, center, 308px);
+        flex-wrap: wrap;
+        margin-right: 60px;
+
+        .factsImage {
+          @include builder(flex, 275px);
+          height: 275px;
+          border-radius: 50%;
+          background-position: center;
+          box-shadow: $shadowTwo;
+          margin-bottom: 30px;
+        }
+
+        .factsContent {
+          @include builder(flex, 100%);
+          flex-wrap: wrap;
+
+          h3 {
+            margin: 0;
+            justify-content: center;
+            @include fonts(18px, $wh, 500);
+            @include builder(flex, 100%);
+          }
+
+          p {
+            @include fonts(16px, $lightWh);
+            @include builder(flex, 100%);
+            margin: 0 auto;
+            padding: 30px 0 0 14px;
+            min-height: 95px;
+          }
+        }
+
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+
+  .fifthWindow {
+    @include builderAligment(flex, center, 100%);
+    height: 100vh;
+    background: url("../../assets/anotherPage.png") no-repeat center;
+    background-size: cover;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+
+    h3 {
+      @include fonts(40px, $wh, 500);
+      margin: 0;
+      display: flex;
+    }
+
+    p {
+      display: flex;
+      @include fonts(27px);
+      width: 500px;
+      text-align: center;
+    }
+  }
 }
+
 .beigeButton {
   border: #E2D4C4 solid;
   border-radius: 20px;
@@ -174,10 +268,15 @@
   transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
   box-shadow: 0 1px 3px rgb(0 0 0 / 12%), 0 1px 2px rgb(0 0 0 / 24%);
   margin: 40px 0 0 200px;
+
   &:hover {
     //box-shadow: $shadowTwo;
     box-shadow: 0 14px 28px rgb(177 177 177 / 25%), 0 10px 10px rgb(0 0 0 / 22%);
   }
 }
 
-
+.title {
+  @include builderAligment(flex, center, 100%);
+  @include fonts(28px);
+  margin-bottom: 80px;
+}

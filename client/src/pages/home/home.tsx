@@ -9,8 +9,8 @@ import ModalForRegistration from '../../components/modals/module/modalForRegistr
 import links from '../../constants/links';
 import CircleButton from '../../UI/circleButton/circleButton';
 import { getThreeRandomRecipes } from '../../api/dataAboutRecipes';
-import { getDataAboutUser } from '../../store/modules/user/user.actions';
 import { RecipeTypes } from '../../store/types/recipes.types';
+import interestingFactsForHome from '../../constants/interestingFactsForHome';
 
 type LocationStateTypes = {
   from: {
@@ -42,7 +42,6 @@ const Home: React.FunctionComponent = () => {
     getThreeRandomRecipes()
       .then((res) => {
         if (res.data) {
-          console.log(res.data);
           setArrOfRandomProducts((prevState) => {
             return [...prevState, ...res.data];
           });
@@ -53,6 +52,7 @@ const Home: React.FunctionComponent = () => {
       .catch((err) => {
         console.log(err);
       });
+    window.scrollTo(0, 0);
   }, []);
 
   const handleClick = (id?: number) => (e?: React.SyntheticEvent) => {
@@ -64,9 +64,13 @@ const Home: React.FunctionComponent = () => {
       <div className={styles.mainBanner}>
         <div className={styles.salads} />
         <div className={styles.leaf} />
-        <div className={styles.desk}>
+        <div className={styles.textBlock}>
           <h3>Healthy wealthy life</h3>
           <p>прямо здесь прямо сейчас</p>
+        </div>
+        <div className="vector"></div>
+        <div className={styles.wrapperForDesc}>
+          <div className={styles.desk}></div>
         </div>
       </div>
       <div className={styles.secondWindow}>
@@ -76,14 +80,14 @@ const Home: React.FunctionComponent = () => {
             Привет! Добро пожаловать в мир полезной еды, классных ребят, крутых мест. Приложение-помощник, котрое поможет тебе поддерживать свое
             здоровье. Здесь ты найдешь отличные рецепты в зависимости от твоих особенностей огранизма, узнаешь много нового.{' '}
           </p>
-          <Link to={links.about} className={styles.beigeButton}>
+          <Link to={links.health} className={styles.beigeButton}>
             Перейти
           </Link>
         </div>
         <div className={styles.cherry} />
       </div>
       <div className={styles.thirdWindow}>
-        <h3 className={styles.thirdWindowTitle}>РЕЦЕПТЫ ДНЯ</h3>
+        <h3 className={styles.title}>РЕЦЕПТЫ ДНЯ</h3>
         <div className={styles.leaf} />
         <div className={styles.cardWrapper}>
           {arrOfRandomProducts.length !== 0
@@ -91,13 +95,43 @@ const Home: React.FunctionComponent = () => {
                 <div key={i} className={styles.card} style={{ backgroundImage: `url(${require(`../../${el.image}`)})` }}>
                   <div className={styles.whiteElem}>
                     <h3 className={styles.cardTitle}>{el.name}</h3>
-                    <CircleButton clickFunc={() => handleClick(el._id)} id={el._id} />
+                    <CircleButton clickFunc={() => handleClick(el._id || el.id)} id={el._id || el.id} />
                   </div>
                 </div>
               ))
             : null}
         </div>
         <div className={styles.secondLeaf}></div>
+      </div>
+      <div className={styles.fourthWindow}>
+        <div className={styles.title}>ПОЛЕЗНЫЕ ФАКТЫ</div>
+        <div className={styles.factsWrapper}>
+          {interestingFactsForHome.map((el) => (
+            <div className={styles.facts} key={el.id}>
+              <div
+                className={styles.factsImage}
+                style={{
+                  background: `url(${require(`../../${el.image}`)}) no-repeat center`,
+                  backgroundSize: 'cover',
+                }}
+              ></div>
+              <div className={styles.factsContent}>
+                <h3>{el.name}</h3>
+                <p>{el.content}</p>
+                <Link to={links.health} className={styles.beigeButton} style={{ margin: '20px 0 0 0', marginInline: 'auto' }}>
+                  Читать
+                </Link>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className={styles.fifthWindow}>
+        <h3>Магазины, рестораны, кафе</h3>
+        <p>Подбери для себя идеальное место прямо сейчас </p>
+        <Link to={links.places} className={styles.beigeButton} style={{ margin: '0' }}>
+          Перейти
+        </Link>
       </div>
       {loginModal ? <ModalForLogin /> : null}
       {registrationModal ? <ModalForRegistration /> : null}
