@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Modal from '../modal';
 import { registration } from '../../../api/user/user';
 import { userRegistered, userUnregistered } from '../../../store/modules/user/user.actions';
@@ -40,7 +40,7 @@ const ModalForRegistration: React.FunctionComponent = () => {
         <div className={styles.error}>{errors.email?.message}</div>
         <input type="email" {...register('email')} placeholder={'Введите email'} />
         <div className={styles.error}>{errors.password?.message}</div>
-        <input type="password" {...register('password')} placeholder={'Введите password'} />
+        <input type="password" {...register('password')} placeholder={'Введите пароль'} />
         <div className={styles.error}>{errors.passwordConfirmation?.message}</div>
         <input type="password" {...register('passwordConfirmation')} placeholder={'Введите пароль еще раз'} />
         <div className={styles.error}>{errors.firstName?.message}</div>
