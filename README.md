@@ -1,6 +1,7 @@
 <h1 style='text-align: center'>Project Fell Well 🍏</h1>
 
 <p style='font-size: 18px'>Video review of application <a href='https://drive.google.com/file/d/1sTjxMw7tGimEjWhtY5Z7DQ_p2J9qwK4y/view?usp=sharing'>Here</a> </p>
+<p style='font-size: 15px'>File db.png contains PostgreSQL diagram or schema of db of project.</p>
 <p style='font-size: 15px'>The result is the web application which allows users: to search for recipes by selected parameters which don’t contain certain ingredients; to search for catering places, supermarkets where user can buy products (for people of different groups: vegetarians, vegans and others); to maintain a personal account where user can save favourite recipes; to create separate folders for saving recipes there; to create  a list of products; to change the data which was entered during registration. The developed web application has prospects for further development. It is planned to add additional functionality to allow users to communicate (chat).</p>
 
 <p>The web application has been developed using Figma, Node JS, TypeScript, Express, TypeORM, Mongoose, React, Redux and other libraries, PostgreSQL and MongoDB database management systems.</p>
